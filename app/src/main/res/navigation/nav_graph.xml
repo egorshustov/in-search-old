@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/mainViewPagerFragment">
+
+    <fragment
+        android:id="@+id/mainViewPagerFragment"
+        android:name="com.egorshustov.vpoiske.main.MainViewPagerFragment"
+        android:label="MainViewPagerFragment" >
+        <action
+            android:id="@+id/action_mainViewPagerFragment_to_newSearchFragment"
+            app:destination="@id/newSearchFragment" />
+        <action
+            android:id="@+id/action_mainViewPagerFragment_to_searchListFragment"
+            app:destination="@id/searchListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newSearchFragment"
+        android:name="com.egorshustov.vpoiske.newsearch.NewSearchFragment"
+        android:label="NewSearchFragment" />
+    <fragment
+        android:id="@+id/searchListFragment"
+        android:name="com.egorshustov.vpoiske.searchlist.SearchListFragment"
+        android:label="SearchListFragment" />
+</navigation>

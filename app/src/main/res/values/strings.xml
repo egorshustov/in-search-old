@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">VPoiske</string>
+    <string name="navigation_view_header_title">Поиски</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_title">Последний поиск</string>
+    <string name="new_search_title">Новый поиск</string>
+    <string name="search_list_title">История поисков</string>
+    <string name="user_list_title">Пользователи</string>
+    <string name="search_log_title">Лог</string>
+</resources>
