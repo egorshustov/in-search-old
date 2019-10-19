@@ -1,7 +1,7 @@
 package com.egorshustov.vpoiske.searchlist
 
-import androidx.lifecycle.ViewModel
+import com.egorshustov.vpoiske.base.BaseViewModel
 import javax.inject.Inject
 
 class SearchListViewModel @Inject constructor(
-) : ViewModel()
+) : BaseViewModel<SearchListState>(SearchListState())

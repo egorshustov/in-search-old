@@ -9,7 +9,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
 
-class TodoViewModelFactory @Inject constructor(
+class ViewModelFactory @Inject constructor(
     private val creators: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -36,7 +36,7 @@ class TodoViewModelFactory @Inject constructor(
 internal abstract class ViewModelBuilder {
     @Binds
     internal abstract fun bindViewModelFactory(
-        factory: TodoViewModelFactory
+        factory: ViewModelFactory
     ): ViewModelProvider.Factory
 }
 

@@ -1,38 +1,14 @@
 package com.egorshustov.vpoiske.userlist
 
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.egorshustov.vpoiske.R
+import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentUserListBinding
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
 
-class UserListFragment : DaggerFragment() {
+class UserListFragment : BaseFragment<UserListState, UserListViewModel, FragmentUserListBinding>() {
 
-    private lateinit var viewDataBinding: FragmentUserListBinding
+    override fun getLayoutResId(): Int = R.layout.fragment_user_list
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel by viewModels<UserListViewModel> { viewModelFactory }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_user_list, container, false)
-        viewDataBinding = FragmentUserListBinding.bind(root).apply {
-            this.viewmodel = viewModel
-        }
-        // Set the lifecycle owner to the lifecycle of the view
-        viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
-        return viewDataBinding.root
-    }
-
-
+    override val viewModel by viewModels<UserListViewModel> { viewModelFactory }
 }

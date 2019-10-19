@@ -1,7 +1,7 @@
 package com.egorshustov.vpoiske.searchlog
 
-import androidx.lifecycle.ViewModel
+import com.egorshustov.vpoiske.base.BaseViewModel
 import javax.inject.Inject
 
 class SearchLogViewModel @Inject constructor(
-) : ViewModel()
+) : BaseViewModel<SearchLogState>(SearchLogState())
