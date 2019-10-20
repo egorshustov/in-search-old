@@ -82,4 +82,4 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
-constants.kt
+credentials.kt
