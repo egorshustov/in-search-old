@@ -18,4 +18,6 @@ class UsersRepository @Inject constructor(
             birthDay,
             birthMonth
         )
+
+    suspend fun getUser(userId: Int) = usersRemoteDataSource.getUser(userId)
 }

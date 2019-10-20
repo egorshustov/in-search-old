@@ -1,5 +1,6 @@
 package com.egorshustov.vpoiske.data.source.remote
 
+import com.egorshustov.vpoiske.data.source.remote.getuser.UserResponse
 import com.egorshustov.vpoiske.data.source.remote.searchusers.Item
 import com.egorshustov.vpoiske.util.*
 import kotlinx.coroutines.CoroutineDispatcher
@@ -43,6 +44,35 @@ class UsersRetrofitDataSource @Inject constructor(
             } else {
                 return@withContext Result.Error(
                     Exception("searchUsers response is not successful")
+                )
+            }
+        } catch (e: Exception) {
+            return@withContext Result.Error(
+                Exception(e)
+            )
+        }
+    }
+
+    override suspend fun getUser(
+        userId: Int
+    ): Result<UserResponse> = withContext(ioDispatcher) {
+        try {
+            val response = usersRetrofit.getUser(
+                userId,
+                DEFAULT_GET_USER_FIELDS,
+                DEFAULT_API_VERSION,
+                ACCESS_TOKEN
+            )
+            if (response.isSuccessful) {
+                response.body()?.userResponseList?.firstOrNull()?.let {
+                    return@withContext Result.Success(it)
+                }
+                return@withContext Result.Error(
+                    Exception("userResponse is not found")
+                )
+            } else {
+                return@withContext Result.Error(
+                    Exception("getUser response is not successful")
                 )
             }
         } catch (e: Exception) {

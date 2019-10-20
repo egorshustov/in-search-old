@@ -1,5 +1,6 @@
 package com.egorshustov.vpoiske.data.source.remote
 
+import com.egorshustov.vpoiske.data.source.remote.getuser.GetUserResponse
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUsersResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -20,4 +21,12 @@ interface UsersRetrofit {
         @Query("v") apiVersion: String,
         @Query("access_token") accessToken: String
     ): Response<SearchUsersResponse>
+
+    @GET("users.get")
+    suspend fun getUser(
+        @Query("user_ids") userId: Int,
+        @Query("fields") fields: String,
+        @Query("v") apiVersion: String,
+        @Query("access_token") accessToken: String
+    ): Response<GetUserResponse>
 }

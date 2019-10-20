@@ -15,7 +15,8 @@ class UserListViewModel @Inject constructor(
 
     fun onSearchClick() {
         viewModelScope.launch {
-            val res = usersRepository.searchUsers(2, 18, 26, 14, 3)
+            val searchUsersResult = usersRepository.searchUsers(2, 18, 26, 14, 3)
+            val getUserResult = usersRepository.getUser(1)
         }
     }
 }
