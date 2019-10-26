@@ -1,6 +1,5 @@
 package com.egorshustov.vpoiske
 
-import androidx.databinding.library.BuildConfig
 import com.egorshustov.vpoiske.di.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication

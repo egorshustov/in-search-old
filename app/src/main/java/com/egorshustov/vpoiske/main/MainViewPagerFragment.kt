@@ -1,9 +1,8 @@
 package com.egorshustov.vpoiske.main
 
-
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.MainViewPagerAdapter
 import com.egorshustov.vpoiske.adapters.SEARCH_LOG_PAGE_INDEX
@@ -17,7 +16,7 @@ class MainViewPagerFragment :
 
     override fun getLayoutResId(): Int = R.layout.fragment_main_view_pager
 
-    override val viewModel by viewModels<MainViewModel> { viewModelFactory }
+    override val viewModel by activityViewModels<MainViewModel> { viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

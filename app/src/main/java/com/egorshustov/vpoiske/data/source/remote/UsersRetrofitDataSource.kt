@@ -1,15 +1,15 @@
 package com.egorshustov.vpoiske.data.source.remote
 
 import com.egorshustov.vpoiske.data.source.remote.getuser.UserResponse
-import com.egorshustov.vpoiske.data.source.remote.searchusers.Item
-import com.egorshustov.vpoiske.util.*
+import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUserResponse
+import com.egorshustov.vpoiske.util.Sex
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UsersRetrofitDataSource @Inject constructor(
-    private val usersRetrofit: UsersRetrofit,
+    private val retrofitVkApi: RetrofitVkApi,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UsersRemoteDataSource {
 
@@ -18,28 +18,33 @@ class UsersRetrofitDataSource @Inject constructor(
         ageFrom: Int,
         ageTo: Int,
         birthDay: Int,
-        birthMonth: Int
-    ): Result<List<Item>> = withContext(ioDispatcher) {
+        birthMonth: Int,
+        hasPhoto: Int,
+        fields: String,
+        apiVersion: String,
+        accessToken: String,
+        count: Int
+    ): Result<List<SearchUserResponse>> = withContext(ioDispatcher) {
         try {
-            val response = usersRetrofit.searchUsers(
-                DEFAULT_SEARCH_USERS_COUNT,
+            val response = retrofitVkApi.searchUsers(
                 cityId,
                 Sex.FEMALE.value,
                 ageFrom,
                 ageTo,
                 birthDay,
                 birthMonth,
-                HasPhoto.NECESSARY.value,
-                DEFAULT_SEARCH_USERS_FIELDS,
-                DEFAULT_API_VERSION,
-                ACCESS_TOKEN
+                hasPhoto,
+                fields,
+                apiVersion,
+                accessToken,
+                count
             )
             if (response.isSuccessful) {
-                response.body()?.response?.items?.let {
+                response.body()?.response?.searchUserResponseList?.let {
                     return@withContext Result.Success(it)
                 }
                 return@withContext Result.Error(
-                    Exception("items are not found")
+                    Exception("searchUserResponseList is not found")
                 )
             } else {
                 return@withContext Result.Error(
@@ -54,21 +59,24 @@ class UsersRetrofitDataSource @Inject constructor(
     }
 
     override suspend fun getUser(
-        userId: Int
+        userId: Int,
+        fields: String,
+        apiVersion: String,
+        accessToken: String
     ): Result<UserResponse> = withContext(ioDispatcher) {
         try {
-            val response = usersRetrofit.getUser(
+            val response = retrofitVkApi.getUser(
                 userId,
-                DEFAULT_GET_USER_FIELDS,
-                DEFAULT_API_VERSION,
-                ACCESS_TOKEN
+                fields,
+                apiVersion,
+                accessToken
             )
             if (response.isSuccessful) {
                 response.body()?.userResponseList?.firstOrNull()?.let {
                     return@withContext Result.Success(it)
                 }
                 return@withContext Result.Error(
-                    Exception("userResponse is not found")
+                    Exception("userResponseList is not found")
                 )
             } else {
                 return@withContext Result.Error(

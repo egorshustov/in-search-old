@@ -2,8 +2,8 @@ package com.egorshustov.vpoiske.data.source.remote.searchusers
 
 import com.google.gson.annotations.SerializedName
 
-data class Item(
-    val id: Int,
+data class SearchUserResponse(
+    val id: Int?,
     @SerializedName("first_name")
     val firstName: String?,
     @SerializedName("last_name")

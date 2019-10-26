@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            android:theme="@style/Theme.VPoiske.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay">
 
             <!-- Override tabIconTint attribute of style with selector -->
             <com.google.android.material.tabs.TabLayout

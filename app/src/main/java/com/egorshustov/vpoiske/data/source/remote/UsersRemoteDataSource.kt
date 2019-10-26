@@ -1,7 +1,7 @@
 package com.egorshustov.vpoiske.data.source.remote
 
 import com.egorshustov.vpoiske.data.source.remote.getuser.UserResponse
-import com.egorshustov.vpoiske.data.source.remote.searchusers.Item
+import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUserResponse
 
 interface UsersRemoteDataSource {
 
@@ -10,8 +10,18 @@ interface UsersRemoteDataSource {
         ageFrom: Int,
         ageTo: Int,
         birthDay: Int,
-        birthMonth: Int
-    ): Result<List<Item>>
+        birthMonth: Int,
+        hasPhoto: Int,
+        fields: String,
+        apiVersion: String,
+        accessToken: String,
+        count: Int
+    ): Result<List<SearchUserResponse>>
 
-    suspend fun getUser(userId: Int): Result<UserResponse>
+    suspend fun getUser(
+        userId: Int,
+        fields: String,
+        apiVersion: String,
+        accessToken: String
+    ): Result<UserResponse>
 }

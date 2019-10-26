@@ -1,15 +1,16 @@
 package com.egorshustov.vpoiske.data.source.remote
 
+import com.egorshustov.vpoiske.data.source.remote.getcities.GetCitiesResponse
+import com.egorshustov.vpoiske.data.source.remote.getcountries.GetCountriesResponse
 import com.egorshustov.vpoiske.data.source.remote.getuser.GetUserResponse
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUsersResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface UsersRetrofit {
+interface RetrofitVkApi {
     @GET("users.search")
     suspend fun searchUsers(
-        @Query("count") count: Int,
         @Query("city") cityId: Int,
         @Query("sex") sex: Int,
         @Query("age_from") ageFrom: Int,
@@ -19,7 +20,8 @@ interface UsersRetrofit {
         @Query("has_photo") hasPhoto: Int,
         @Query("fields") fields: String,
         @Query("v") apiVersion: String,
-        @Query("access_token") accessToken: String
+        @Query("access_token") accessToken: String,
+        @Query("count") count: Int
     ): Response<SearchUsersResponse>
 
     @GET("users.get")
@@ -29,4 +31,22 @@ interface UsersRetrofit {
         @Query("v") apiVersion: String,
         @Query("access_token") accessToken: String
     ): Response<GetUserResponse>
+
+    @GET("database.getCountries")
+    suspend fun getCountries(
+        @Query("need_all") needAll: Int,
+        @Query("count") count: Int,
+        @Query("v") apiVersion: String,
+        @Query("access_token") accessToken: String
+    ): Response<GetCountriesResponse>
+
+    @GET("database.getCities")
+    suspend fun getCities(
+        @Query("country_id") countryId: Int,
+        @Query("need_all") needAll: Int,
+        @Query("q") q: String,
+        @Query("count") count: Int,
+        @Query("v") apiVersion: String,
+        @Query("access_token") accessToken: String
+    ): Response<GetCitiesResponse>
 }

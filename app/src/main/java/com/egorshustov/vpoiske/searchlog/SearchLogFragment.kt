@@ -1,6 +1,5 @@
 package com.egorshustov.vpoiske.searchlog
 
-
 import androidx.fragment.app.viewModels
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.base.BaseFragment

@@ -7,6 +7,6 @@
     <string name="main_title">Последний поиск</string>
     <string name="new_search_title">Новый поиск</string>
     <string name="search_list_title">История поисков</string>
-    <string name="user_list_title">Пользователи</string>
+    <string name="user_list_title">Люди</string>
     <string name="search_log_title">Лог</string>
 </resources>

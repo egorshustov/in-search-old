@@ -1,6 +1,8 @@
 package com.egorshustov.vpoiske.util
 
 const val DEFAULT_SEARCH_USERS_COUNT = 1000
+const val DEFAULT_GET_COUNTRIES_COUNT = 1000
+const val DEFAULT_GET_CITIES_COUNT = 1000
 const val DEFAULT_SEARCH_USERS_FIELDS = "last_seen,contacts"
 const val DEFAULT_GET_USER_FIELDS =
     "photo_id,sex,bdate,city,country,counters,photo_max,photo_max_orig, contacts, relation, can_write_private_message, can_send_friend_request"

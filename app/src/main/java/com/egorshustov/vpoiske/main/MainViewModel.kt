@@ -4,4 +4,6 @@ import com.egorshustov.vpoiske.base.BaseViewModel
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-) : BaseViewModel<MainState>(MainState())
+) : BaseViewModel<MainState>(MainState()) {
+
+}

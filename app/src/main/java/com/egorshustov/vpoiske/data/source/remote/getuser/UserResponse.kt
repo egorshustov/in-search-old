@@ -1,12 +1,14 @@
 package com.egorshustov.vpoiske.data.source.remote.getuser
 
 import com.egorshustov.vpoiske.data.User
+import com.egorshustov.vpoiske.data.source.remote.getcities.CityResponse
+import com.egorshustov.vpoiske.data.source.remote.getcountries.CountryResponse
 import com.egorshustov.vpoiske.util.Relation
 import com.egorshustov.vpoiske.util.Sex
 import com.google.gson.annotations.SerializedName
 
 data class UserResponse(
-    val id: Int,
+    val id: Int?,
     @SerializedName("first_name")
     val firstName: String?,
     @SerializedName("last_name")
@@ -39,7 +41,7 @@ data class UserResponse(
 ) {
     fun toEntity() =
         User(
-            id,
+            id ?: -1,
             firstName ?: "",
             lastName ?: "",
             isClosed ?: false,
