@@ -1,8 +1,11 @@
 <resources>
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">?themeBackgroundColorPrimary</item>
+        <item name="colorPrimaryDark">?themeBackgroundColorSecondary</item>
+        <item name="colorAccent">?themeColorAccent</item>
+        <item name="android:textColorPrimary">?themeTextColorPrimary</item>
+        <item name="android:textColorSecondary">?themeTextColorSecondary</item>
+        <item name="android:textColorTertiary">?themeTextColorTertiary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -10,7 +13,27 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.OverlapSystemBar" parent="AppTheme.NoActionBar" />
+    <style name="AppTheme.NoActionBar.Light">
+        <item name="themeBackgroundColorPrimary">@color/colorAliceBlue</item>
+        <item name="themeBackgroundColorSecondary">@color/colorSolitudeFirst</item>
+        <item name="themeColorAccent">@color/colorDodgerBlue</item>
+        <item name="themeTextColorPrimary">@color/colorEbonyClay</item>
+        <item name="themeTextColorSecondary">@color/colorPoloBlueFirst</item>
+        <item name="themeTextColorTertiary">@color/colorEbonyClay</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Dark">
+        <item name="themeBackgroundColorPrimary">@color/colorMidnightExpress</item>
+        <item name="themeBackgroundColorSecondary">@color/colorRegalBlue</item>
+        <item name="themeColorAccent">@color/colorDodgerBlue</item>
+        <item name="themeTextColorPrimary">@color/colorWhite</item>
+        <item name="themeTextColorSecondary">@color/colorLightSteelBlue</item>
+        <item name="themeTextColorTertiary">@color/colorEbonyClay</item>
+    </style>
+
+    <style name="AppTheme.OverlapSystemBar.Light" parent="AppTheme.NoActionBar.Light" />
+
+    <style name="AppTheme.OverlapSystemBar.Dark" parent="AppTheme.NoActionBar.Dark" />
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 

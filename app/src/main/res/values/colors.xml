@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
     <color name="colorGrey">#757575</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteTransparent">#3FFFFFFF</color>
+    <color name="colorSilver">#C0C0C0</color>
+    <color name="colorAliceBlue">#EEF7FF</color>
+    <color name="colorAliceBlueTransparent">#33EEF7FF</color>
+    <color name="colorPolar">#E4F0FA</color>
+    <color name="colorSolitudeFirst">#E2EFFD</color>
+    <color name="colorSolitudeFirstTransparent">#7FE2EFFD</color>
+    <color name="colorSolitudeSecond">#E0EDFC</color>
+    <color name="colorPattensBlue">#D8EDFF</color>
+    <color name="colorLightSteelBlue">#AAC5E2</color>
+    <color name="colorPoloBlueFirst">#98B3CF</color>
+    <color name="colorPoloBlueSecond">#90AAC8</color>
+    <color name="colorPictonBlue">#41B4F6</color>
+    <color name="colorDodgerBlue">#009BF3</color>
+    <color name="colorDodgerBlueTransparent">#7F009BF3</color>
+    <color name="colorPacificBlue">#00A0E3</color>
+    <color name="colorAzure">#37639A</color>
+    <color name="colorNeonBlue">#5264FF</color>
+    <color name="colorNeonBlueTransparent">#7F5264FF</color>
+    <color name="colorCaribbeanGreen">#00CB9A</color>
+    <color name="colorCaribbeanGreenTransparent">#7F00CB9A</color>
+    <color name="colorGold">#FFD600</color>
+    <color name="colorGoldTransparent">#7FFFD600</color>
+    <color name="colorOutrageousOrange">#FF5B37</color>
+    <color name="colorOutrageousOrangeTransparent">#7FFF5B37</color>
+    <color name="colorRadicalRed">#FA315B</color>
+    <color name="colorEbonyClay">#2F353D</color>
+    <color name="colorRegalBlue">#123359</color>
+    <color name="colorMinsk">#393185</color>
+    <color name="colorMidnightExpress">#101D32</color>
+    <color name="colorBlack">#000000</color>
 </resources>

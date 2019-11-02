@@ -11,7 +11,7 @@ import dagger.multibindings.IntoMap
 
 @Module
 abstract class MainModule {
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
     abstract fun contributeMainActivity(): MainActivity
 
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])

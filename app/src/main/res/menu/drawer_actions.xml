@@ -12,4 +12,11 @@
         android:id="@id/searchListFragment"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="@string/search_list_title" />
+
+    <group
+        android:id="@+id/menu_change_theme">
+        <item
+            android:id="@+id/nav_change_theme"
+            android:title="Сменить тему"/>
+    </group>
 </menu>

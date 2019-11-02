@@ -1,7 +1,8 @@
 package com.egorshustov.vpoiske.main
 
 import android.os.Bundle
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -9,39 +10,43 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.egorshustov.vpoiske.R
-import com.google.android.material.navigation.NavigationView
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
 
-    private lateinit var drawerLayout: DrawerLayout
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by viewModels<MainViewModel> { viewModelFactory }
+
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(viewModel.state.currentTheme.themeId)
         setContentView(R.layout.activity_main)
-        setupNavigationDrawer()
         setSupportActionBar(findViewById(R.id.toolbar))
 
         val navController: NavController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration =
             AppBarConfiguration.Builder(R.id.mainViewPagerFragment, R.id.newSearchFragment, R.id.searchListFragment)
-                .setDrawerLayout(drawerLayout)
+                .setDrawerLayout(drawer_layout)
                 .build()
         setupActionBarWithNavController(navController, appBarConfiguration)
-        findViewById<NavigationView>(R.id.nav_view)
-            .setupWithNavController(navController)
+        nav_view.setupWithNavController(navController)
+
+        val navChangeTheme = nav_view.menu.findItem(R.id.nav_change_theme)
+        navChangeTheme.setOnMenuItemClickListener {
+            viewModel.state.currentTheme = viewModel.state.currentTheme.getNext()
+            recreate()
+            true
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
-    }
-
-    private fun setupNavigationDrawer() {
-        drawerLayout = (findViewById<DrawerLayout>(R.id.drawer_layout))
-            .apply {
-                setStatusBarBackground(R.color.colorPrimaryDark)
-            }
     }
 }
