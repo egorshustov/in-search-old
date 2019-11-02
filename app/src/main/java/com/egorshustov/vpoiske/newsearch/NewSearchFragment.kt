@@ -17,12 +17,18 @@ class NewSearchFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeLiveCountries()
-
+        observeLiveCities()
     }
 
     private fun observeLiveCountries() {
         viewModel.liveCountries.observe(viewLifecycleOwner, Observer {
             val countryList = it
+        })
+    }
+
+    private fun observeLiveCities() {
+        viewModel.liveCities.observe(viewLifecycleOwner, Observer {
+            val citiesList = it
         })
     }
 }

@@ -35,18 +35,18 @@ interface RetrofitVkApi {
     @GET("database.getCountries")
     suspend fun getCountries(
         @Query("need_all") needAll: Int,
-        @Query("count") count: Int,
         @Query("v") apiVersion: String,
-        @Query("access_token") accessToken: String
+        @Query("access_token") accessToken: String,
+        @Query("count") count: Int
     ): Response<GetCountriesResponse>
 
     @GET("database.getCities")
     suspend fun getCities(
         @Query("country_id") countryId: Int,
         @Query("need_all") needAll: Int,
-        @Query("q") q: String,
-        @Query("count") count: Int,
+        @Query("q") searchQuery: String,
         @Query("v") apiVersion: String,
-        @Query("access_token") accessToken: String
+        @Query("access_token") accessToken: String,
+        @Query("count") count: Int
     ): Response<GetCitiesResponse>
 }

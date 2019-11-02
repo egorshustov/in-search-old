@@ -1,39 +1,43 @@
 package com.egorshustov.vpoiske.data.source.remote
 
-import com.egorshustov.vpoiske.data.source.remote.getcountries.CountryResponse
+import com.egorshustov.vpoiske.data.source.remote.getcities.CityResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class CountriesRetrofitDataSource @Inject constructor(
+class CitiesRetrofitDataSource @Inject constructor(
     private val retrofitVkApi: RetrofitVkApi,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-) : CountriesRemoteDataSource {
-    override suspend fun getCountries(
+) : CitiesRemoteDataSource {
+    override suspend fun getCities(
+        countryId: Int,
         needAll: Boolean,
+        searchQuery: String,
         apiVersion: String,
         accessToken: String,
         count: Int
-    ): Result<List<CountryResponse>> =
+    ): Result<List<CityResponse>> =
         withContext(ioDispatcher) {
             try {
-                val response = retrofitVkApi.getCountries(
+                val response = retrofitVkApi.getCities(
+                    countryId,
                     if (needAll) 1 else 0,
+                    searchQuery,
                     apiVersion,
                     accessToken,
                     count
                 )
                 if (response.isSuccessful) {
-                    response.body()?.response?.countryResponseList?.let {
+                    response.body()?.response?.cityResponseList?.let {
                         return@withContext Result.Success(it)
                     }
                     return@withContext Result.Error(
-                        Exception("countryResponseList is not found")
+                        Exception("cityResponseList is not found")
                     )
                 } else {
                     return@withContext Result.Error(
-                        Exception("getCountries response is not successful")
+                        Exception("getCities response is not successful")
                     )
                 }
             } catch (e: Exception) {

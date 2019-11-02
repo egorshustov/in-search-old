@@ -13,6 +13,6 @@ enum class AppTheme(@StyleRes val themeId: Int) {
     DARK_THEME(R.style.AppTheme_OverlapSystemBar_Dark);
 
     fun getNext(): AppTheme {
-        return values()[((this.ordinal + 1) % values().size)]
+        return values()[((ordinal + 1) % values().size)]
     }
 }

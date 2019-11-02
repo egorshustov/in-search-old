@@ -34,6 +34,13 @@ object ApplicationModule {
     @JvmStatic
     @Singleton
     @Provides
+    fun provideCitiesRemoteDataSource(usersRetrofit: RetrofitVkApi): CitiesRemoteDataSource {
+        return CitiesRetrofitDataSource(usersRetrofit)
+    }
+
+    @JvmStatic
+    @Singleton
+    @Provides
     fun provideVkApiService(): RetrofitVkApi {
         return Retrofit.Builder()
             .baseUrl("https://api.vk.com/method/")
