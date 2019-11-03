@@ -6,6 +6,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.egorshustov.vpoiske.util.ConstantsKt" />
+
         <variable
             name="viewmodel"
             type="com.egorshustov.vpoiske.newsearch.NewSearchViewModel" />
@@ -82,6 +84,13 @@
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/button_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="?themeColorAccent"
+                android:text="Начать поиск"
+                android:visibility="@{(viewmodel.currentCity != ConstantsKt.DEFAULT_CITY &amp;&amp; viewmodel.currentCountry != ConstantsKt.DEFAULT_COUNTRY) ? View.VISIBLE : View.GONE}" />
 
         </LinearLayout>
 

@@ -100,7 +100,7 @@ class NewSearchFragment :
     private fun observeCountries() {
         viewModel.countries.observe(viewLifecycleOwner, Observer {
             countriesAdapter.setCountries(it)
-            spinner_countries.setSelection(countriesAdapter.getPosition(viewModel.state.country.value))
+            spinner_countries.setSelection(countriesAdapter.getPosition(viewModel.currentCountry.value))
             setupCountriesSpinnerListener()
         })
     }
@@ -110,13 +110,13 @@ class NewSearchFragment :
             spinner_cities.isEnabled = it.isNotEmpty()
             spinner_cities.isClickable = it.isNotEmpty()
             citiesAdapter.setCities(it)
-            spinner_cities.setSelection(citiesAdapter.getPosition(viewModel.state.city.value))
+            spinner_cities.setSelection(citiesAdapter.getPosition(viewModel.currentCity.value))
             setupCitiesSpinnerListener()
         })
     }
 
     private fun observeLiveSnackBarMessage() {
-        viewModel.state.snackBarMessage.observe(viewLifecycleOwner, EventObserver { exception ->
+        viewModel.snackBarMessage.observe(viewLifecycleOwner, EventObserver { exception ->
             view?.let { Snackbar.make(it, exception, Snackbar.LENGTH_LONG).show() }
         })
     }
