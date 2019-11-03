@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_blocks">8dp</dimen>
+    <dimen name="spinner_item_height">48dp</dimen>
     <dimen name="fragment_padding">15dp</dimen>
     <dimen name="text_size_toolbar">22sp</dimen>
     <dimen name="text_size_big">18sp</dimen>

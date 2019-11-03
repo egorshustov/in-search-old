@@ -1,16 +1,17 @@
 package com.egorshustov.vpoiske.searchlog
 
 import com.egorshustov.vpoiske.base.BaseViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 class SearchLogViewModel @Inject constructor(
 ) : BaseViewModel<SearchLogState>(SearchLogState()) {
     init {
-        val h = 9
+        Timber.d("%s init", toString())
     }
 
     override fun onCleared() {
-        val jj = 0
+        Timber.d("%s cleared", toString())
         super.onCleared()
     }
 }

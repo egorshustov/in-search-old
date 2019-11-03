@@ -1,16 +1,27 @@
 package com.egorshustov.vpoiske.data.source.remote
 
+import java.net.ConnectException
+import java.net.UnknownHostException
+import java.util.concurrent.TimeoutException
+
 sealed class Result<out R> {
 
     data class Success<out T>(val data: T) : Result<T>()
     data class Error(val exception: Exception) : Result<Nothing>()
     object Loading : Result<Nothing>()
 
-    override fun toString(): String {
+    fun getString(): String {
         return when (this) {
             is Success<*> -> "Success[data=$data]"
-            is Error -> "Error[exception=$exception]"
-            Loading -> "Loading"
+            is Error -> when (exception.cause) {
+                is ConnectException, is TimeoutException, is UnknownHostException -> {
+                    "Ошибка соединения: отсутствует подключение к сети или сервер недоступен"
+                }
+                else -> {
+                    "Error[exception=$exception]"
+                }
+            }
+            is Loading -> "Loading"
         }
     }
 }

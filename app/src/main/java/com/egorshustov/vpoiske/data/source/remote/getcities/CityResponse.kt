@@ -12,7 +12,6 @@ data class CityResponse(
         id ?: -1,
         title ?: "",
         area ?: "",
-        region ?: "",
-        false
+        region ?: ""
     )
 }

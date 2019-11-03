@@ -1,5 +1,8 @@
 package com.egorshustov.vpoiske.util
 
+import com.egorshustov.vpoiske.data.City
+import com.egorshustov.vpoiske.data.Country
+
 const val DEFAULT_SEARCH_USERS_COUNT = 1000
 const val DEFAULT_GET_COUNTRIES_COUNT = 1000
 const val DEFAULT_GET_CITIES_COUNT = 1000
@@ -7,6 +10,9 @@ const val DEFAULT_SEARCH_USERS_FIELDS = "last_seen,contacts"
 const val DEFAULT_GET_USER_FIELDS =
     "photo_id,sex,bdate,city,country,counters,photo_max,photo_max_orig, contacts, relation, can_write_private_message, can_send_friend_request"
 const val DEFAULT_API_VERSION = "5.102"
+
+val DEFAULT_COUNTRY = Country(-1, "Страна")
+val DEFAULT_CITY = City(-1, "Город", "", "")
 
 enum class Sex(val value: Int) {
     ANY(0),

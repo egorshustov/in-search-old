@@ -4,17 +4,19 @@ import androidx.lifecycle.viewModelScope
 import com.egorshustov.vpoiske.base.BaseViewModel
 import com.egorshustov.vpoiske.data.source.UsersRepository
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class UserListViewModel @Inject constructor(
     private val usersRepository: UsersRepository
 ) : BaseViewModel<UserListState>(UserListState()) {
     init {
+        Timber.d("%s init", toString())
         onSearchClick()
     }
 
     override fun onCleared() {
-        val jj = 0
+        Timber.d("%s cleared", toString())
         super.onCleared()
     }
 

@@ -9,6 +9,5 @@ data class City(
     val id: Int,
     val title: String,
     val area: String?,
-    val region: String?,
-    val major: Boolean
+    val region: String?
 )
