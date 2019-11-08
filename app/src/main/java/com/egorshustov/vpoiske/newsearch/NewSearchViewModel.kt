@@ -36,11 +36,17 @@ class NewSearchViewModel @Inject constructor(
     private val _currentAgeTo = MutableLiveData(DEFAULT_AGE_TO)
     val currentAgeTo: LiveData<Int?> = _currentAgeTo
 
-    private val _resetAgeToCommand = MutableLiveData(Unit)
-    val resetAgeToCommand: LiveData<Unit> = _resetAgeToCommand
+    private val _resetAgeToCommand = MutableLiveData<Event<Unit>>()
+    val resetAgeToCommand: LiveData<Event<Unit>> = _resetAgeToCommand
 
-    private val _resetAgeFromCommand = MutableLiveData(Unit)
-    val resetAgeFromCommand: LiveData<Unit> = _resetAgeFromCommand
+    private val _resetAgeFromCommand = MutableLiveData<Event<Unit>>()
+    val resetAgeFromCommand: LiveData<Event<Unit>> = _resetAgeFromCommand
+
+    private val _currentRelation = MutableLiveData(Relation.NOT_DEFINED)
+    val currentRelation: LiveData<Relation> = _currentRelation
+
+    private val _usersCount = MutableLiveData(DEFAULT_USERS_COUNT)
+    val usersCount: LiveData<Int> = _usersCount
 
     private val _snackBarMessage = MutableLiveData<Event<String>>()
     val snackBarMessage: LiveData<Event<String>> = _snackBarMessage
@@ -59,8 +65,7 @@ class NewSearchViewModel @Inject constructor(
             if (selectedCountry != DEFAULT_COUNTRY) {
                 when (val citiesResponse = citiesRepository.getCities(selectedCountry.id)) {
                     is Result.Success -> _cities.value = citiesResponse.data.map { it.toEntity() }
-                    is Result.Error -> _snackBarMessage.value =
-                        Event(citiesResponse.getString())
+                    is Result.Error -> showSnackBarMessage(citiesResponse.getString())
                 }
             } else {
                 _cities.value = emptyList()
@@ -77,7 +82,7 @@ class NewSearchViewModel @Inject constructor(
         currentAgeTo.value?.let {
             if (ageFrom != null && it < ageFrom) {
                 _currentAgeTo.value = ageFrom
-                _resetAgeToCommand.value = Unit
+                _resetAgeToCommand.value = Event(Unit)
             }
         }
     }
@@ -87,9 +92,21 @@ class NewSearchViewModel @Inject constructor(
         currentAgeFrom.value?.let {
             if (ageTo != null && it > ageTo) {
                 _currentAgeFrom.value = ageTo
-                _resetAgeFromCommand.value = Unit
+                _resetAgeFromCommand.value = Event(Unit)
             }
         }
+    }
+
+    fun onRelationSelected(relation: Relation) {
+        _currentRelation.value = relation
+    }
+
+    fun onUsersCountChanged(usersCount: Int) {
+        _usersCount.value = usersCount
+    }
+
+    private fun showSnackBarMessage(message: String) {
+        _snackBarMessage.value = Event(message)
     }
 
     override fun onCleared() {

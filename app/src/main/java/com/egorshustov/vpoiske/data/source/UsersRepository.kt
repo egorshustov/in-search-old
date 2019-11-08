@@ -12,11 +12,13 @@ class UsersRepository @Inject constructor(
     private val usersRemoteDataSource: UsersRemoteDataSource
 ) {
     suspend fun searchUsers(
+        countryId: Int,
         cityId: Int,
-        ageFrom: Int,
-        ageTo: Int,
+        ageFrom: Int?,
+        ageTo: Int?,
         birthDay: Int,
         birthMonth: Int,
+        relation: Int? = Relation.NOT_DEFINED.value,
         sex: Int = Sex.FEMALE.value,
         hasPhoto: Int = HasPhoto.NECESSARY.value,
         fields: String = DEFAULT_SEARCH_USERS_FIELDS,
@@ -25,11 +27,13 @@ class UsersRepository @Inject constructor(
         count: Int = DEFAULT_SEARCH_USERS_COUNT,
         sortType: Int = SortType.BY_REGISTRATION_DATE.value
     ) = usersRemoteDataSource.searchUsers(
+        countryId,
         cityId,
         ageFrom,
         ageTo,
         birthDay,
         birthMonth,
+        relation,
         sex,
         hasPhoto,
         fields,

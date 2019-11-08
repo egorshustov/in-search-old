@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.SeekBar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.egorshustov.vpoiske.R
@@ -13,6 +14,7 @@ import com.egorshustov.vpoiske.adapters.CountriesAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentNewSearchBinding
 import com.egorshustov.vpoiske.util.EventObserver
+import com.egorshustov.vpoiske.util.Relation
 import com.egorshustov.vpoiske.util.extractInt
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_new_search.*
@@ -26,6 +28,9 @@ class NewSearchFragment :
 
     private lateinit var countriesAdapter: CountriesAdapter
     private lateinit var citiesAdapter: CitiesAdapter
+    private lateinit var ageFromAdapter: ArrayAdapter<String>
+    private lateinit var ageToAdapter: ArrayAdapter<String>
+    private lateinit var relationAdapter: ArrayAdapter<Relation>
 
     @Inject
     lateinit var applicationContext: Context
@@ -34,8 +39,10 @@ class NewSearchFragment :
         super.onViewCreated(view, savedInstanceState)
         initAdapters()
         setupSpinners()
-        setupAgeFromSpinnerListener()
-        setupAgeToSpinnerListener()
+        setAgeFromSpinnerListener()
+        setAgeToSpinnerListener()
+        setRelationSpinnerListener()
+        setSeekBarListener()
         observeCountries()
         observeCities()
         observeLiveSnackBarMessage()
@@ -43,15 +50,14 @@ class NewSearchFragment :
         observeResetAgeToCommand()
     }
 
-    private fun initAdapters() {
-        countriesAdapter = CountriesAdapter(
-            applicationContext,
-            R.layout.item_spinner
-        )
-        citiesAdapter = CitiesAdapter(
-            applicationContext,
-            R.layout.item_spinner
-        )
+    private fun initAdapters() = context?.let {
+        countriesAdapter = CountriesAdapter(it, R.layout.item_spinner)
+        citiesAdapter = CitiesAdapter(it, R.layout.item_spinner)
+        ageFromAdapter =
+            ArrayAdapter(it, R.layout.item_spinner, resources.getStringArray(R.array.ages_from))
+        ageToAdapter =
+            ArrayAdapter(it, R.layout.item_spinner, resources.getStringArray(R.array.ages_to))
+        relationAdapter = ArrayAdapter(it, R.layout.item_spinner, Relation.values())
     }
 
     private fun setupSpinners() {
@@ -61,20 +67,9 @@ class NewSearchFragment :
             isClickable = false
             adapter = citiesAdapter.apply { setCities(emptyList()) }
         }
-
-        context?.let {
-            spinner_age_from.adapter = ArrayAdapter<String>(
-                it,
-                R.layout.item_spinner,
-                resources.getStringArray(R.array.ages_from)
-            )
-
-            spinner_age_to.adapter = ArrayAdapter<String>(
-                it,
-                R.layout.item_spinner,
-                resources.getStringArray(R.array.ages_to)
-            )
-        }
+        spinner_age_from.adapter = ageFromAdapter
+        spinner_age_to.adapter = ageToAdapter
+        spinner_relation.adapter = relationAdapter
     }
 
     private fun setupCountriesSpinnerListener() {
@@ -113,7 +108,7 @@ class NewSearchFragment :
         }
     }
 
-    private fun setupAgeFromSpinnerListener() {
+    private fun setAgeFromSpinnerListener() {
         spinner_age_from.apply {
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -132,7 +127,7 @@ class NewSearchFragment :
         }
     }
 
-    private fun setupAgeToSpinnerListener() {
+    private fun setAgeToSpinnerListener() {
         spinner_age_to.apply {
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -150,6 +145,38 @@ class NewSearchFragment :
             }
         }
     }
+
+    private fun setRelationSpinnerListener() {
+        spinner_relation.apply {
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    relationAdapter.getItem(position)?.let { viewModel.onRelationSelected(it) }
+                }
+
+            }
+        }
+    }
+
+    private fun setSeekBarListener() {
+        seek_users_count.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                viewModel.onUsersCountChanged(seekProgressToUsersCount(progress))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+    }
+
+    private fun seekProgressToUsersCount(seekProgress: Int) = (seekProgress + 1) * 10
 
     private fun observeCountries() {
         viewModel.countries.observe(viewLifecycleOwner, Observer {
@@ -170,13 +197,13 @@ class NewSearchFragment :
     }
 
     private fun observeResetAgeFromCommand() {
-        viewModel.resetAgeFromCommand.observe(viewLifecycleOwner, Observer {
+        viewModel.resetAgeFromCommand.observe(viewLifecycleOwner, EventObserver {
             spinner_age_from.setSelection(spinner_age_to.selectedItemPosition)
         })
     }
 
     private fun observeResetAgeToCommand() {
-        viewModel.resetAgeToCommand.observe(viewLifecycleOwner, Observer {
+        viewModel.resetAgeToCommand.observe(viewLifecycleOwner, EventObserver {
             spinner_age_to.setSelection(spinner_age_from.selectedItemPosition)
         })
     }

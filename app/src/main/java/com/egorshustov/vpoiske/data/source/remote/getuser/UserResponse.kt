@@ -3,7 +3,6 @@ package com.egorshustov.vpoiske.data.source.remote.getuser
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.data.source.remote.getcities.CityResponse
 import com.egorshustov.vpoiske.data.source.remote.getcountries.CountryResponse
-import com.egorshustov.vpoiske.util.Relation
 import com.egorshustov.vpoiske.util.Sex
 import com.google.gson.annotations.SerializedName
 
@@ -59,7 +58,7 @@ data class UserResponse(
             canSendFriendRequest ?: -1,
             mobilePhone ?: "",
             homePhone ?: "",
-            relation ?: Relation.NOT_DEFINED.value,
+            relation ?: -1,
             counters?.albums ?: -1,
             counters?.videos ?: -1,
             counters?.audios ?: -1,

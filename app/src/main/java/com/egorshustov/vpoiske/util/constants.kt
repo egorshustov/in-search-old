@@ -15,6 +15,7 @@ val DEFAULT_COUNTRY = Country(-1, "Страна")
 val DEFAULT_CITY = City(-1, "Город", "", "")
 val DEFAULT_AGE_FROM: Int? = null
 val DEFAULT_AGE_TO: Int? = null
+const val DEFAULT_USERS_COUNT: Int = 100
 
 enum class Sex(val value: Int) {
     ANY(0),
@@ -27,16 +28,26 @@ enum class HasPhoto(val value: Int) {
     NECESSARY(1)
 }
 
-enum class Relation(val value: Int) {
-    NOT_DEFINED(0),
-    NOT_MARRIED(1),
-    HAS_FRIEND(2),
-    ENGAGED(3),
-    MARRIED(4),
-    ALL_COMPLICATED(5),
-    IN_ACTIVE_SEARCH(6),
-    IN_LOVE(7),
-    IN_CIVIL_MARRIAGE(8)
+enum class Relation(
+    val value: Int?,
+    private val descriptionFemale: String,
+    private val descriptionMale: String
+) {
+    NOT_DEFINED(null, "Не выбрано", "Не выбрано"),
+    NOT_MARRIED(1, "Не замужем", "Не женат"),
+    HAS_FRIEND(2, "Есть друг", "Есть подруга"),
+    ENGAGED(3, "Помолвлена", "Помолвлен"),
+    MARRIED(4, "Замужем", "Женат"),
+    ALL_COMPLICATED(5, "Всё сложно", "Всё сложно"),
+    IN_ACTIVE_SEARCH(6, "В активном поиске", "В активном поиске"),
+    IN_LOVE(7, "Влюблена", "Влюблён"),
+    IN_CIVIL_MARRIAGE(8, "В гражданском браке", "В гражданском браке");
+
+    override fun toString() = if (sex == Sex.MALE) descriptionMale else descriptionFemale
+
+    companion object {
+        var sex = Sex.FEMALE
+    }
 }
 
 enum class SortType(val value: Int) {

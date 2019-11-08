@@ -13,11 +13,13 @@ class UsersRetrofitDataSource @Inject constructor(
 ) : UsersRemoteDataSource {
 
     override suspend fun searchUsers(
+        countryId: Int,
         cityId: Int,
-        ageFrom: Int,
-        ageTo: Int,
+        ageFrom: Int?,
+        ageTo: Int?,
         birthDay: Int,
         birthMonth: Int,
+        relation: Int?,
         sex: Int,
         hasPhoto: Int,
         fields: String,
@@ -28,11 +30,13 @@ class UsersRetrofitDataSource @Inject constructor(
     ): Result<List<SearchUserResponse>> = withContext(ioDispatcher) {
         try {
             val response = retrofitVkApi.searchUsers(
+                countryId,
                 cityId,
                 ageFrom,
                 ageTo,
                 birthDay,
                 birthMonth,
+                relation,
                 sex,
                 hasPhoto,
                 fields,

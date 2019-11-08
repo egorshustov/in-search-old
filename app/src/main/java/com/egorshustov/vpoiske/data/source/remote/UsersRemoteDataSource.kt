@@ -6,11 +6,13 @@ import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUserResponse
 interface UsersRemoteDataSource {
 
     suspend fun searchUsers(
+        countryId: Int,
         cityId: Int,
-        ageFrom: Int,
-        ageTo: Int,
+        ageFrom: Int?,
+        ageTo: Int?,
         birthDay: Int,
         birthMonth: Int,
+        relation: Int?,
         sex: Int,
         hasPhoto: Int,
         fields: String,

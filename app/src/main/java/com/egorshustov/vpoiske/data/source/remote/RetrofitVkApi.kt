@@ -11,11 +11,13 @@ import retrofit2.http.Query
 interface RetrofitVkApi {
     @GET("users.search")
     suspend fun searchUsers(
+        @Query("country") countryId: Int,
         @Query("city") cityId: Int,
-        @Query("age_from") ageFrom: Int,
-        @Query("age_to") ageTo: Int,
+        @Query("age_from") ageFrom: Int?,
+        @Query("age_to") ageTo: Int?,
         @Query("birth_day") birthDay: Int,
         @Query("birth_month") birthMonth: Int,
+        @Query("status") relation: Int?,
         @Query("sex") sex: Int,
         @Query("has_photo") hasPhoto: Int,
         @Query("fields") fields: String,
