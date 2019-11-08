@@ -12,11 +12,11 @@ interface RetrofitVkApi {
     @GET("users.search")
     suspend fun searchUsers(
         @Query("city") cityId: Int,
-        @Query("sex") sex: Int,
         @Query("age_from") ageFrom: Int,
         @Query("age_to") ageTo: Int,
         @Query("birth_day") birthDay: Int,
         @Query("birth_month") birthMonth: Int,
+        @Query("sex") sex: Int,
         @Query("has_photo") hasPhoto: Int,
         @Query("fields") fields: String,
         @Query("v") apiVersion: String,

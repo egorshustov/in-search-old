@@ -1,12 +1,92 @@
 <resources>
     <string name="app_name">VPoiske</string>
     <string name="navigation_view_header_title">Поиски</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="main_title">Последний поиск</string>
     <string name="new_search_title">Новый поиск</string>
     <string name="search_list_title">История поисков</string>
     <string name="user_list_title">Люди</string>
     <string name="search_log_title">Лог</string>
+
+    <string-array name="ages_from">
+        <item>От</item>
+        <item>от 14</item>
+        <item>от 15</item>
+        <item>от 16</item>
+        <item>от 17</item>
+        <item>от 18</item>
+        <item>от 19</item>
+        <item>от 20</item>
+        <item>от 21</item>
+        <item>от 22</item>
+        <item>от 23</item>
+        <item>от 24</item>
+        <item>от 25</item>
+        <item>от 26</item>
+        <item>от 27</item>
+        <item>от 28</item>
+        <item>от 29</item>
+        <item>от 30</item>
+        <item>от 31</item>
+        <item>от 32</item>
+        <item>от 33</item>
+        <item>от 34</item>
+        <item>от 35</item>
+        <item>от 36</item>
+        <item>от 37</item>
+        <item>от 38</item>
+        <item>от 39</item>
+        <item>от 40</item>
+        <item>от 41</item>
+        <item>от 42</item>
+        <item>от 43</item>
+        <item>от 44</item>
+        <item>от 45</item>
+        <item>от 46</item>
+        <item>от 47</item>
+        <item>от 48</item>
+        <item>от 49</item>
+        <item>от 50</item>
+    </string-array>
+
+    <string-array name="ages_to">
+        <item>До</item>
+        <item>до 14</item>
+        <item>до 15</item>
+        <item>до 16</item>
+        <item>до 17</item>
+        <item>до 18</item>
+        <item>до 19</item>
+        <item>до 20</item>
+        <item>до 21</item>
+        <item>до 22</item>
+        <item>до 23</item>
+        <item>до 24</item>
+        <item>до 25</item>
+        <item>до 26</item>
+        <item>до 27</item>
+        <item>до 28</item>
+        <item>до 29</item>
+        <item>до 30</item>
+        <item>до 31</item>
+        <item>до 32</item>
+        <item>до 33</item>
+        <item>до 34</item>
+        <item>до 35</item>
+        <item>до 36</item>
+        <item>до 37</item>
+        <item>до 38</item>
+        <item>до 39</item>
+        <item>до 40</item>
+        <item>до 41</item>
+        <item>до 42</item>
+        <item>до 43</item>
+        <item>до 44</item>
+        <item>до 45</item>
+        <item>до 46</item>
+        <item>до 47</item>
+        <item>до 48</item>
+        <item>до 49</item>
+        <item>до 50</item>
+    </string-array>
 </resources>

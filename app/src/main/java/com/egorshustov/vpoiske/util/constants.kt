@@ -13,6 +13,8 @@ const val DEFAULT_API_VERSION = "5.102"
 
 val DEFAULT_COUNTRY = Country(-1, "Страна")
 val DEFAULT_CITY = City(-1, "Город", "", "")
+val DEFAULT_AGE_FROM: Int? = null
+val DEFAULT_AGE_TO: Int? = null
 
 enum class Sex(val value: Int) {
     ANY(0),

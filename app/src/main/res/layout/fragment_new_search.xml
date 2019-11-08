@@ -102,13 +102,15 @@
                     android:id="@+id/spinner_age_from"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:entries="@array/ages_from" />
 
                 <Spinner
                     android:id="@+id/spinner_age_to"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:entries="@array/ages_to" />
 
             </LinearLayout>
 
@@ -118,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="?themeColorAccent"
                 android:text="Начать поиск"
-                android:visibility="@{(viewmodel.currentCity != ConstantsKt.DEFAULT_CITY &amp;&amp; viewmodel.currentCountry != ConstantsKt.DEFAULT_COUNTRY) ? View.VISIBLE : View.GONE}" />
+                android:visibility="@{(viewmodel.currentCity != ConstantsKt.DEFAULT_CITY &amp;&amp; viewmodel.currentCountry != ConstantsKt.DEFAULT_COUNTRY &amp;&amp; viewmodel.currentAgeFrom != ConstantsKt.DEFAULT_AGE_FROM &amp;&amp; viewmodel.currentAgeTo != ConstantsKt.DEFAULT_AGE_TO) ? View.VISIBLE : View.GONE}" />
 
         </LinearLayout>
 

@@ -9,9 +9,7 @@ import com.egorshustov.vpoiske.data.Country
 import com.egorshustov.vpoiske.data.source.CitiesRepository
 import com.egorshustov.vpoiske.data.source.CountriesRepository
 import com.egorshustov.vpoiske.data.source.remote.Result
-import com.egorshustov.vpoiske.util.DEFAULT_CITY
-import com.egorshustov.vpoiske.util.DEFAULT_COUNTRY
-import com.egorshustov.vpoiske.util.Event
+import com.egorshustov.vpoiske.util.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,6 +29,18 @@ class NewSearchViewModel @Inject constructor(
 
     private val _currentCity = MutableLiveData(DEFAULT_CITY)
     val currentCity: LiveData<City> = _currentCity
+
+    private val _currentAgeFrom = MutableLiveData(DEFAULT_AGE_FROM)
+    val currentAgeFrom: LiveData<Int?> = _currentAgeFrom
+
+    private val _currentAgeTo = MutableLiveData(DEFAULT_AGE_TO)
+    val currentAgeTo: LiveData<Int?> = _currentAgeTo
+
+    private val _resetAgeToCommand = MutableLiveData(Unit)
+    val resetAgeToCommand: LiveData<Unit> = _resetAgeToCommand
+
+    private val _resetAgeFromCommand = MutableLiveData(Unit)
+    val resetAgeFromCommand: LiveData<Unit> = _resetAgeFromCommand
 
     private val _snackBarMessage = MutableLiveData<Event<String>>()
     val snackBarMessage: LiveData<Event<String>> = _snackBarMessage
@@ -60,6 +70,26 @@ class NewSearchViewModel @Inject constructor(
 
     fun onCitySelected(selectedCity: City) {
         _currentCity.value = selectedCity
+    }
+
+    fun onAgeFromSelected(ageFrom: Int?) {
+        _currentAgeFrom.value = ageFrom
+        currentAgeTo.value?.let {
+            if (ageFrom != null && it < ageFrom) {
+                _currentAgeTo.value = ageFrom
+                _resetAgeToCommand.value = Unit
+            }
+        }
+    }
+
+    fun onAgeToSelected(ageTo: Int?) {
+        _currentAgeTo.value = ageTo
+        currentAgeFrom.value?.let {
+            if (ageTo != null && it > ageTo) {
+                _currentAgeFrom.value = ageTo
+                _resetAgeFromCommand.value = Unit
+            }
+        }
     }
 
     override fun onCleared() {

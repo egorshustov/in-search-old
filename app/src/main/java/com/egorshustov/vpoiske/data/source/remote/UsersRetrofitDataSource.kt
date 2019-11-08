@@ -2,7 +2,6 @@ package com.egorshustov.vpoiske.data.source.remote
 
 import com.egorshustov.vpoiske.data.source.remote.getuser.UserResponse
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUserResponse
-import com.egorshustov.vpoiske.util.Sex
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -19,6 +18,7 @@ class UsersRetrofitDataSource @Inject constructor(
         ageTo: Int,
         birthDay: Int,
         birthMonth: Int,
+        sex: Int,
         hasPhoto: Int,
         fields: String,
         apiVersion: String,
@@ -29,11 +29,11 @@ class UsersRetrofitDataSource @Inject constructor(
         try {
             val response = retrofitVkApi.searchUsers(
                 cityId,
-                Sex.FEMALE.value,
                 ageFrom,
                 ageTo,
                 birthDay,
                 birthMonth,
+                sex,
                 hasPhoto,
                 fields,
                 apiVersion,

@@ -11,6 +11,7 @@ interface UsersRemoteDataSource {
         ageTo: Int,
         birthDay: Int,
         birthMonth: Int,
+        sex: Int,
         hasPhoto: Int,
         fields: String,
         apiVersion: String,
