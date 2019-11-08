@@ -36,3 +36,8 @@ enum class Relation(val value: Int) {
     IN_LOVE(7),
     IN_CIVIL_MARRIAGE(8)
 }
+
+enum class SortType(val value: Int) {
+    BY_POPULARITY(0),
+    BY_REGISTRATION_DATE(1)
+}

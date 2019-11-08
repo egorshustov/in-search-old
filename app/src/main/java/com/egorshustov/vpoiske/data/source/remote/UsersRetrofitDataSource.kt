@@ -23,7 +23,8 @@ class UsersRetrofitDataSource @Inject constructor(
         fields: String,
         apiVersion: String,
         accessToken: String,
-        count: Int
+        count: Int,
+        sortType: Int
     ): Result<List<SearchUserResponse>> = withContext(ioDispatcher) {
         try {
             val response = retrofitVkApi.searchUsers(
@@ -37,7 +38,8 @@ class UsersRetrofitDataSource @Inject constructor(
                 fields,
                 apiVersion,
                 accessToken,
-                count
+                count,
+                sortType
             )
             if (response.isSuccessful) {
                 response.body()?.response?.searchUserResponseList?.let {

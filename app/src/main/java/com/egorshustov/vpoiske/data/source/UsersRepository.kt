@@ -21,7 +21,8 @@ class UsersRepository @Inject constructor(
         fields: String = DEFAULT_SEARCH_USERS_FIELDS,
         apiVersion: String = DEFAULT_API_VERSION,
         accessToken: String = ACCESS_TOKEN,
-        count: Int = DEFAULT_SEARCH_USERS_COUNT
+        count: Int = DEFAULT_SEARCH_USERS_COUNT,
+        sortType: Int = SortType.BY_REGISTRATION_DATE.value
     ) = usersRemoteDataSource.searchUsers(
         cityId,
         ageFrom,
@@ -32,7 +33,8 @@ class UsersRepository @Inject constructor(
         fields,
         apiVersion,
         accessToken,
-        count
+        count,
+        sortType
     )
 
     suspend fun getUser(

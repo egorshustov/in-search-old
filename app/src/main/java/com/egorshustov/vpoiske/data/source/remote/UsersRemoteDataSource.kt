@@ -15,7 +15,8 @@ interface UsersRemoteDataSource {
         fields: String,
         apiVersion: String,
         accessToken: String,
-        count: Int
+        count: Int,
+        sortType: Int
     ): Result<List<SearchUserResponse>>
 
     suspend fun getUser(
