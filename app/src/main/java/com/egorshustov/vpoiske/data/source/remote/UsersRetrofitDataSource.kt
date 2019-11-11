@@ -1,7 +1,7 @@
 package com.egorshustov.vpoiske.data.source.remote
 
 import com.egorshustov.vpoiske.data.source.remote.getuser.UserResponse
-import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUserResponse
+import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUsersInnerResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -27,7 +27,7 @@ class UsersRetrofitDataSource @Inject constructor(
         accessToken: String,
         count: Int,
         sortType: Int
-    ): Result<List<SearchUserResponse>> = withContext(ioDispatcher) {
+    ): Result<SearchUsersInnerResponse> = withContext(ioDispatcher) {
         try {
             val response = retrofitVkApi.searchUsers(
                 countryId,
@@ -46,11 +46,11 @@ class UsersRetrofitDataSource @Inject constructor(
                 sortType
             )
             if (response.isSuccessful) {
-                response.body()?.response?.searchUserResponseList?.let {
+                response.body()?.response?.let {
                     return@withContext Result.Success(it)
                 }
                 return@withContext Result.Error(
-                    Exception("searchUserResponseList is not found")
+                    Exception("SearchUsersInnerResponse is not found")
                 )
             } else {
                 return@withContext Result.Error(

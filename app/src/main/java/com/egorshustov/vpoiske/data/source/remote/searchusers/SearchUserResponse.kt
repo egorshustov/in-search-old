@@ -9,9 +9,9 @@ data class SearchUserResponse(
     @SerializedName("last_name")
     val lastName: String?,
     @SerializedName("is_closed")
-    val isClosed: String?,
+    val isClosed: Boolean?,
     @SerializedName("can_access_closed")
-    val canAccessClosed: String?,
+    val canAccessClosed: Boolean?,
     @SerializedName("mobile_phone")
     val mobilePhone: String?,
     @SerializedName("home_phone")

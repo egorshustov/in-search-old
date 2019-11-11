@@ -113,6 +113,7 @@ class NewSearchViewModel @Inject constructor(
     }
 
     private fun showSnackBarMessage(message: String) {
+        Timber.d("showSnackBarMessage: $message")
         _snackBarMessage.value = Event(message)
     }
 
