@@ -2,8 +2,8 @@ package com.egorshustov.vpoiske.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.egorshustov.vpoiske.searchlog.SearchLogFragment
-import com.egorshustov.vpoiske.userlist.UserListFragment
+import com.egorshustov.vpoiske.main.SearchLogFragment
+import com.egorshustov.vpoiske.main.UserListFragment
 
 const val USER_LIST_PAGE_INDEX = 0
 const val SEARCH_LOG_PAGE_INDEX = 1

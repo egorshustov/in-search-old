@@ -1,15 +1,16 @@
-package com.egorshustov.vpoiske.userlist
+package com.egorshustov.vpoiske.main
 
 import androidx.fragment.app.activityViewModels
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.base.BaseFragment
-import com.egorshustov.vpoiske.databinding.FragmentUserListBinding
+import com.egorshustov.vpoiske.databinding.FragmentSearchLogBinding
 import com.egorshustov.vpoiske.main.MainState
 import com.egorshustov.vpoiske.main.MainViewModel
 
-class UserListFragment : BaseFragment<MainState, MainViewModel, FragmentUserListBinding>() {
+class SearchLogFragment :
+    BaseFragment<MainState, MainViewModel, FragmentSearchLogBinding>() {
 
-    override fun getLayoutResId(): Int = R.layout.fragment_user_list
+    override fun getLayoutResId(): Int = R.layout.fragment_search_log
 
     override val viewModel by activityViewModels<MainViewModel> { viewModelFactory }
 }
