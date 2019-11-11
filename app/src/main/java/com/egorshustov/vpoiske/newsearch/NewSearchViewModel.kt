@@ -45,8 +45,8 @@ class NewSearchViewModel @Inject constructor(
     private val _currentRelation = MutableLiveData(Relation.NOT_DEFINED)
     val currentRelation: LiveData<Relation> = _currentRelation
 
-    private val _usersCount = MutableLiveData(DEFAULT_USERS_COUNT)
-    val usersCount: LiveData<Int> = _usersCount
+    private val _currentUsersCount = MutableLiveData(DEFAULT_USERS_COUNT)
+    val currentUsersCount: LiveData<Int> = _currentUsersCount
 
     private val _snackBarMessage = MutableLiveData<Event<String>>()
     val snackBarMessage: LiveData<Event<String>> = _snackBarMessage
@@ -102,7 +102,7 @@ class NewSearchViewModel @Inject constructor(
     }
 
     fun onUsersCountChanged(usersCount: Int) {
-        _usersCount.value = usersCount
+        _currentUsersCount.value = usersCount
     }
 
     private fun showSnackBarMessage(message: String) {

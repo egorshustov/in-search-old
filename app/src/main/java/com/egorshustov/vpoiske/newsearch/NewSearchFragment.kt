@@ -6,15 +6,19 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.CitiesAdapter
 import com.egorshustov.vpoiske.adapters.CountriesAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentNewSearchBinding
+import com.egorshustov.vpoiske.main.MainViewModel
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.Relation
+import com.egorshustov.vpoiske.util.Sex
 import com.egorshustov.vpoiske.util.extractInt
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_new_search.*
@@ -25,6 +29,7 @@ class NewSearchFragment :
 
     override fun getLayoutResId(): Int = R.layout.fragment_new_search
     override val viewModel by viewModels<NewSearchViewModel> { viewModelFactory }
+    private val mainViewModel by activityViewModels<MainViewModel> { viewModelFactory }
 
     private lateinit var countriesAdapter: CountriesAdapter
     private lateinit var citiesAdapter: CitiesAdapter
@@ -43,6 +48,7 @@ class NewSearchFragment :
         setAgeToSpinnerListener()
         setRelationSpinnerListener()
         setSeekBarListener()
+        setSearchButtonListener()
         observeCountries()
         observeCities()
         observeLiveSnackBarMessage()
@@ -174,6 +180,32 @@ class NewSearchFragment :
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
+    }
+
+    private fun setSearchButtonListener() {
+        button_search.setOnClickListener {
+            val countryId = viewModel.currentCountry.value?.id
+            val cityId = viewModel.currentCity.value?.id
+            val ageFrom = viewModel.currentAgeFrom.value
+            val ageTo = viewModel.currentAgeTo.value
+            val relation = viewModel.currentRelation.value?.value
+            val sex = Sex.FEMALE.value
+            val withPhoneOnly = check_with_phone_only.isChecked
+            val usersCount = viewModel.currentUsersCount.value
+            if (countryId != null && cityId != null && usersCount != null) {
+                mainViewModel.onSearchButtonClicked(
+                    countryId,
+                    cityId,
+                    ageFrom,
+                    ageTo,
+                    relation,
+                    sex,
+                    withPhoneOnly,
+                    usersCount
+                )
+                findNavController().popBackStack(R.id.mainViewPagerFragment, false)
+            }
+        }
     }
 
     private fun seekProgressToUsersCount(seekProgress: Int) = (seekProgress + 1) * 10

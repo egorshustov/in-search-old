@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.egorshustov.vpoiske.searchlog.SearchLogViewModel" />
+            type="com.egorshustov.vpoiske.main.MainViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

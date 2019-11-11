@@ -159,7 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_blocks"
-                        android:text="@{viewmodel.usersCount.toString()}"
+                        android:text="@{viewmodel.currentUsersCount.toString()}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold" />
@@ -181,7 +181,7 @@
                     android:layout_marginTop="@dimen/margin_blocks"
                     android:backgroundTint="?themeColorAccent"
                     android:text="Начать поиск"
-                    android:visibility="@{(viewmodel.currentCity != ConstantsKt.DEFAULT_CITY &amp;&amp; viewmodel.currentCountry != ConstantsKt.DEFAULT_COUNTRY &amp;&amp; viewmodel.currentAgeFrom != ConstantsKt.DEFAULT_AGE_FROM &amp;&amp; viewmodel.currentAgeTo != ConstantsKt.DEFAULT_AGE_TO) ? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{(viewmodel.currentCity != ConstantsKt.DEFAULT_CITY &amp;&amp; viewmodel.currentCountry != ConstantsKt.DEFAULT_COUNTRY) ? View.VISIBLE : View.GONE}" />
 
             </LinearLayout>
 
