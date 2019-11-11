@@ -16,6 +16,7 @@ val DEFAULT_CITY = City(-1, "Город", "", "")
 val DEFAULT_AGE_FROM: Int? = null
 val DEFAULT_AGE_TO: Int? = null
 const val DEFAULT_USERS_COUNT: Int = 100
+const val DEFAULT_DAYS_INTERVAL: Int = 3
 
 enum class Sex(val value: Int) {
     ANY(0),

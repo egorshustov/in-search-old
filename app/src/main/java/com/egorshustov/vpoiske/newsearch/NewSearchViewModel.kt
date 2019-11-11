@@ -48,6 +48,9 @@ class NewSearchViewModel @Inject constructor(
     private val _currentUsersCount = MutableLiveData(DEFAULT_USERS_COUNT)
     val currentUsersCount: LiveData<Int> = _currentUsersCount
 
+    private val _currentDaysInterval = MutableLiveData(DEFAULT_DAYS_INTERVAL)
+    val currentDaysInterval: LiveData<Int> = _currentDaysInterval
+
     private val _snackBarMessage = MutableLiveData<Event<String>>()
     val snackBarMessage: LiveData<Event<String>> = _snackBarMessage
 
@@ -103,6 +106,10 @@ class NewSearchViewModel @Inject constructor(
 
     fun onUsersCountChanged(usersCount: Int) {
         _currentUsersCount.value = usersCount
+    }
+
+    fun onDaysIntervalChanged(daysInterval: Int) {
+        _currentDaysInterval.value = daysInterval
     }
 
     private fun showSnackBarMessage(message: String) {

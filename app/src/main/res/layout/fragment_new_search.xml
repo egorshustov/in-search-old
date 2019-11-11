@@ -174,6 +174,38 @@
                     android:max="99"
                     android:progress="9" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Были в сети в течение дней:"
+                        android:textColor="?themeTextColorSecondary"
+                        android:textSize="@dimen/text_size_medium" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_blocks"
+                        android:text="@{viewmodel.currentDaysInterval.toString()}"
+                        android:textColor="?themeTextColorSecondary"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/seek_days_interval"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:max="29"
+                    android:progress="2" />
+
                 <Button
                     android:id="@+id/button_search"
                     android:layout_width="match_parent"

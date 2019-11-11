@@ -47,7 +47,7 @@ class NewSearchFragment :
         setAgeFromSpinnerListener()
         setAgeToSpinnerListener()
         setRelationSpinnerListener()
-        setSeekBarListener()
+        setSeekBarsListeners()
         setSearchButtonListener()
         observeCountries()
         observeCities()
@@ -170,10 +170,19 @@ class NewSearchFragment :
         }
     }
 
-    private fun setSeekBarListener() {
+    private fun setSeekBarsListeners() {
         seek_users_count.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 viewModel.onUsersCountChanged(seekProgressToUsersCount(progress))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+        seek_days_interval.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                viewModel.onDaysIntervalChanged(seekProgressToDaysInterval(progress))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -192,7 +201,8 @@ class NewSearchFragment :
             val sex = Sex.FEMALE.value
             val withPhoneOnly = check_with_phone_only.isChecked
             val usersCount = viewModel.currentUsersCount.value
-            if (countryId != null && cityId != null && usersCount != null) {
+            val daysInterval = viewModel.currentDaysInterval.value
+            if (countryId != null && cityId != null && usersCount != null && daysInterval != null) {
                 mainViewModel.onSearchButtonClicked(
                     countryId,
                     cityId,
@@ -201,7 +211,8 @@ class NewSearchFragment :
                     relation,
                     sex,
                     withPhoneOnly,
-                    usersCount
+                    usersCount,
+                    daysInterval
                 )
                 findNavController().popBackStack(R.id.mainViewPagerFragment, false)
             }
@@ -209,6 +220,8 @@ class NewSearchFragment :
     }
 
     private fun seekProgressToUsersCount(seekProgress: Int) = (seekProgress + 1) * 10
+
+    private fun seekProgressToDaysInterval(seekProgress: Int) = seekProgress + 1
 
     private fun observeCountries() {
         viewModel.countries.observe(viewLifecycleOwner, Observer {

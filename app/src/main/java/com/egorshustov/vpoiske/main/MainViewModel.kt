@@ -22,7 +22,8 @@ class MainViewModel @Inject constructor(
         relation: Int?,
         sex: Int,
         withPhoneOnly: Boolean,
-        usersCount: Int
+        usersCount: Int,
+        daysInterval: Int
     ) {
         viewModelScope.launch {
             val searchUsersResult =
