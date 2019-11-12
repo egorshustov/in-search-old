@@ -24,10 +24,12 @@ data class SearchUserResponse(
     fun hasCorrectPhone() = isMobilePhoneCorrect() || isHomePhoneCorrect()
 
     private fun isMobilePhoneCorrect(): Boolean {
+        //todo add phone check
         return true
     }
 
     private fun isHomePhoneCorrect(): Boolean {
+        //todo add phone check
         return true
     }
 }

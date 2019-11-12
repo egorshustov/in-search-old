@@ -90,11 +90,13 @@ class MainViewModel @Inject constructor(
         followersLimit: Int,
         daysInterval: Int
     ) {
-        searchUserResponseList.filter {
-            //todo also limit by subscribers and correct phones
+        val filteredList = searchUserResponseList.filter {
+            val isNotClosed = it.isClosed == false
+            val isFollowersCountAcceptable = (it.followersCount ?: 0) <= followersLimit
             val isInDaysInterval = searchStartUnixSeconds - (it.lastSeen?.timeUnixSeconds
-                ?: 0) > daysInterval * SECONDS_IN_DAY
-            it.isClosed == false && isInDaysInterval
+                ?: 0) < daysInterval * SECONDS_IN_DAY
+            val phoneCheckPassed = if (withPhoneOnly) it.hasCorrectPhone() else true
+            isNotClosed && isFollowersCountAcceptable && isInDaysInterval && phoneCheckPassed
         }
         //todo for each check if in DB
         //todo if not in DB and friends max limit is set, getUsersRequest and check friends count

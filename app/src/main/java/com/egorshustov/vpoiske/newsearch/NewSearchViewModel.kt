@@ -48,6 +48,7 @@ class NewSearchViewModel @Inject constructor(
     private val _currentFoundedUsersLimit = MutableLiveData(DEFAULT_FOUNDED_USERS_LIMIT)
     val currentFoundedUsersLimit: LiveData<Int> = _currentFoundedUsersLimit
 
+    //todo change friends and followers limits to min and max range
     private var defaultFriendsLimit = 250
     private val _currentFriendsLimit = MutableLiveData<Int?>(defaultFriendsLimit)
     val currentFriendsLimit: LiveData<Int?> = _currentFriendsLimit
