@@ -1,3 +1,4 @@
 package com.egorshustov.vpoiske.util
 
-fun String.extractInt(): Int? = replace("\\D+".toRegex(), "").toIntOrNull()
+fun String.extractDigits(): String = replace("\\D+".toRegex(), "")
+fun String.extractInt(): Int? = extractDigits().toIntOrNull()

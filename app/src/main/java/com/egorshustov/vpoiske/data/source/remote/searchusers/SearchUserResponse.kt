@@ -17,5 +17,17 @@ data class SearchUserResponse(
     @SerializedName("home_phone")
     val homePhone: String?,
     @SerializedName("last_seen")
-    val lastSeen: LastSeen?
-)
+    val lastSeen: LastSeen?,
+    @SerializedName("followers_count")
+    val followersCount: Int?
+) {
+    fun hasCorrectPhone() = isMobilePhoneCorrect() || isHomePhoneCorrect()
+
+    private fun isMobilePhoneCorrect(): Boolean {
+        return true
+    }
+
+    private fun isHomePhoneCorrect(): Boolean {
+        return true
+    }
+}

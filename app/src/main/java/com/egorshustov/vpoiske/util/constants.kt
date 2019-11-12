@@ -6,7 +6,7 @@ import com.egorshustov.vpoiske.data.Country
 const val DEFAULT_SEARCH_USERS_COUNT = 1000
 const val DEFAULT_GET_COUNTRIES_COUNT = 1000
 const val DEFAULT_GET_CITIES_COUNT = 1000
-const val DEFAULT_SEARCH_USERS_FIELDS = "last_seen,contacts"
+const val DEFAULT_SEARCH_USERS_FIELDS = "last_seen,contacts,followers_count"
 const val DEFAULT_GET_USER_FIELDS =
     "photo_id,sex,bdate,city,country,counters,photo_max,photo_max_orig, contacts, relation, can_write_private_message, can_send_friend_request"
 const val DEFAULT_API_VERSION = "5.102"
@@ -15,8 +15,15 @@ val DEFAULT_COUNTRY = Country(-1, "Страна")
 val DEFAULT_CITY = City(-1, "Город", "", "")
 val DEFAULT_AGE_FROM: Int? = null
 val DEFAULT_AGE_TO: Int? = null
-const val DEFAULT_USERS_COUNT: Int = 100
+const val DEFAULT_FOUNDED_USERS_LIMIT: Int = 100
+const val DEFAULT_FOLLOWERS_LIMIT: Int = 150
 const val DEFAULT_DAYS_INTERVAL: Int = 3
+
+const val MILLIS_IN_SECOND = 1000
+const val SECONDS_IN_MINUTE = 60
+const val MINUTES_IN_HOUR = 60
+const val HOURS_IN_DAY = 24
+const val SECONDS_IN_DAY = SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY
 
 enum class Sex(val value: Int) {
     ANY(0),
@@ -34,7 +41,7 @@ enum class Relation(
     private val descriptionFemale: String,
     private val descriptionMale: String
 ) {
-    NOT_DEFINED(null, "Не выбрано", "Не выбрано"),
+    NOT_DEFINED(null, "Любое", "Любое"),
     NOT_MARRIED(1, "Не замужем", "Не женат"),
     HAS_FRIEND(2, "Есть друг", "Есть подруга"),
     ENGAGED(3, "Помолвлена", "Помолвлен"),

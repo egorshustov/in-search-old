@@ -9,7 +9,7 @@
     <string name="search_log_title">Лог</string>
 
     <string-array name="ages_from">
-        <item>От</item>
+        <item>От любого</item>
         <item>от 14</item>
         <item>от 15</item>
         <item>от 16</item>
@@ -50,7 +50,7 @@
     </string-array>
 
     <string-array name="ages_to">
-        <item>До</item>
+        <item>До любого</item>
         <item>до 14</item>
         <item>до 15</item>
         <item>до 16</item>

@@ -48,6 +48,7 @@ class NewSearchFragment :
         setAgeToSpinnerListener()
         setRelationSpinnerListener()
         setSeekBarsListeners()
+        setCheckBoxListener()
         setSearchButtonListener()
         observeCountries()
         observeCities()
@@ -171,9 +172,28 @@ class NewSearchFragment :
     }
 
     private fun setSeekBarsListeners() {
-        seek_users_count.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        seek_founded_users_limit.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.onUsersCountChanged(seekProgressToUsersCount(progress))
+                viewModel.onFoundedUsersLimitChanged(seekProgressToUsersLimit(progress))
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+        seek_friends_limit.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                viewModel.onFriendsLimitChanged(progress)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+        seek_followers_limit.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                viewModel.onFollowersLimitChanged(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -191,6 +211,14 @@ class NewSearchFragment :
         })
     }
 
+    private fun setCheckBoxListener() {
+        check_set_friends_limit.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onSetFriendsLimitChanged(
+                isChecked
+            )
+        }
+    }
+
     private fun setSearchButtonListener() {
         button_search.setOnClickListener {
             val countryId = viewModel.currentCountry.value?.id
@@ -200,9 +228,11 @@ class NewSearchFragment :
             val relation = viewModel.currentRelation.value?.value
             val sex = Sex.FEMALE.value
             val withPhoneOnly = check_with_phone_only.isChecked
-            val usersCount = viewModel.currentUsersCount.value
+            val foundedUsersLimit = viewModel.currentFoundedUsersLimit.value
+            val friendsLimit = viewModel.currentFriendsLimit.value
+            val followersLimit = viewModel.currentFollowersLimit.value
             val daysInterval = viewModel.currentDaysInterval.value
-            if (countryId != null && cityId != null && usersCount != null && daysInterval != null) {
+            if (countryId != null && cityId != null && foundedUsersLimit != null && followersLimit != null && daysInterval != null) {
                 mainViewModel.onSearchButtonClicked(
                     countryId,
                     cityId,
@@ -211,7 +241,9 @@ class NewSearchFragment :
                     relation,
                     sex,
                     withPhoneOnly,
-                    usersCount,
+                    foundedUsersLimit,
+                    friendsLimit,
+                    followersLimit,
                     daysInterval
                 )
                 findNavController().popBackStack(R.id.mainViewPagerFragment, false)
@@ -219,7 +251,7 @@ class NewSearchFragment :
         }
     }
 
-    private fun seekProgressToUsersCount(seekProgress: Int) = (seekProgress + 1) * 10
+    private fun seekProgressToUsersLimit(seekProgress: Int) = (seekProgress + 1) * 10
 
     private fun seekProgressToDaysInterval(seekProgress: Int) = seekProgress + 1
 

@@ -45,8 +45,15 @@ class NewSearchViewModel @Inject constructor(
     private val _currentRelation = MutableLiveData(Relation.NOT_DEFINED)
     val currentRelation: LiveData<Relation> = _currentRelation
 
-    private val _currentUsersCount = MutableLiveData(DEFAULT_USERS_COUNT)
-    val currentUsersCount: LiveData<Int> = _currentUsersCount
+    private val _currentFoundedUsersLimit = MutableLiveData(DEFAULT_FOUNDED_USERS_LIMIT)
+    val currentFoundedUsersLimit: LiveData<Int> = _currentFoundedUsersLimit
+
+    private var defaultFriendsLimit = 250
+    private val _currentFriendsLimit = MutableLiveData<Int?>(defaultFriendsLimit)
+    val currentFriendsLimit: LiveData<Int?> = _currentFriendsLimit
+
+    private val _currentFollowersLimit = MutableLiveData(DEFAULT_FOLLOWERS_LIMIT)
+    val currentFollowersLimit: LiveData<Int> = _currentFollowersLimit
 
     private val _currentDaysInterval = MutableLiveData(DEFAULT_DAYS_INTERVAL)
     val currentDaysInterval: LiveData<Int> = _currentDaysInterval
@@ -104,8 +111,21 @@ class NewSearchViewModel @Inject constructor(
         _currentRelation.value = relation
     }
 
-    fun onUsersCountChanged(usersCount: Int) {
-        _currentUsersCount.value = usersCount
+    fun onFoundedUsersLimitChanged(usersCount: Int) {
+        _currentFoundedUsersLimit.value = usersCount
+    }
+
+    fun onFriendsLimitChanged(friendsLimit: Int) {
+        _currentFriendsLimit.value = friendsLimit
+        defaultFriendsLimit = friendsLimit
+    }
+
+    fun onFollowersLimitChanged(followersLimit: Int) {
+        _currentFollowersLimit.value = followersLimit
+    }
+
+    fun onSetFriendsLimitChanged(isChecked: Boolean) {
+        _currentFriendsLimit.value = if (isChecked) defaultFriendsLimit else null
     }
 
     fun onDaysIntervalChanged(daysInterval: Int) {
