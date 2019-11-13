@@ -213,7 +213,7 @@
                     android:orientation="horizontal">
 
                     <CheckBox
-                        android:id="@+id/check_set_friends_limit"
+                        android:id="@+id/check_set_friends_limits"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"

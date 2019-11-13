@@ -131,7 +131,8 @@ class NewSearchViewModel @Inject constructor(
         _currentFollowersMaxCount.value = followersMaxCount
     }
 
-    fun onSetFriendsLimitChanged(isChecked: Boolean) {
+    fun onSetFriendsLimitsChanged(isChecked: Boolean) {
+        _currentFriendsMinCount.value = if (isChecked) defaultFriendsMinCount else null
         _currentFriendsMaxCount.value = if (isChecked) defaultFriendsMaxCount else null
     }
 

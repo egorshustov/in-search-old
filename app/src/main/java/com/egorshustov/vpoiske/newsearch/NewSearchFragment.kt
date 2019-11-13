@@ -184,7 +184,7 @@ class NewSearchFragment :
         })
         seek_friends_max_count.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.onFriendsMaxCountChanged(progress)
+                if (fromUser) viewModel.onFriendsMaxCountChanged(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -194,7 +194,7 @@ class NewSearchFragment :
         seek_followers_max_count.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.onFollowersMaxCountChanged(progress)
+                if (fromUser) viewModel.onFollowersMaxCountChanged(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -203,7 +203,7 @@ class NewSearchFragment :
         })
         seek_days_interval.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.onDaysIntervalChanged(seekProgressToDaysInterval(progress))
+                if (fromUser) viewModel.onDaysIntervalChanged(seekProgressToDaysInterval(progress))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -213,10 +213,8 @@ class NewSearchFragment :
     }
 
     private fun setCheckBoxListener() {
-        check_set_friends_limit.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.onSetFriendsLimitChanged(
-                isChecked
-            )
+        check_set_friends_limits.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onSetFriendsLimitsChanged(isChecked)
         }
     }
 
