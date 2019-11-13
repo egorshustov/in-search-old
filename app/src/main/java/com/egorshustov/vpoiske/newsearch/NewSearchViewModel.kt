@@ -48,13 +48,19 @@ class NewSearchViewModel @Inject constructor(
     private val _currentFoundedUsersLimit = MutableLiveData(DEFAULT_FOUNDED_USERS_LIMIT)
     val currentFoundedUsersLimit: LiveData<Int> = _currentFoundedUsersLimit
 
-    //todo change friends and followers limits to min and max range
-    private var defaultFriendsLimit = 250
-    private val _currentFriendsLimit = MutableLiveData<Int?>(defaultFriendsLimit)
-    val currentFriendsLimit: LiveData<Int?> = _currentFriendsLimit
+    private var defaultFriendsMaxCount = 250
+    private val _currentFriendsMaxCount = MutableLiveData<Int?>(defaultFriendsMaxCount)
+    val currentFriendsMaxCount: LiveData<Int?> = _currentFriendsMaxCount
 
-    private val _currentFollowersLimit = MutableLiveData(DEFAULT_FOLLOWERS_LIMIT)
-    val currentFollowersLimit: LiveData<Int> = _currentFollowersLimit
+    private var defaultFriendsMinCount = 50
+    private val _currentFriendsMinCount = MutableLiveData<Int?>(defaultFriendsMinCount)
+    val currentFriendsMinCount: LiveData<Int?> = _currentFriendsMinCount
+
+    private val _currentFollowersMaxCount = MutableLiveData(DEFAULT_FOLLOWERS_MAX_COUNT)
+    val currentFollowersMaxCount: LiveData<Int> = _currentFollowersMaxCount
+
+    private val _currentFollowersMinCount = MutableLiveData(DEFAULT_FOLLOWERS_MIN_COUNT)
+    val currentFollowersMinCount: LiveData<Int> = _currentFollowersMinCount
 
     private val _currentDaysInterval = MutableLiveData(DEFAULT_DAYS_INTERVAL)
     val currentDaysInterval: LiveData<Int> = _currentDaysInterval
@@ -116,17 +122,17 @@ class NewSearchViewModel @Inject constructor(
         _currentFoundedUsersLimit.value = usersCount
     }
 
-    fun onFriendsLimitChanged(friendsLimit: Int) {
-        _currentFriendsLimit.value = friendsLimit
-        defaultFriendsLimit = friendsLimit
+    fun onFriendsMaxCountChanged(friendsMaxCount: Int) {
+        _currentFriendsMaxCount.value = friendsMaxCount
+        defaultFriendsMaxCount = friendsMaxCount
     }
 
-    fun onFollowersLimitChanged(followersLimit: Int) {
-        _currentFollowersLimit.value = followersLimit
+    fun onFollowersMaxCountChanged(followersMaxCount: Int) {
+        _currentFollowersMaxCount.value = followersMaxCount
     }
 
     fun onSetFriendsLimitChanged(isChecked: Boolean) {
-        _currentFriendsLimit.value = if (isChecked) defaultFriendsLimit else null
+        _currentFriendsMaxCount.value = if (isChecked) defaultFriendsMaxCount else null
     }
 
     fun onDaysIntervalChanged(daysInterval: Int) {

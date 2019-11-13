@@ -228,29 +228,29 @@
                         android:text=": "
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
-                        android:visibility="@{viewmodel.currentFriendsLimit == null ? View.GONE : View.VISIBLE}" />
+                        android:visibility="@{viewmodel.currentFriendsMaxCount == null ? View.GONE : View.VISIBLE}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_blocks"
                         android:gravity="center_vertical"
-                        android:text="@{viewmodel.currentFriendsLimit.toString()}"
+                        android:text="@{viewmodel.currentFriendsMaxCount.toString()}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"
-                        android:visibility="@{viewmodel.currentFriendsLimit == null ? View.GONE : View.VISIBLE}" />
+                        android:visibility="@{viewmodel.currentFriendsMaxCount == null ? View.GONE : View.VISIBLE}" />
 
                 </LinearLayout>
 
                 <SeekBar
-                    android:id="@+id/seek_friends_limit"
+                    android:id="@+id/seek_friends_max_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"
                     android:max="1000"
                     android:progress="250"
-                    android:visibility="@{viewmodel.currentFriendsLimit == null ? View.GONE : View.VISIBLE}" />
+                    android:visibility="@{viewmodel.currentFriendsMaxCount == null ? View.GONE : View.VISIBLE}" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -269,7 +269,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_blocks"
-                        android:text="@{viewmodel.currentFollowersLimit.toString()}"
+                        android:text="@{viewmodel.currentFollowersMaxCount.toString()}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold" />
@@ -277,7 +277,7 @@
                 </LinearLayout>
 
                 <SeekBar
-                    android:id="@+id/seek_followers_limit"
+                    android:id="@+id/seek_followers_max_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"

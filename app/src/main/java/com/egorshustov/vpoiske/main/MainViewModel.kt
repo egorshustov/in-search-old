@@ -40,8 +40,10 @@ class MainViewModel @Inject constructor(
         sex: Int,
         withPhoneOnly: Boolean,
         foundedUsersLimit: Int,
-        friendsLimit: Int?,
-        followersLimit: Int,
+        friendsMinCount: Int?,
+        friendsMaxCount: Int?,
+        followersMinCount: Int,
+        followersMaxCount: Int,
         daysInterval: Int
     ) = viewModelScope.launch {
         val searchStartUnixSeconds = (System.currentTimeMillis() / MILLIS_IN_SECOND).toInt()
@@ -70,11 +72,14 @@ class MainViewModel @Inject constructor(
                             searchStartUnixSeconds,
                             withPhoneOnly,
                             foundedUsersLimit,
-                            friendsLimit,
-                            followersLimit,
+                            friendsMinCount,
+                            friendsMaxCount,
+                            followersMinCount,
+                            followersMaxCount,
                             daysInterval
                         )
                     }
+
                 }
                 is Result.Error -> handleError(searchUsersResult.exception)
             }
@@ -86,13 +91,16 @@ class MainViewModel @Inject constructor(
         searchStartUnixSeconds: Int,
         withPhoneOnly: Boolean,
         foundedUsersLimit: Int,
-        friendsLimit: Int?,
-        followersLimit: Int,
+        friendsMinCount: Int?,
+        friendsMaxCount: Int?,
+        followersMinCount: Int,
+        followersMaxCount: Int,
         daysInterval: Int
     ) {
         val filteredList = searchUserResponseList.filter {
             val isNotClosed = it.isClosed == false
-            val isFollowersCountAcceptable = (it.followersCount ?: 0) <= followersLimit
+            val isFollowersCountAcceptable = (it.followersCount ?: 0) >= followersMinCount
+                    && (it.followersCount ?: 0) <= followersMaxCount
             val isInDaysInterval = searchStartUnixSeconds - (it.lastSeen?.timeUnixSeconds
                 ?: 0) < daysInterval * SECONDS_IN_DAY
             val phoneCheckPassed = if (withPhoneOnly) it.hasCorrectPhone() else true

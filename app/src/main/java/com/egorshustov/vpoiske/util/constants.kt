@@ -16,7 +16,8 @@ val DEFAULT_CITY = City(-1, "Город", "", "")
 val DEFAULT_AGE_FROM: Int? = null
 val DEFAULT_AGE_TO: Int? = null
 const val DEFAULT_FOUNDED_USERS_LIMIT: Int = 100
-const val DEFAULT_FOLLOWERS_LIMIT: Int = 150
+const val DEFAULT_FOLLOWERS_MIN_COUNT: Int = 0
+const val DEFAULT_FOLLOWERS_MAX_COUNT: Int = 150
 const val DEFAULT_DAYS_INTERVAL: Int = 3
 
 const val MILLIS_IN_SECOND = 1000

@@ -182,18 +182,19 @@ class NewSearchFragment :
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-        seek_friends_limit.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        seek_friends_max_count.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.onFriendsLimitChanged(progress)
+                viewModel.onFriendsMaxCountChanged(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-        seek_followers_limit.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        seek_followers_max_count.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.onFollowersLimitChanged(progress)
+                viewModel.onFollowersMaxCountChanged(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -229,10 +230,19 @@ class NewSearchFragment :
             val sex = Sex.FEMALE.value
             val withPhoneOnly = check_with_phone_only.isChecked
             val foundedUsersLimit = viewModel.currentFoundedUsersLimit.value
-            val friendsLimit = viewModel.currentFriendsLimit.value
-            val followersLimit = viewModel.currentFollowersLimit.value
+            val friendsMinCount = viewModel.currentFriendsMinCount.value
+            val friendsMaxCount = viewModel.currentFriendsMaxCount.value
+            val followersMinCount = viewModel.currentFollowersMinCount.value
+            val followersMaxCount = viewModel.currentFollowersMaxCount.value
             val daysInterval = viewModel.currentDaysInterval.value
-            if (countryId != null && cityId != null && foundedUsersLimit != null && followersLimit != null && daysInterval != null) {
+            if (
+                countryId != null
+                && cityId != null
+                && foundedUsersLimit != null
+                && followersMinCount != null
+                && followersMaxCount != null
+                && daysInterval != null
+            ) {
                 mainViewModel.onSearchButtonClicked(
                     countryId,
                     cityId,
@@ -242,8 +252,10 @@ class NewSearchFragment :
                     sex,
                     withPhoneOnly,
                     foundedUsersLimit,
-                    friendsLimit,
-                    followersLimit,
+                    friendsMinCount,
+                    friendsMaxCount,
+                    followersMinCount,
+                    followersMaxCount,
                     daysInterval
                 )
                 findNavController().popBackStack(R.id.mainViewPagerFragment, false)
