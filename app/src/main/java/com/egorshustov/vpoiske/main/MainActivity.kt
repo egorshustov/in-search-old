@@ -30,10 +30,8 @@ class MainActivity : DaggerAppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         val navController: NavController = findNavController(R.id.nav_host_fragment)
-        appBarConfiguration =
-            AppBarConfiguration.Builder(R.id.mainViewPagerFragment, R.id.newSearchFragment, R.id.searchListFragment)
-                .setDrawerLayout(drawer_layout)
-                .build()
+        appBarConfiguration = AppBarConfiguration(navController.graph, drawer_layout)
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
 

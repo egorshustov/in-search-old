@@ -52,7 +52,8 @@ class NewSearchViewModel @Inject constructor(
     private val _currentFriendsMaxCount = MutableLiveData<Int?>(defaultFriendsMaxCount)
     val currentFriendsMaxCount: LiveData<Int?> = _currentFriendsMaxCount
 
-    private var defaultFriendsMinCount = 50
+    var defaultFriendsMinCount = 50
+        private set
     private val _currentFriendsMinCount = MutableLiveData<Int?>(defaultFriendsMinCount)
     val currentFriendsMinCount: LiveData<Int?> = _currentFriendsMinCount
 

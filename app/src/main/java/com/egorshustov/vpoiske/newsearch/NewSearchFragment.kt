@@ -172,6 +172,7 @@ class NewSearchFragment :
     }
 
     private fun setSeekBarsListeners() {
+        //todo create custom seekBar with range
         seek_founded_users_limit.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -184,7 +185,11 @@ class NewSearchFragment :
         })
         seek_friends_max_count.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) viewModel.onFriendsMaxCountChanged(progress)
+                if (fromUser) viewModel.onFriendsMaxCountChanged(
+                    seekProgressToDaysFriendsMaxCount(
+                        progress
+                    )
+                )
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -264,6 +269,9 @@ class NewSearchFragment :
     private fun seekProgressToUsersLimit(seekProgress: Int) = (seekProgress + 1) * 10
 
     private fun seekProgressToDaysInterval(seekProgress: Int) = seekProgress + 1
+
+    private fun seekProgressToDaysFriendsMaxCount(seekProgress: Int) =
+        seekProgress + viewModel.defaultFriendsMinCount
 
     private fun observeCountries() {
         viewModel.countries.observe(viewLifecycleOwner, Observer {

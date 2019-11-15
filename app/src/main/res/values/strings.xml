@@ -8,6 +8,20 @@
     <string name="user_list_title">Люди</string>
     <string name="search_log_title">Лог</string>
 
+    <string name="text_search_params">Параметры поиска</string>
+    <string name="text_reset">Сбросить</string>
+    <string name="text_country_and_city">Страна и город</string>
+    <string name="text_age">Возраст</string>
+    <string name="text_relation">Семейное положение</string>
+    <string name="text_with_phone_only">Только с телефоном</string>
+    <string name="text_how_many_users_to_find">Сколько людей найти?</string>
+    <string name="text_was_online">Были в сети в течение дней:</string>
+    <string name="text_limit_friends_count">Ограничить количество друзей</string>
+    <string name="text_limit_followers_count">Ограничить количество подписчиков</string>
+    <string name="text_to">до %s</string>
+    <string name="text_from_to">от %s до %s</string>
+    <string name="text_start_search">Начать поиск</string>
+
     <string-array name="ages_from">
         <item>От любого</item>
         <item>от 14</item>

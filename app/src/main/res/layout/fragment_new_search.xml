@@ -44,7 +44,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Параметры поиска"
+                        android:text="@string/text_search_params"
                         android:textColor="?themeTextColorPrimary"
                         android:textSize="@dimen/text_size_big"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,7 +54,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Сбросить"
+                        android:text="@string/text_reset"
                         android:textColor="?themeColorAccent"
                         android:textSize="@dimen/text_size_medium"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"
-                    android:text="Страна и город"
+                    android:text="@string/text_country_and_city"
                     android:textColor="?themeTextColorSecondary"
                     android:textSize="@dimen/text_size_medium" />
 
@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"
-                    android:text="Возраст"
+                    android:text="@string/text_age"
                     android:textColor="?themeTextColorSecondary"
                     android:textSize="@dimen/text_size_medium" />
 
@@ -123,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"
-                    android:text="Семейное положение"
+                    android:text="@string/text_relation"
                     android:textColor="?themeTextColorSecondary"
                     android:textSize="@dimen/text_size_medium" />
 
@@ -138,7 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"
-                    android:text="Только с телефоном"
+                    android:text="@string/text_with_phone_only"
                     android:textColor="?themeTextColorSecondary"
                     android:textSize="@dimen/text_size_medium" />
 
@@ -151,7 +151,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Сколько людей найти?"
+                        android:text="@string/text_how_many_users_to_find"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium" />
 
@@ -183,7 +183,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Были в сети в течение дней:"
+                        android:text="@string/text_was_online"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium" />
 
@@ -210,14 +210,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <CheckBox
                         android:id="@+id/check_set_friends_limits"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="Ограничить количество друзей"
+                        android:text="@string/text_limit_friends_count"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium" />
 
@@ -225,17 +225,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text=": "
-                        android:textColor="?themeTextColorSecondary"
-                        android:textSize="@dimen/text_size_medium"
-                        android:visibility="@{viewmodel.currentFriendsMaxCount == null ? View.GONE : View.VISIBLE}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/margin_blocks"
-                        android:gravity="center_vertical"
-                        android:text="@{viewmodel.currentFriendsMaxCount.toString()}"
+                        android:text="@{@string/text_from_to(viewmodel.defaultFriendsMinCount, viewmodel.currentFriendsMaxCount.toString())}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"
@@ -256,23 +246,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ограничить количество подписчиков:"
+                        android:text="@string/text_limit_followers_count"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_blocks"
-                        android:text="@{viewmodel.currentFollowersMaxCount.toString()}"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="@{@string/text_from_to(0, viewmodel.currentFollowersMaxCount.toString())}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="@{viewmodel.currentFollowersMaxCount == null ? View.GONE : View.VISIBLE}" />
 
                 </LinearLayout>
 
@@ -290,7 +281,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"
                     android:backgroundTint="?themeColorAccent"
-                    android:text="Начать поиск"
+                    android:text="@string/text_start_search"
                     android:visibility="@{(viewmodel.currentCity != ConstantsKt.DEFAULT_CITY &amp;&amp; viewmodel.currentCountry != ConstantsKt.DEFAULT_COUNTRY) ? View.VISIBLE : View.GONE}" />
 
             </LinearLayout>
