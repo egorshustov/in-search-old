@@ -6,6 +6,7 @@
         <item name="android:textColorPrimary">?themeTextColorPrimary</item>
         <item name="android:textColorSecondary">?themeTextColorSecondary</item>
         <item name="android:textColorTertiary">?themeTextColorTertiary</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -20,6 +21,7 @@
         <item name="themeTextColorPrimary">@color/colorEbonyClay</item>
         <item name="themeTextColorSecondary">@color/colorPoloBlueFirst</item>
         <item name="themeTextColorTertiary">@color/colorEbonyClay</item>
+        <item name="themeSelectedTabTextColor">@color/colorDodgerBlue</item>
     </style>
 
     <style name="AppTheme.NoActionBar.Dark">
@@ -29,6 +31,7 @@
         <item name="themeTextColorPrimary">@color/colorWhite</item>
         <item name="themeTextColorSecondary">@color/colorLightSteelBlue</item>
         <item name="themeTextColorTertiary">@color/colorEbonyClay</item>
+        <item name="themeSelectedTabTextColor">@color/colorWhite</item>
     </style>
 
     <style name="AppTheme.OverlapSystemBar.Light" parent="AppTheme.NoActionBar.Light" />
@@ -38,5 +41,16 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
+
+    <style name="NavigationStyle">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:itemBackground">@color/colorPacificBlue</item>
+        <item name="colorControlHighlight">@android:color/transparent</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/colorLightSteelBlue</item>
+    </style>
 
 </resources>

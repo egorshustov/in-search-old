@@ -10,16 +10,19 @@
             type="com.egorshustov.vpoiske.main.MainViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?themeBackgroundColorSecondary">
 
         <TextView
+            android:id="@+id/text_search_log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/search_log_title"/>
+            android:text="@string/search_log_title"
+            android:textColor="?themeTextColorPrimary"
+            android:textSize="@dimen/text_size_medium" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </ScrollView>
 
 </layout>

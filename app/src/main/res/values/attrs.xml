@@ -6,4 +6,5 @@
     <attr name="themeTextColorPrimary" format="reference" />
     <attr name="themeTextColorSecondary" format="reference" />
     <attr name="themeTextColorTertiary" format="reference" />
+    <attr name="themeSelectedTabTextColor" format="reference" />
 </resources>

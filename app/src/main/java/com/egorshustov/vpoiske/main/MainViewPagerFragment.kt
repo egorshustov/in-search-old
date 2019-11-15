@@ -20,11 +20,11 @@ class MainViewPagerFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val tabLayout = binding.tabs
-        val viewPager = binding.viewPager
+        val tabLayoutMain = binding.tabLayoutMain
+        val viewPagerMain = binding.viewPagerMain
 
-        viewPager.adapter = MainViewPagerAdapter(this)
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+        viewPagerMain.adapter = MainViewPagerAdapter(this)
+        TabLayoutMediator(tabLayoutMain, viewPagerMain) { tab, position ->
             //tab.setIcon(getTabIcon(position))
             tab.text = getTabTitle(position)
         }.attach()
