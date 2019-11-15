@@ -38,6 +38,7 @@ data class UserResponse(
     val relation: Int?,
     val counters: CountersResponse?
 ) {
+    //todo set -1 and "" to constants
     fun toEntity() =
         User(
             id ?: -1,
