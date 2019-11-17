@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="android.view.View" />
+
         <variable
             name="viewmodel"
             type="com.egorshustov.vpoiske.main.MainViewModel" />
@@ -37,6 +40,16 @@
                 app:tabTextColor="?attr/themeTextColorSecondary" />
 
         </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/margin_blocks"
+            android:onClick="@{() -> viewmodel.changeSearchState()}"
+            android:src="@{viewmodel.searchState == viewmodel.SearchState.INACTIVE ? @drawable/ic_add : @drawable/ic_stop}"
+            app:backgroundTint="?themeColorAccent" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
