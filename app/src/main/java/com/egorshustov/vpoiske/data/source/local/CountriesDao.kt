@@ -13,5 +13,5 @@ interface CountriesDao {
     fun getLiveCountries(): LiveData<List<Country>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addCountries(groupList: List<Country>)
+    suspend fun insertCountries(countryList: List<Country>)
 }

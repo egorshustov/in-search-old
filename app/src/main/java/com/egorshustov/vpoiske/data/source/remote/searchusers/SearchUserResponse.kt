@@ -3,11 +3,12 @@ package com.egorshustov.vpoiske.data.source.remote.searchusers
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.data.source.remote.getcities.CityResponse
 import com.egorshustov.vpoiske.data.source.remote.getcountries.CountryResponse
+import com.egorshustov.vpoiske.util.NO_VALUE
 import com.egorshustov.vpoiske.util.Sex
 import com.google.gson.annotations.SerializedName
 
 data class SearchUserResponse(
-    val id: Int?,
+    val id: Long?,
     @SerializedName("first_name")
     val firstName: String?,
     @SerializedName("last_name")
@@ -41,11 +42,12 @@ data class SearchUserResponse(
     @SerializedName("followers_count")
     val followersCount: Int?
 ) {
-    fun hasCorrectPhone() = isMobilePhoneCorrect() || isHomePhoneCorrect()
+    val hasCorrectPhone: Boolean
+        get() = isMobilePhoneCorrect() || isHomePhoneCorrect()
 
     private fun isMobilePhoneCorrect(): Boolean {
         //todo add phone check
-        return true
+        return mobilePhone != null
     }
 
     private fun isHomePhoneCorrect(): Boolean {
@@ -55,41 +57,38 @@ data class SearchUserResponse(
 
     fun toEntity() =
         User(
-            id ?: -1,
+            id ?: NO_VALUE.toLong(),
             firstName ?: "",
             lastName ?: "",
             isClosed ?: false,
             canAccessClosed ?: true,
             sex ?: Sex.ANY.value,
             bDate ?: "",
-            city?.id ?: -1,
+            city?.id ?: NO_VALUE,
             city?.title ?: "",
-            country?.id ?: -1,
+            country?.id ?: NO_VALUE,
             country?.title ?: "",
             photoMax ?: "",
             photoMaxOrig ?: "",
             photoId ?: "",
-            canWritePrivateMessage ?: -1,
-            canSendFriendRequest ?: -1,
-            mobilePhone ?: "",
-            homePhone ?: "",
-            relation ?: -1,
-            -1,
-            -1,
-            -1,
-            -1,
-            -1,
-            -1,
-            -1,
-            -1,
-            -1,
-            -1,
-            -1,
-            followersCount ?: -1,
-            -1,
-            -1,
-            isFavorite = false,
-            inBlacklist = false,
-            searchId = -1
+            canWritePrivateMessage ?: NO_VALUE,
+            canSendFriendRequest ?: NO_VALUE,
+            if (isMobilePhoneCorrect()) mobilePhone ?: "" else "",
+            if (isHomePhoneCorrect()) homePhone ?: "" else "",
+            relation ?: NO_VALUE,
+            NO_VALUE,
+            NO_VALUE,
+            NO_VALUE,
+            NO_VALUE,
+            NO_VALUE,
+            NO_VALUE,
+            NO_VALUE,
+            NO_VALUE,
+            NO_VALUE,
+            NO_VALUE,
+            NO_VALUE,
+            followersCount ?: NO_VALUE,
+            NO_VALUE,
+            NO_VALUE
         )
 }

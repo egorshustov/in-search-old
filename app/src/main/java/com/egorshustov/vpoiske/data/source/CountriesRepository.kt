@@ -30,7 +30,7 @@ class CountriesRepository @Inject constructor(
                 countriesRemoteDataSource.getCountries(needAll, apiVersion, accessToken, count)
             Timber.d(getCountriesResult.toString())
             if (getCountriesResult is Result.Success) {
-                countriesDao.addCountries(getCountriesResult.data.map { it.toEntity() })
+                countriesDao.insertCountries(getCountriesResult.data.map { it.toEntity() })
             }
         }
 

@@ -2,10 +2,7 @@ package com.egorshustov.vpoiske.di
 
 import android.content.Context
 import androidx.room.Room
-import com.egorshustov.vpoiske.data.source.local.CitiesDao
-import com.egorshustov.vpoiske.data.source.local.CountriesDao
-import com.egorshustov.vpoiske.data.source.local.UsersDao
-import com.egorshustov.vpoiske.data.source.local.VPoiskeDatabase
+import com.egorshustov.vpoiske.data.source.local.*
 import com.egorshustov.vpoiske.data.source.remote.*
 import dagger.Module
 import dagger.Provides
@@ -54,6 +51,13 @@ object ApplicationModule {
     @Provides
     fun provideUsersDao(vPoiskeDatabase: VPoiskeDatabase): UsersDao {
         return vPoiskeDatabase.usersDao()
+    }
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideSearchesDao(vPoiskeDatabase: VPoiskeDatabase): SearchesDao {
+        return vPoiskeDatabase.searchesDao()
     }
 
     @JvmStatic

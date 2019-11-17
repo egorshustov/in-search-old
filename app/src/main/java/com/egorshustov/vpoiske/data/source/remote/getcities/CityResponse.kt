@@ -1,6 +1,7 @@
 package com.egorshustov.vpoiske.data.source.remote.getcities
 
 import com.egorshustov.vpoiske.data.City
+import com.egorshustov.vpoiske.util.NO_VALUE
 
 data class CityResponse(
     val id: Int?,
@@ -9,7 +10,7 @@ data class CityResponse(
     val region: String?
 ) {
     fun toEntity() = City(
-        id ?: -1,
+        id ?: NO_VALUE,
         title ?: "",
         area ?: "",
         region ?: ""

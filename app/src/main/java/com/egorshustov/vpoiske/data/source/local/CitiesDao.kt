@@ -13,5 +13,5 @@ interface CitiesDao {
     fun getLiveCities(): LiveData<List<City>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addCities(groupList: List<City>)
+    suspend fun insertCities(cityList: List<City>)
 }

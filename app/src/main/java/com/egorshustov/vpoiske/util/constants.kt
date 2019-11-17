@@ -3,6 +3,8 @@ package com.egorshustov.vpoiske.util
 import com.egorshustov.vpoiske.data.City
 import com.egorshustov.vpoiske.data.Country
 
+const val NO_VALUE = -1
+
 const val DEFAULT_SEARCH_USERS_COUNT = 1000
 const val DEFAULT_GET_COUNTRIES_COUNT = 1000
 const val DEFAULT_GET_CITIES_COUNT = 1000
@@ -27,6 +29,11 @@ const val SECONDS_IN_MINUTE = 60
 const val MINUTES_IN_HOUR = 60
 const val HOURS_IN_DAY = 24
 const val SECONDS_IN_DAY = SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY
+const val MAX_DAYS_IN_MONTH = 31
+const val MONTHS_IN_YEAR = 12
+
+const val ERROR_DELAY_IN_MILLIS: Long = 3000
+const val PAUSE_DELAY_IN_MILLIS: Long = 500
 
 enum class Sex(val value: Int) {
     ANY(0),

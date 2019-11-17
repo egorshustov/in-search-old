@@ -23,7 +23,7 @@ interface UsersRemoteDataSource {
     ): Result<SearchUsersInnerResponse>
 
     suspend fun getUser(
-        userId: Int,
+        userId: Long,
         fields: String,
         apiVersion: String,
         accessToken: String

@@ -14,6 +14,7 @@ import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.CitiesAdapter
 import com.egorshustov.vpoiske.adapters.CountriesAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
+import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.databinding.FragmentNewSearchBinding
 import com.egorshustov.vpoiske.main.MainViewModel
 import com.egorshustov.vpoiske.util.EventObserver
@@ -225,8 +226,11 @@ class NewSearchFragment :
 
     private fun setSearchButtonListener() {
         button_search.setOnClickListener {
-            val countryId = viewModel.currentCountry.value?.id
+            //todo think about write search in DB and pass only it's Id
             val cityId = viewModel.currentCity.value?.id
+            val cityTitle = viewModel.currentCity.value?.title
+            val countryId = viewModel.currentCountry.value?.id
+            val countryTitle = viewModel.currentCountry.value?.title
             val ageFrom = viewModel.currentAgeFrom.value
             val ageTo = viewModel.currentAgeTo.value
             val relation = viewModel.currentRelation.value?.value
@@ -239,27 +243,33 @@ class NewSearchFragment :
             val followersMaxCount = viewModel.currentFollowersMaxCount.value
             val daysInterval = viewModel.currentDaysInterval.value
             if (
-                countryId != null
-                && cityId != null
+                cityId != null
+                && cityTitle != null
+                && countryId != null
+                && countryTitle != null
                 && foundedUsersLimit != null
                 && followersMinCount != null
                 && followersMaxCount != null
                 && daysInterval != null
             ) {
                 mainViewModel.onSearchButtonClicked(
-                    countryId,
-                    cityId,
-                    ageFrom,
-                    ageTo,
-                    relation,
-                    sex,
-                    withPhoneOnly,
-                    foundedUsersLimit,
-                    friendsMinCount,
-                    friendsMaxCount,
-                    followersMinCount,
-                    followersMaxCount,
-                    daysInterval
+                    Search(
+                        cityId,
+                        cityTitle,
+                        countryId,
+                        countryTitle,
+                        ageFrom,
+                        ageTo,
+                        relation,
+                        sex,
+                        withPhoneOnly,
+                        foundedUsersLimit,
+                        friendsMinCount,
+                        friendsMaxCount,
+                        followersMinCount,
+                        followersMaxCount,
+                        daysInterval
+                    )
                 )
                 findNavController().popBackStack(R.id.mainViewPagerFragment, false)
             }

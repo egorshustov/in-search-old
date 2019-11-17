@@ -1,14 +1,19 @@
 package com.egorshustov.vpoiske.data.source
 
+import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.data.source.local.UsersDao
 import com.egorshustov.vpoiske.data.source.remote.UsersRemoteDataSource
 import com.egorshustov.vpoiske.util.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UsersRepository @Inject constructor(
     private val usersDao: UsersDao,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val usersRemoteDataSource: UsersRemoteDataSource
 ) {
     suspend fun searchUsers(
@@ -44,7 +49,7 @@ class UsersRepository @Inject constructor(
     )
 
     suspend fun getUser(
-        userId: Int,
+        userId: Long,
         fields: String = DEFAULT_GET_USER_FIELDS,
         apiVersion: String = DEFAULT_API_VERSION,
         accessToken: String = ACCESS_TOKEN
@@ -54,4 +59,12 @@ class UsersRepository @Inject constructor(
         apiVersion,
         accessToken
     )
+
+    suspend fun insertUser(user: User): Long =
+        withContext(ioDispatcher) { usersDao.insertUser(user) }
+
+    suspend fun insertUsers(userList: List<User>): List<Long> =
+        withContext(ioDispatcher) { usersDao.insertUsers(userList) }
+
+    fun getLiveUsers() = usersDao.getLiveUsers()
 }

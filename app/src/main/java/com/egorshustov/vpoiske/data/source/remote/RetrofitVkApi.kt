@@ -29,7 +29,7 @@ interface RetrofitVkApi {
 
     @GET("users.get")
     suspend fun getUser(
-        @Query("user_ids") userId: Int,
+        @Query("user_ids") userId: Long,
         @Query("fields") fields: String,
         @Query("v") apiVersion: String,
         @Query("access_token") accessToken: String

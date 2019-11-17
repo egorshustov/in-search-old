@@ -3,11 +3,12 @@ package com.egorshustov.vpoiske.data.source.remote.getuser
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.data.source.remote.getcities.CityResponse
 import com.egorshustov.vpoiske.data.source.remote.getcountries.CountryResponse
+import com.egorshustov.vpoiske.util.NO_VALUE
 import com.egorshustov.vpoiske.util.Sex
 import com.google.gson.annotations.SerializedName
 
 data class UserResponse(
-    val id: Int?,
+    val id: Long?,
     @SerializedName("first_name")
     val firstName: String?,
     @SerializedName("last_name")
@@ -38,44 +39,40 @@ data class UserResponse(
     val relation: Int?,
     val counters: CountersResponse?
 ) {
-    //todo set -1 and "" to constants
     fun toEntity() =
         User(
-            id ?: -1,
+            id ?: NO_VALUE.toLong(),
             firstName ?: "",
             lastName ?: "",
             isClosed ?: false,
             canAccessClosed ?: true,
             sex ?: Sex.ANY.value,
             bDate ?: "",
-            city?.id ?: -1,
+            city?.id ?: NO_VALUE,
             city?.title ?: "",
-            country?.id ?: -1,
+            country?.id ?: NO_VALUE,
             country?.title ?: "",
             photoMax ?: "",
             photoMaxOrig ?: "",
             photoId ?: "",
-            canWritePrivateMessage ?: -1,
-            canSendFriendRequest ?: -1,
+            canWritePrivateMessage ?: NO_VALUE,
+            canSendFriendRequest ?: NO_VALUE,
             mobilePhone ?: "",
             homePhone ?: "",
-            relation ?: -1,
-            counters?.albums ?: -1,
-            counters?.videos ?: -1,
-            counters?.audios ?: -1,
-            counters?.photos ?: -1,
-            counters?.notes ?: -1,
-            counters?.gifts ?: -1,
-            counters?.friends ?: -1,
-            counters?.groups ?: -1,
-            counters?.mutualFriends ?: -1,
-            counters?.userPhotos ?: -1,
-            counters?.userVideos ?: -1,
-            counters?.followers ?: -1,
-            counters?.subscriptions ?: -1,
-            counters?.pages ?: -1,
-            isFavorite = false,
-            inBlacklist = false,
-            searchId = -1
+            relation ?: NO_VALUE,
+            counters?.albums ?: NO_VALUE,
+            counters?.videos ?: NO_VALUE,
+            counters?.audios ?: NO_VALUE,
+            counters?.photos ?: NO_VALUE,
+            counters?.notes ?: NO_VALUE,
+            counters?.gifts ?: NO_VALUE,
+            counters?.friends ?: NO_VALUE,
+            counters?.groups ?: NO_VALUE,
+            counters?.mutualFriends ?: NO_VALUE,
+            counters?.userPhotos ?: NO_VALUE,
+            counters?.userVideos ?: NO_VALUE,
+            counters?.followers ?: NO_VALUE,
+            counters?.subscriptions ?: NO_VALUE,
+            counters?.pages ?: NO_VALUE
         )
 }
