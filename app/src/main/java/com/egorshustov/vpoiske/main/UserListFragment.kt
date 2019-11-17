@@ -20,17 +20,21 @@ class UserListFragment : BaseFragment<MainState, MainViewModel, FragmentUserList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListAdapter()
-        viewModel.openUserEvent.observe(this, EventObserver {
-            openUserDetails(it)
-        })
+        observeOpenUserEvent()
     }
 
     private fun setupListAdapter() {
         binding.recyclerUsers.adapter = UsersAdapter(viewModel)
     }
 
+    private fun observeOpenUserEvent() {
+        viewModel.openUserEvent.observe(viewLifecycleOwner, EventObserver {
+            openUserDetails(it)
+        })
+    }
+
     private fun openUserDetails(userId: Long) {
-        /*val action = MainFragmentDirections.actionMainFragmentToUserDetailFragment(userId)
+        /*val action = MainViewPagerFragmentDirections.actionMainViewPagerFragmentToUserDetailFragment(userId)
         findNavController().navigate(action)*/
         val userUrl = "https://vk.com/id$userId"
         val intent = Intent(Intent.ACTION_VIEW).apply {

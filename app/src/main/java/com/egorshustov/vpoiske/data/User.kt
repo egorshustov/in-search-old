@@ -8,7 +8,7 @@ import com.egorshustov.vpoiske.util.NO_VALUE
 @Entity(tableName = "users")
 data class User(
     @PrimaryKey
-    val id: Long,
+    var id: Long,
     @ColumnInfo(name = "first_name")
     val firstName: String,
     @ColumnInfo(name = "last_name")

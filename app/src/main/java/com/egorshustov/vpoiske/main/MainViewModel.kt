@@ -13,9 +13,11 @@ import com.egorshustov.vpoiske.data.source.remote.Result
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUserResponse
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUsersInnerResponse
 import com.egorshustov.vpoiske.util.*
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.Collections.emptyList
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -32,6 +34,9 @@ class MainViewModel @Inject constructor(
     private val _openUserEvent = MutableLiveData<Event<Long>>()
     val openUserEvent: LiveData<Event<Long>> = _openUserEvent
 
+    private val _openNewSearch = MutableLiveData<Event<Unit>>()
+    val openNewSearch: LiveData<Event<Unit>> = _openNewSearch
+
     enum class SearchState {
         INACTIVE,
         IN_PROGRESS
@@ -42,30 +47,32 @@ class MainViewModel @Inject constructor(
     private val _logMessage = MutableLiveData<Event<String>>()
     val logMessage: LiveData<Event<String>> = _logMessage
 
-    //todo add functionality
     @Volatile
     private var foundUsersCount: Int = 0
 
     @Volatile
     private var newSearchId: Long? = null
 
+    @Volatile
+    private var searchJob: Job? = null
+
     init {
         Timber.d("%s init", toString())
     }
 
-    //todo add search stopping, do not forget to change state and observe it
-
-    fun onSearchButtonClicked(search: Search) = viewModelScope.launch {
-        searchState.value = SearchState.IN_PROGRESS
-        search.apply {
-            startUnixSeconds = (System.currentTimeMillis() / MILLIS_IN_SECOND).toInt()
-        }
-        while (true) {
-            val randomDay = (1..MAX_DAYS_IN_MONTH).random()
-            val randomMonth = (1..MONTHS_IN_YEAR).random()
-            addMessageToLog("Поиск людей от $randomDay.$randomMonth")
-            sendSearchUsersRequest(randomDay, randomMonth, search)
-            delay(PAUSE_DELAY_IN_MILLIS)
+    fun onSearchButtonClicked(search: Search) {
+        searchJob = viewModelScope.launch {
+            searchState.value = SearchState.IN_PROGRESS
+            search.apply {
+                startUnixSeconds = (System.currentTimeMillis() / MILLIS_IN_SECOND).toInt()
+            }
+            while (true) {
+                val randomDay = (1..MAX_DAYS_IN_MONTH).random()
+                val randomMonth = (1..MONTHS_IN_YEAR).random()
+                addMessageToLog("Поиск людей от $randomDay.$randomMonth")
+                sendSearchUsersRequest(randomDay, randomMonth, search)
+                delay(PAUSE_DELAY_IN_MILLIS)
+            }
         }
     }
 
@@ -132,9 +139,9 @@ class MainViewModel @Inject constructor(
                 if (newSearchId == null) newSearchId = searchesRepository.insertSearch(search)
                 newSearchId?.let { newSearchId ->
                     userList.apply { forEach { it.searchId = newSearchId } }
-                    //todo check if no users added
-                    val addedUserIdList = usersRepository.insertUsers(userList)
-                    val k = addedUserIdList
+                    val addedUserIdList = usersRepository.insertUsers(emptyList())
+                    foundUsersCount += addedUserIdList.size
+                    if (foundUsersCount >= search.foundedUsersLimit) stopSearch()
                 }
             }
         }
@@ -155,7 +162,8 @@ class MainViewModel @Inject constructor(
                     newSearchId?.let { newSearchId ->
                         val addedUserId =
                             usersRepository.insertUser(user.apply { searchId = newSearchId })
-                        //todo check if no user added (because of it's already exists)
+                        if (addedUserId != NO_VALUE.toLong()) ++foundUsersCount
+                        if (foundUsersCount >= search.foundedUsersLimit) stopSearch()
                     }
                 }
             }
@@ -178,8 +186,18 @@ class MainViewModel @Inject constructor(
         _logMessage.value = Event(message)
     }
 
+    private fun stopSearch() {
+        searchJob?.cancel()
+        searchState.value = SearchState.INACTIVE
+    }
+
     fun openUser(userId: Long) {
         _openUserEvent.value = Event(userId)
+    }
+
+    fun changeSearchState() {
+        if (searchState.value == SearchState.INACTIVE) _openNewSearch.value = Event(Unit)
+        else stopSearch()
     }
 
     override fun onCleared() {

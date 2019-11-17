@@ -2,6 +2,7 @@ package com.egorshustov.vpoiske.main
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -27,20 +28,33 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setTheme(viewModel.state.currentTheme.themeId)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setupNavigation()
+        setChangeThemeListener()
+        observeSearchState()
+    }
 
+    private fun setupNavigation() {
+        setSupportActionBar(findViewById(R.id.toolbar))
         val navController: NavController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration = AppBarConfiguration(navController.graph, drawer_layout)
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
+    }
 
+    private fun setChangeThemeListener() {
         val navChangeTheme = nav_view.menu.findItem(R.id.nav_change_theme)
         navChangeTheme.setOnMenuItemClickListener {
             viewModel.state.currentTheme = viewModel.state.currentTheme.getNext()
             recreate()
             true
         }
+    }
+
+    private fun observeSearchState() {
+        viewModel.searchState.observe(this, Observer {
+            nav_view.menu.findItem(R.id.newSearchFragment).isVisible =
+                it == MainViewModel.SearchState.INACTIVE
+        })
     }
 
     override fun onSupportNavigateUp(): Boolean {
