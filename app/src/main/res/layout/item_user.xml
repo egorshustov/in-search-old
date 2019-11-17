@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools">
 
     <data>
 
@@ -33,7 +34,9 @@
                 android:layout_height="match_parent"
                 android:background="#002d2d2d"
                 android:onClick="@{() -> viewmodel.openUser(user.id)}"
-                android:scaleType="centerCrop" />
+                android:contentDescription="@string/description_user"
+                android:scaleType="centerCrop"
+                app:imageFromUrl="@{user.photoMax}" />
 
         </LinearLayout>
 
