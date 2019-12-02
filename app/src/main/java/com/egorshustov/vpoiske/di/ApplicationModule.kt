@@ -77,13 +77,11 @@ object ApplicationModule {
     @JvmStatic
     @Singleton
     @Provides
-    fun provideDatabase(context: Context): VPoiskeDatabase {
-        return Room.databaseBuilder(
-            context.applicationContext,
-            VPoiskeDatabase::class.java,
-            "VPoiske.db"
-        ).build()
-    }
+    fun provideDatabase(context: Context) = Room.databaseBuilder(
+        context.applicationContext,
+        VPoiskeDatabase::class.java,
+        "VPoiske.db"
+    ).addMigrations(VPoiskeDatabase.MIGRATION_1_2).build()
 
     @JvmStatic
     @Singleton

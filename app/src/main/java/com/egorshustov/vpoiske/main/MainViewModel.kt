@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
     private val users: LiveData<List<User>> = usersRepository.getLiveUsers()
 
     val currentSearchUsers: LiveData<List<User>> = Transformations.map(users) {
-        it.filter { it.searchId == newSearchId }.asReversed()
+        it.filter { it.searchId == newSearchId }
     }
 
     private val _openUserEvent = MutableLiveData<Event<Long>>()
@@ -64,9 +64,9 @@ class MainViewModel @Inject constructor(
             val search = searchesRepository.getSearch(searchId) ?: return@launch
             newSearchId = searchId
             searchState.value = SearchState.IN_PROGRESS
-            (System.currentTimeMillis() / MILLIS_IN_SECOND).toInt().let { startUnixSeconds ->
-                searchesRepository.updateSearchStartUnixSeconds(searchId, startUnixSeconds)
-                search.startUnixSeconds = startUnixSeconds
+            currentUnixSeconds.let {
+                searchesRepository.updateSearchStartUnixSeconds(searchId, it)
+                search.startUnixSeconds = it
             }
             while (true) {
                 val randomDay = (1..MAX_DAYS_IN_MONTH).random()
@@ -138,7 +138,12 @@ class MainViewModel @Inject constructor(
                 }
             } else {
                 val userList = filteredSearchUserResponseList.map { it.toEntity() }
-                    .apply { forEach { it.searchId = search.id } }
+                    .apply {
+                        forEach {
+                            it.searchId = search.id
+                            it.foundUnixMillis = currentUnixMillis
+                        }
+                    }
                 val addedUserIdList = usersRepository.insertUsers(userList)
                 foundUsersCount += addedUserIdList.size
                 if (foundUsersCount >= search.foundUsersLimit) stopSearch()
@@ -158,7 +163,10 @@ class MainViewModel @Inject constructor(
                     user.friends in friendsMinCount..friendsMaxCount
                 if (isFriendsCountAcceptable) {
                     val addedUserId =
-                        usersRepository.insertUser(user.apply { searchId = search.id })
+                        usersRepository.insertUser(user.apply {
+                            searchId = search.id
+                            foundUnixMillis = currentUnixMillis
+                        })
                     if (addedUserId != NO_VALUE.toLong()) ++foundUsersCount
                     if (foundUsersCount >= search.foundUsersLimit) stopSearch()
                 }

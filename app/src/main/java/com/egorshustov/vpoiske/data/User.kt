@@ -69,4 +69,6 @@ data class User(
     var inBlacklist: Boolean = false
     @ColumnInfo(name = "search_id")
     var searchId: Long = NO_VALUE.toLong()
+    @ColumnInfo(name = "found_unix_millis")
+    var foundUnixMillis: Long = NO_VALUE.toLong()
 }

@@ -9,7 +9,7 @@ import com.egorshustov.vpoiske.data.User
 
 @Dao
 interface UsersDao {
-    @Query("select * from users")
+    @Query("select * from users order by found_unix_millis")
     fun getLiveUsers(): LiveData<List<User>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
