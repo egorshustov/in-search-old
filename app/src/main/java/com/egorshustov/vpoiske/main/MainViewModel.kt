@@ -17,7 +17,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.Collections.emptyList
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -60,11 +59,14 @@ class MainViewModel @Inject constructor(
         Timber.d("%s init", toString())
     }
 
-    fun onSearchButtonClicked(search: Search) {
+    fun onSearchButtonClicked(searchId: Long) {
         searchJob = viewModelScope.launch {
+            val search = searchesRepository.getSearch(searchId) ?: return@launch
+            newSearchId = searchId
             searchState.value = SearchState.IN_PROGRESS
-            search.apply {
-                startUnixSeconds = (System.currentTimeMillis() / MILLIS_IN_SECOND).toInt()
+            (System.currentTimeMillis() / MILLIS_IN_SECOND).toInt().let { startUnixSeconds ->
+                searchesRepository.updateSearchStartUnixSeconds(searchId, startUnixSeconds)
+                search.startUnixSeconds = startUnixSeconds
             }
             while (true) {
                 val randomDay = (1..MAX_DAYS_IN_MONTH).random()
@@ -136,13 +138,10 @@ class MainViewModel @Inject constructor(
                 }
             } else {
                 val userList = filteredSearchUserResponseList.map { it.toEntity() }
-                if (newSearchId == null) newSearchId = searchesRepository.insertSearch(search)
-                newSearchId?.let { newSearchId ->
-                    userList.apply { forEach { it.searchId = newSearchId } }
-                    val addedUserIdList = usersRepository.insertUsers(emptyList())
-                    foundUsersCount += addedUserIdList.size
-                    if (foundUsersCount >= search.foundedUsersLimit) stopSearch()
-                }
+                    .apply { forEach { it.searchId = search.id } }
+                val addedUserIdList = usersRepository.insertUsers(userList)
+                foundUsersCount += addedUserIdList.size
+                if (foundUsersCount >= search.foundUsersLimit) stopSearch()
             }
         }
     }
@@ -158,13 +157,10 @@ class MainViewModel @Inject constructor(
                 val isFriendsCountAcceptable =
                     user.friends in friendsMinCount..friendsMaxCount
                 if (isFriendsCountAcceptable) {
-                    if (newSearchId == null) newSearchId = searchesRepository.insertSearch(search)
-                    newSearchId?.let { newSearchId ->
-                        val addedUserId =
-                            usersRepository.insertUser(user.apply { searchId = newSearchId })
-                        if (addedUserId != NO_VALUE.toLong()) ++foundUsersCount
-                        if (foundUsersCount >= search.foundedUsersLimit) stopSearch()
-                    }
+                    val addedUserId =
+                        usersRepository.insertUser(user.apply { searchId = search.id })
+                    if (addedUserId != NO_VALUE.toLong()) ++foundUsersCount
+                    if (foundUsersCount >= search.foundUsersLimit) stopSearch()
                 }
             }
             is Result.Error -> {

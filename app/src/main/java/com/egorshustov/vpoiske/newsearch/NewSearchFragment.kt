@@ -14,12 +14,10 @@ import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.CitiesAdapter
 import com.egorshustov.vpoiske.adapters.CountriesAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
-import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.databinding.FragmentNewSearchBinding
 import com.egorshustov.vpoiske.main.MainViewModel
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.Relation
-import com.egorshustov.vpoiske.util.Sex
 import com.egorshustov.vpoiske.util.extractInt
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_new_search.*
@@ -53,9 +51,10 @@ class NewSearchFragment :
         setSearchButtonListener()
         observeCountries()
         observeCities()
-        observeLiveSnackBarMessage()
+        observeSnackBarMessage()
         observeResetAgeFromCommand()
         observeResetAgeToCommand()
+        observeNewSearchId()
     }
 
     private fun initAdapters() = context?.let {
@@ -224,57 +223,8 @@ class NewSearchFragment :
         }
     }
 
-    private fun setSearchButtonListener() {
-        button_search.setOnClickListener {
-            //todo think about write search in DB and pass only it's Id
-            val cityId = viewModel.currentCity.value?.id
-            val cityTitle = viewModel.currentCity.value?.title
-            val countryId = viewModel.currentCountry.value?.id
-            val countryTitle = viewModel.currentCountry.value?.title
-            val ageFrom = viewModel.currentAgeFrom.value
-            val ageTo = viewModel.currentAgeTo.value
-            val relation = viewModel.currentRelation.value?.value
-            val sex = Sex.FEMALE.value
-            val withPhoneOnly = check_with_phone_only.isChecked
-            val foundedUsersLimit = viewModel.currentFoundedUsersLimit.value
-            val friendsMinCount = viewModel.currentFriendsMinCount.value
-            val friendsMaxCount = viewModel.currentFriendsMaxCount.value
-            val followersMinCount = viewModel.currentFollowersMinCount.value
-            val followersMaxCount = viewModel.currentFollowersMaxCount.value
-            val daysInterval = viewModel.currentDaysInterval.value
-            if (
-                cityId != null
-                && cityTitle != null
-                && countryId != null
-                && countryTitle != null
-                && foundedUsersLimit != null
-                && followersMinCount != null
-                && followersMaxCount != null
-                && daysInterval != null
-            ) {
-                mainViewModel.onSearchButtonClicked(
-                    Search(
-                        cityId,
-                        cityTitle,
-                        countryId,
-                        countryTitle,
-                        ageFrom,
-                        ageTo,
-                        relation,
-                        sex,
-                        withPhoneOnly,
-                        foundedUsersLimit,
-                        friendsMinCount,
-                        friendsMaxCount,
-                        followersMinCount,
-                        followersMaxCount,
-                        daysInterval
-                    )
-                )
-                findNavController().popBackStack(R.id.mainViewPagerFragment, false)
-            }
-        }
-    }
+    private fun setSearchButtonListener() =
+        button_search.setOnClickListener { viewModel.onSearchButtonClicked() }
 
     private fun seekProgressToUsersLimit(seekProgress: Int) = (seekProgress + 1) * 10
 
@@ -313,9 +263,18 @@ class NewSearchFragment :
         })
     }
 
-    private fun observeLiveSnackBarMessage() {
+    private fun observeSnackBarMessage() {
         viewModel.snackBarMessage.observe(viewLifecycleOwner, EventObserver { exception ->
             view?.let { Snackbar.make(it, exception, Snackbar.LENGTH_LONG).show() }
+        })
+    }
+
+    private fun observeNewSearchId() {
+        viewModel.newSearchId.observe(viewLifecycleOwner, EventObserver { newSearchId ->
+            newSearchId?.let {
+                mainViewModel.onSearchButtonClicked(it)
+                findNavController().popBackStack(R.id.mainViewPagerFragment, false)
+            }
         })
     }
 }

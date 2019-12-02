@@ -138,6 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"
+                    android:checked="@{viewmodel.currentWithPhoneOnly}"
                     android:text="@string/text_with_phone_only"
                     android:textColor="?themeTextColorSecondary"
                     android:textSize="@dimen/text_size_medium" />
@@ -159,7 +160,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_blocks"
-                        android:text="@{viewmodel.currentFoundedUsersLimit.toString()}"
+                        android:text="@{viewmodel.currentFoundUsersLimit.toString()}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold" />

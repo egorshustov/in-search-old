@@ -6,8 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.egorshustov.vpoiske.base.BaseViewModel
 import com.egorshustov.vpoiske.data.City
 import com.egorshustov.vpoiske.data.Country
+import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.data.source.CitiesRepository
 import com.egorshustov.vpoiske.data.source.CountriesRepository
+import com.egorshustov.vpoiske.data.source.SearchesRepository
 import com.egorshustov.vpoiske.data.source.remote.Result
 import com.egorshustov.vpoiske.util.*
 import kotlinx.coroutines.launch
@@ -16,7 +18,8 @@ import javax.inject.Inject
 
 class NewSearchViewModel @Inject constructor(
     countriesRepository: CountriesRepository,
-    private val citiesRepository: CitiesRepository
+    private val citiesRepository: CitiesRepository,
+    private val searchesRepository: SearchesRepository
 ) : BaseViewModel<NewSearchState>(NewSearchState()) {
 
     val countries = countriesRepository.getLiveCountries()
@@ -45,8 +48,14 @@ class NewSearchViewModel @Inject constructor(
     private val _currentRelation = MutableLiveData(Relation.NOT_DEFINED)
     val currentRelation: LiveData<Relation> = _currentRelation
 
-    private val _currentFoundedUsersLimit = MutableLiveData(DEFAULT_FOUNDED_USERS_LIMIT)
-    val currentFoundedUsersLimit: LiveData<Int> = _currentFoundedUsersLimit
+    private val _currentSex = MutableLiveData(Sex.FEMALE)
+    val currentSex: LiveData<Sex> = _currentSex
+
+    private val _currentWithPhoneOnly = MutableLiveData(false)
+    val currentWithPhoneOnly: LiveData<Boolean> = _currentWithPhoneOnly
+
+    private val _currentFoundUsersLimit = MutableLiveData(DEFAULT_FOUND_USERS_LIMIT)
+    val currentFoundUsersLimit: LiveData<Int> = _currentFoundUsersLimit
 
     private var defaultFriendsMaxCount = 250
     private val _currentFriendsMaxCount = MutableLiveData<Int?>(defaultFriendsMaxCount)
@@ -68,6 +77,9 @@ class NewSearchViewModel @Inject constructor(
 
     private val _snackBarMessage = MutableLiveData<Event<String>>()
     val snackBarMessage: LiveData<Event<String>> = _snackBarMessage
+
+    private val _newSearchId = MutableLiveData<Event<Long?>>(null)
+    val newSearchId: LiveData<Event<Long?>> = _newSearchId
 
     init {
         Timber.d("%s init", toString())
@@ -120,7 +132,7 @@ class NewSearchViewModel @Inject constructor(
     }
 
     fun onFoundedUsersLimitChanged(usersCount: Int) {
-        _currentFoundedUsersLimit.value = usersCount
+        _currentFoundUsersLimit.value = usersCount
     }
 
     fun onFriendsMaxCountChanged(friendsMaxCount: Int) {
@@ -144,6 +156,57 @@ class NewSearchViewModel @Inject constructor(
     private fun showSnackBarMessage(message: String) {
         Timber.d("showSnackBarMessage: $message")
         _snackBarMessage.value = Event(message)
+    }
+
+    fun onSearchButtonClicked() = viewModelScope.launch {
+        val cityId = currentCity.value?.id
+        val cityTitle = currentCity.value?.title
+        val countryId = currentCountry.value?.id
+        val countryTitle = currentCountry.value?.title
+        val ageFrom = currentAgeFrom.value
+        val ageTo = currentAgeTo.value
+        val relation = currentRelation.value?.value
+        val sex = currentSex.value?.value
+        val withPhoneOnly = currentWithPhoneOnly.value
+        val foundUsersLimit = currentFoundUsersLimit.value
+        val friendsMinCount = currentFriendsMinCount.value
+        val friendsMaxCount = currentFriendsMaxCount.value
+        val followersMinCount = currentFollowersMinCount.value
+        val followersMaxCount = currentFollowersMaxCount.value
+        val daysInterval = currentDaysInterval.value
+        if (
+            cityId != null
+            && cityTitle != null
+            && countryId != null
+            && countryTitle != null
+            && sex != null
+            && withPhoneOnly != null
+            && foundUsersLimit != null
+            && followersMinCount != null
+            && followersMaxCount != null
+            && daysInterval != null
+        ) {
+            val newSearchId = searchesRepository.insertSearch(
+                Search(
+                    cityId,
+                    cityTitle,
+                    countryId,
+                    countryTitle,
+                    ageFrom,
+                    ageTo,
+                    relation,
+                    sex,
+                    withPhoneOnly,
+                    foundUsersLimit,
+                    friendsMinCount,
+                    friendsMaxCount,
+                    followersMinCount,
+                    followersMaxCount,
+                    daysInterval
+                )
+            )
+            _newSearchId.value = Event(newSearchId)
+        }
     }
 
     override fun onCleared() {

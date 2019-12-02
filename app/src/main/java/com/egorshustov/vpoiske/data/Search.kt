@@ -22,8 +22,8 @@ data class Search(
     val sex: Int,
     @ColumnInfo(name = "with_phone_only")
     val withPhoneOnly: Boolean,
-    @ColumnInfo(name = "founded_users_limit")
-    val foundedUsersLimit: Int,
+    @ColumnInfo(name = "found_users_limit")
+    val foundUsersLimit: Int,
     @ColumnInfo(name = "friends_min_count")
     val friendsMinCount: Int?,
     @ColumnInfo(name = "friends_max_count")
