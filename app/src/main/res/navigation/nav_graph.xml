@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
     app:startDestination="@id/mainViewPagerFragment">
 
+    <!--todo add animations-->
     <fragment
         android:id="@+id/mainViewPagerFragment"
         android:name="com.egorshustov.vpoiske.main.MainViewPagerFragment"

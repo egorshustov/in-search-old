@@ -18,15 +18,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="1dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_user_photo"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="false"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="5dp"
+            android:onClick="@{() -> viewmodel.openUser(user.id)}"
+            app:cardCornerRadius="0dp"
+            app:cardPreventCornerOverlap="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -37,12 +34,11 @@
                 android:id="@+id/image_user_photo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/description_user"
-                android:onClick="@{() -> viewmodel.openUser(user.id)}"
+                android:contentDescription="@string/description_user_image"
                 android:scaleType="centerCrop"
-                app:imageFromUrl="@{user.photoMax}" />
+                app:imageFromUrl="@{user.photoMaxOrig}" />
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
