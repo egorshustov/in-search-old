@@ -7,17 +7,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.egorshustov.vpoiske.data.User
 
-@BindingAdapter("app:items")
-fun setItems(listView: RecyclerView, userList: List<User>?) {
-    (listView.adapter as UsersAdapter).submitList(userList)
+@BindingAdapter("app:users")
+fun RecyclerView.setUsers(userList: List<User>?) {
+    (adapter as UsersAdapter).submitList(userList)
 }
 
-@BindingAdapter("imageFromUrl")
-fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
+@BindingAdapter("app:imageFromUrl")
+fun ImageView.bindImageFromUrl(imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
-        Glide.with(view.context)
+        Glide.with(context)
             .load(imageUrl)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .into(view)
+            .into(this)
     }
 }

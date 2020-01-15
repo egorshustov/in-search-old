@@ -9,7 +9,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
 
@@ -41,16 +41,16 @@ ext {
     androidXLegacySupport = '1.0.0'
     androidXCoreVersion = '1.1.0'
     appCompatVersion = '1.1.0'
-    archLifecycleVersion = '2.2.0-rc02'
+    archLifecycleVersion = '2.2.0-rc03'
     cardVersion = '1.0.0'
     constraintVersion = '1.1.3'
     coroutinesVersion = '1.3.0'
     retrofitVersion = '2.6.2'
     daggerVersion = '2.25.2'
-    fragmentKtxVersion = '1.2.0-rc02'
-    materialVersion = '1.2.0-alpha02'
+    fragmentKtxVersion = '1.2.0-rc05'
+    materialVersion = '1.2.0-alpha03'
     recyclerViewVersion = '1.1.0'
-    roomVersion = '2.2.2'
+    roomVersion = '2.2.3'
     timberVersion = '4.7.1'
     junitVersion = '4.12'
     glideVersion = '4.10.0'

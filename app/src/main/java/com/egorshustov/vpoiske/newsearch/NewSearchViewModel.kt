@@ -87,7 +87,7 @@ class NewSearchViewModel @Inject constructor(
             countriesRepository.getCountries()
         }
     }
-
+    //todo pass only id
     fun onCountrySelected(selectedCountry: Country) = viewModelScope.launch {
         if (currentCountry.value != selectedCountry) {
             _currentCountry.value = selectedCountry
@@ -102,7 +102,7 @@ class NewSearchViewModel @Inject constructor(
             }
         }
     }
-
+    //todo pass only id
     fun onCitySelected(selectedCity: City) {
         _currentCity.value = selectedCity
     }

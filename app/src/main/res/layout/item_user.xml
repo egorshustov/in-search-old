@@ -13,32 +13,36 @@
             type="com.egorshustov.vpoiske.main.MainViewModel" />
     </data>
 
-    <androidx.cardview.widget.CardView xmlns:cardview="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_user_photo"
-        android:layout_width="133dp"
-        android:layout_height="133dp"
-        android:layout_margin="1dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        cardview:cardCornerRadius="5dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_user_photo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/image_user_photo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#002d2d2d"
-                android:onClick="@{() -> viewmodel.openUser(user.id)}"
                 android:contentDescription="@string/description_user"
+                android:onClick="@{() -> viewmodel.openUser(user.id)}"
                 android:scaleType="centerCrop"
                 app:imageFromUrl="@{user.photoMax}" />
 
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

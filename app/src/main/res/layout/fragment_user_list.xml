@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -20,9 +21,10 @@
             android:id="@+id/recycler_users"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:items="@{viewmodel.currentSearchUsers}"
+            app:users="@{viewmodel.currentSearchUsers}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3" />
+            app:spanCount="3"
+            tools:listitem="@layout/item_user"/>
 
     </LinearLayout>
 

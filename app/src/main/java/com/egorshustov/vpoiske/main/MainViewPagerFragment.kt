@@ -22,6 +22,7 @@ class MainViewPagerFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //todo use or kotlin ext or databinding (prefer to kotlin ext)
         val tabLayoutMain = binding.tabLayoutMain
         val viewPagerMain = binding.viewPagerMain
 
