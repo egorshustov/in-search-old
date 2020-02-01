@@ -30,31 +30,24 @@ class CitiesAdapter @Inject constructor(
         )
     }
 
-    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-        return bindData(
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup) =
+        bindData(
             getItem(position), createViewFromResource(
                 convertView,
                 parent,
                 R.layout.item_spinner
             )
         )
-    }
 
     private fun createViewFromResource(
         convertView: View?,
         parent: ViewGroup,
         layoutResource: Int
-    ): TextView {
-        return (convertView ?: LayoutInflater.from(parent.context).inflate(
-            layoutResource,
-            parent,
-            false
-        )) as TextView
-    }
+    ) = (convertView ?: LayoutInflater.from(parent.context).inflate(
+        layoutResource,
+        parent,
+        false
+    )) as TextView
 
-    private fun bindData(value: City?, view: TextView): TextView {
-        return view.apply {
-            text = value?.title
-        }
-    }
+    private fun bindData(value: City?, view: TextView) = view.apply { text = value?.title }
 }

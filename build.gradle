@@ -1,8 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlinVersion = '1.3.60'
-    ext.navigationVersion = "2.1.0"
+    ext.kotlinVersion = '1.3.61'
+    ext.navigationVersion = '2.2.0'
     repositories {
         google()
         jcenter()
@@ -41,14 +41,14 @@ ext {
     androidXLegacySupport = '1.0.0'
     androidXCoreVersion = '1.1.0'
     appCompatVersion = '1.1.0'
-    archLifecycleVersion = '2.2.0-rc03'
+    archLifecycleVersion = '2.2.0'
     cardVersion = '1.0.0'
     constraintVersion = '1.1.3'
     coroutinesVersion = '1.3.0'
     retrofitVersion = '2.6.2'
     daggerVersion = '2.25.2'
-    fragmentKtxVersion = '1.2.0-rc05'
-    materialVersion = '1.2.0-alpha03'
+    fragmentKtxVersion = '1.2.0'
+    materialVersion = '1.2.0-alpha04'
     recyclerViewVersion = '1.1.0'
     roomVersion = '2.2.3'
     timberVersion = '4.7.1'

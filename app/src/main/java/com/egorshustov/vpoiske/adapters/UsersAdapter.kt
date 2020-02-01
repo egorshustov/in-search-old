@@ -17,9 +17,7 @@ class UsersAdapter(private val viewModel: MainViewModel) :
         holder.bind(viewModel, item)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder.from(parent)
 
     class ViewHolder private constructor(val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
