@@ -68,7 +68,7 @@ class NewSearchFragment :
     }
 
     private fun setupSpinners() {
-        spinner_countries.adapter = countriesAdapter.apply { setCountries(emptyList()) }
+        spinner_countries.adapter = countriesAdapter
         spinner_cities.apply {
             isEnabled = false
             isClickable = false
@@ -243,9 +243,6 @@ class NewSearchFragment :
 
     private fun observeCities() {
         viewModel.cities.observe(viewLifecycleOwner, Observer {
-            spinner_cities.isEnabled = it.isNotEmpty()
-            spinner_cities.isClickable = it.isNotEmpty()
-            citiesAdapter.setCities(it)
             spinner_cities.setSelection(citiesAdapter.getPosition(viewModel.currentCity.value))
             setupCitiesSpinnerListener()
         })

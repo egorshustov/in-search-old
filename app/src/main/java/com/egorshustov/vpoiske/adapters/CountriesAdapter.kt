@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.data.Country
-import com.egorshustov.vpoiske.util.DEFAULT_COUNTRY
+import com.egorshustov.vpoiske.util.DEFAULT_COUNTRY_TITLE
 import javax.inject.Inject
 
 class CountriesAdapter @Inject constructor(
@@ -19,7 +19,7 @@ class CountriesAdapter @Inject constructor(
 
     fun setCountries(values: List<Country>) {
         clear()
-        add(DEFAULT_COUNTRY)
+        add(DEFAULT_COUNTRY_TITLE)
         addAll(values)
     }
 

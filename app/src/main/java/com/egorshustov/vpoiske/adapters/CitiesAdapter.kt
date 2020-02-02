@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.data.City
-import com.egorshustov.vpoiske.util.DEFAULT_CITY
+import com.egorshustov.vpoiske.util.DEFAULT_CITY_TITLE
 import javax.inject.Inject
 
 class CitiesAdapter @Inject constructor(
@@ -19,7 +19,7 @@ class CitiesAdapter @Inject constructor(
 
     fun setCities(values: List<City>) {
         clear()
-        add(DEFAULT_CITY)
+        add(DEFAULT_CITY_TITLE)
         addAll(values)
     }
 

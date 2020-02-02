@@ -22,15 +22,15 @@ class NewSearchViewModel @Inject constructor(
     private val searchesRepository: SearchesRepository
 ) : BaseViewModel<NewSearchState>(NewSearchState()) {
 
-    val countries = countriesRepository.getLiveCountries()
+    val countries: LiveData<List<Country>> = countriesRepository.getLiveCountries()
 
     private val _cities = MutableLiveData<List<City>>()
     val cities: LiveData<List<City>> = _cities
 
-    private val _currentCountry = MutableLiveData(DEFAULT_COUNTRY)
+    private val _currentCountry = MutableLiveData(DEFAULT_COUNTRY_TITLE)
     val currentCountry: LiveData<Country> = _currentCountry
 
-    private val _currentCity = MutableLiveData(DEFAULT_CITY)
+    private val _currentCity = MutableLiveData(DEFAULT_CITY_TITLE)
     val currentCity: LiveData<City> = _currentCity
 
     private val _currentAgeFrom = MutableLiveData(DEFAULT_AGE_FROM)
@@ -87,12 +87,13 @@ class NewSearchViewModel @Inject constructor(
             countriesRepository.getCountries()
         }
     }
+
     //todo pass only id
     fun onCountrySelected(selectedCountry: Country) = viewModelScope.launch {
         if (currentCountry.value != selectedCountry) {
             _currentCountry.value = selectedCountry
-            _currentCity.value = DEFAULT_CITY
-            if (selectedCountry != DEFAULT_COUNTRY) {
+            _currentCity.value = DEFAULT_CITY_TITLE
+            if (selectedCountry != DEFAULT_COUNTRY_TITLE) {
                 when (val citiesResponse = citiesRepository.getCities(selectedCountry.id)) {
                     is Result.Success -> _cities.value = citiesResponse.data.map { it.toEntity() }
                     is Result.Error -> showSnackBarMessage(citiesResponse.getString())
@@ -102,6 +103,7 @@ class NewSearchViewModel @Inject constructor(
             }
         }
     }
+
     //todo pass only id
     fun onCitySelected(selectedCity: City) {
         _currentCity.value = selectedCity

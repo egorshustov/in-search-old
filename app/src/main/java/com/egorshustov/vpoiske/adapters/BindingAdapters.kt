@@ -1,15 +1,32 @@
 package com.egorshustov.vpoiske.adapters
 
 import android.widget.ImageView
+import android.widget.Spinner
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.egorshustov.vpoiske.data.City
+import com.egorshustov.vpoiske.data.Country
 import com.egorshustov.vpoiske.data.User
 
 @BindingAdapter("app:users")
 fun RecyclerView.setUsers(userList: List<User>?) {
     (adapter as UsersAdapter).submitList(userList)
+}
+
+@BindingAdapter("app:countries")
+fun Spinner.setCountries(countryList: List<Country>?) {
+    countryList ?: return
+    (adapter as? CountriesAdapter)?.setCountries(countryList)
+}
+
+@BindingAdapter("app:cities")
+fun Spinner.setCities(cityList: List<City>?) {
+    cityList ?: return
+    isEnabled = cityList.isNotEmpty()
+    isClickable = cityList.isNotEmpty()
+    (adapter as? CitiesAdapter)?.setCities(cityList)
 }
 
 @BindingAdapter("app:imageFromUrl")

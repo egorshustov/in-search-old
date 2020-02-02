@@ -15,8 +15,8 @@ const val DEFAULT_GET_USER_FIELDS =
     "photo_id,sex,bdate,city,country,counters,photo_max,photo_max_orig, contacts, relation, can_write_private_message, can_send_friend_request"
 const val DEFAULT_API_VERSION = "5.102"
 
-val DEFAULT_COUNTRY = Country(-1, "Страна")
-val DEFAULT_CITY = City(-1, "Город", "", "")
+val DEFAULT_COUNTRY_TITLE = Country(-1, "Страна")
+val DEFAULT_CITY_TITLE = City(-1, "Город", "", "")
 val DEFAULT_AGE_FROM: Int? = null
 val DEFAULT_AGE_TO: Int? = null
 const val DEFAULT_FOUND_USERS_LIMIT: Int = 100
