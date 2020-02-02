@@ -82,14 +82,16 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:countries="@{viewmodel.countries}" />
+                        app:countries="@{viewmodel.countries}"
+                        app:selectedCountry="@={viewmodel.currentCountry}" />
 
                     <Spinner
                         android:id="@+id/spinner_cities"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:cities="@{viewmodel.cities}"/>
+                        app:cities="@{viewmodel.cities}"
+                        app:selectedCity="@={viewmodel.currentCity}" />
 
                 </LinearLayout>
 
@@ -284,7 +286,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"
                     android:text="@string/text_start_search"
-                    android:visibility="@{(viewmodel.currentCity != ConstantsKt.DEFAULT_CITY_TITLE &amp;&amp; viewmodel.currentCountry != ConstantsKt.DEFAULT_COUNTRY_TITLE) ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{(viewmodel.currentCity != ConstantsKt.DEFAULT_CITY_TITLE &amp;&amp; viewmodel.currentCountry.peekContent() != ConstantsKt.DEFAULT_COUNTRY_TITLE) ? View.VISIBLE : View.GONE}"
                     app:backgroundTint="?themeColorAccent" />
 
             </LinearLayout>

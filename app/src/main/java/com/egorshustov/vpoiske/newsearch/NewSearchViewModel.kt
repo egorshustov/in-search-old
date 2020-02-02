@@ -27,11 +27,9 @@ class NewSearchViewModel @Inject constructor(
     private val _cities = MutableLiveData<List<City>>()
     val cities: LiveData<List<City>> = _cities
 
-    private val _currentCountry = MutableLiveData(DEFAULT_COUNTRY_TITLE)
-    val currentCountry: LiveData<Country> = _currentCountry
+    val currentCountry = MutableLiveData(Event(DEFAULT_COUNTRY_TITLE))
 
-    private val _currentCity = MutableLiveData(DEFAULT_CITY_TITLE)
-    val currentCity: LiveData<City> = _currentCity
+    val currentCity = MutableLiveData(DEFAULT_CITY_TITLE)
 
     private val _currentAgeFrom = MutableLiveData(DEFAULT_AGE_FROM)
     val currentAgeFrom: LiveData<Int?> = _currentAgeFrom
@@ -88,25 +86,18 @@ class NewSearchViewModel @Inject constructor(
         }
     }
 
-    //todo pass only id
-    fun onCountrySelected(selectedCountry: Country) = viewModelScope.launch {
-        if (currentCountry.value != selectedCountry) {
-            _currentCountry.value = selectedCountry
-            _currentCity.value = DEFAULT_CITY_TITLE
-            if (selectedCountry != DEFAULT_COUNTRY_TITLE) {
-                when (val citiesResponse = citiesRepository.getCities(selectedCountry.id)) {
-                    is Result.Success -> _cities.value = citiesResponse.data.map { it.toEntity() }
-                    is Result.Error -> showSnackBarMessage(citiesResponse.getString())
-                }
-            } else {
-                _cities.value = emptyList()
-            }
-        }
+    fun onCountrySelected(countryId: Int) {
+        currentCity.value = DEFAULT_CITY_TITLE
+        getCities(countryId)
     }
 
-    //todo pass only id
-    fun onCitySelected(selectedCity: City) {
-        _currentCity.value = selectedCity
+    private fun getCities(countryId: Int) = viewModelScope.launch {
+        if (countryId != DEFAULT_COUNTRY_TITLE.id) {
+            when (val citiesResponse = citiesRepository.getCities(countryId)) {
+                is Result.Success -> _cities.value = citiesResponse.data.map { it.toEntity() }
+                is Result.Error -> showSnackBarMessage(citiesResponse.getString())
+            }
+        }
     }
 
     fun onAgeFromSelected(ageFrom: Int?) {
@@ -163,8 +154,8 @@ class NewSearchViewModel @Inject constructor(
     fun onSearchButtonClicked() = viewModelScope.launch {
         val cityId = currentCity.value?.id
         val cityTitle = currentCity.value?.title
-        val countryId = currentCountry.value?.id
-        val countryTitle = currentCountry.value?.title
+        val countryId = currentCountry.value?.peekContent()?.id
+        val countryTitle = currentCountry.value?.peekContent()?.title
         val ageFrom = currentAgeFrom.value
         val ageTo = currentAgeTo.value
         val relation = currentRelation.value?.value

@@ -17,10 +17,10 @@ class CitiesAdapter @Inject constructor(
     @LayoutRes private val layoutResource: Int
 ) : ArrayAdapter<City>(context, layoutResource) {
 
-    fun setCities(values: List<City>) {
+    fun setCities(values: List<City>?) {
         clear()
         add(DEFAULT_CITY_TITLE)
-        addAll(values)
+        values?.let { addAll(it) }
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

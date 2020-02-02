@@ -17,10 +17,10 @@ class CountriesAdapter @Inject constructor(
     @LayoutRes private val layoutResource: Int
 ) : ArrayAdapter<Country>(context, layoutResource) {
 
-    fun setCountries(values: List<Country>) {
+    fun setCountries(values: List<Country>?) {
         clear()
         add(DEFAULT_COUNTRY_TITLE)
-        addAll(values)
+        values?.let { addAll(it) }
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup) =
