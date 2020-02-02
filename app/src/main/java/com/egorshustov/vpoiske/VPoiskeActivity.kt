@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -35,6 +34,7 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
         setupNavigation()
         setChangeThemeListener()
         customizeNavigationBar()
+        customizeStatusBar()
         observeSearchState()
     }
 
@@ -60,27 +60,22 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
     }
 
     private fun customizeNavigationBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val navigationBarColor = if (viewModel.currentTheme == AppTheme.DARK_THEME) {
-                R.color.colorMidnightExpress
-            } else {
-                customizeStatusBar()
-                R.color.colorAliceBlue
+        if (viewModel.currentTheme == AppTheme.LIGHT_THEME) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                findViewById<View>(android.R.id.content).systemUiVisibility =
+                    findViewById<View>(android.R.id.content).systemUiVisibility or
+                            View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
             }
-            window.navigationBarColor = ContextCompat.getColor(this, navigationBarColor)
         }
     }
 
     private fun customizeStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            findViewById<View>(android.R.id.content).systemUiVisibility =
-                findViewById<View>(android.R.id.content).systemUiVisibility or
-                        View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            findViewById<View>(android.R.id.content).systemUiVisibility =
-                findViewById<View>(android.R.id.content).systemUiVisibility or
-                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (viewModel.currentTheme == AppTheme.LIGHT_THEME) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                findViewById<View>(android.R.id.content).systemUiVisibility =
+                    findViewById<View>(android.R.id.content).systemUiVisibility or
+                            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
         }
     }
 

@@ -15,8 +15,8 @@
     </style>
 
     <style name="VPoiskeTheme.NoActionBar.Light">
-        <item name="themeBackgroundColorPrimary">@color/colorAliceBlue</item>
-        <item name="themeBackgroundColorSecondary">@color/colorSolitudeFirst</item>
+        <item name="themeBackgroundColorPrimary">@color/colorSolitudeFirst</item>
+        <item name="themeBackgroundColorSecondary">@color/colorAliceBlue</item>
         <item name="themeColorAccent">@color/colorDodgerBlue</item>
         <item name="themeTextColorPrimary">@color/colorEbonyClay</item>
         <item name="themeTextColorSecondary">@color/colorPoloBlueFirst</item>

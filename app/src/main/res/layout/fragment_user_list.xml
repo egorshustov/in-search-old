@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/margin_blocks"
+            android:layout_margin="@dimen/margin_fab"
             android:onClick="@{() -> viewmodel.changeSearchState()}"
             android:src="@{viewmodel.searchState == viewmodel.SearchState.INACTIVE ? @drawable/ic_add : @drawable/ic_stop}"
             app:backgroundTint="?themeColorAccent" />

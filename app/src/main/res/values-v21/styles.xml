@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="VPoiskeTheme.NoActionBar.Light">
+        <item name="themeBackgroundColorPrimary">@color/colorSolitudeFirst</item>
+        <item name="themeBackgroundColorSecondary">@color/colorAliceBlue</item>
+        <item name="themeColorAccent">@color/colorDodgerBlue</item>
+        <item name="themeTextColorPrimary">@color/colorEbonyClay</item>
+        <item name="themeTextColorSecondary">@color/colorPoloBlueFirst</item>
+        <item name="themeTextColorTertiary">@color/colorEbonyClay</item>
+        <item name="themeSelectedTabTextColor">@color/colorDodgerBlue</item>
+
+        <item name="android:navigationBarColor">@color/colorSolitudeFirst</item>
+        <item name="android:statusBarColor">@color/colorSolitudeFirst</item>
+    </style>
+
+    <style name="VPoiskeTheme.NoActionBar.Dark">
+        <item name="themeBackgroundColorPrimary">@color/colorMidnightExpress</item>
+        <item name="themeBackgroundColorSecondary">@color/colorRegalBlue</item>
+        <item name="themeColorAccent">@color/colorDodgerBlue</item>
+        <item name="themeTextColorPrimary">@color/colorWhite</item>
+        <item name="themeTextColorSecondary">@color/colorLightSteelBlue</item>
+        <item name="themeTextColorTertiary">@color/colorEbonyClay</item>
+        <item name="themeSelectedTabTextColor">@color/colorWhite</item>
+
+        <item name="android:navigationBarColor">@color/colorMidnightExpress</item>
+        <item name="android:statusBarColor">@color/colorMidnightExpress</item>
+    </style>
+</resources>
