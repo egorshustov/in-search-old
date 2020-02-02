@@ -1,5 +1,5 @@
 <resources>
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="VPoiskeTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">?themeBackgroundColorPrimary</item>
         <item name="colorPrimaryDark">?themeBackgroundColorSecondary</item>
         <item name="colorAccent">?themeColorAccent</item>
@@ -9,12 +9,12 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="VPoiskeTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.Light">
+    <style name="VPoiskeTheme.NoActionBar.Light">
         <item name="themeBackgroundColorPrimary">@color/colorAliceBlue</item>
         <item name="themeBackgroundColorSecondary">@color/colorSolitudeFirst</item>
         <item name="themeColorAccent">@color/colorDodgerBlue</item>
@@ -24,7 +24,7 @@
         <item name="themeSelectedTabTextColor">@color/colorDodgerBlue</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.Dark">
+    <style name="VPoiskeTheme.NoActionBar.Dark">
         <item name="themeBackgroundColorPrimary">@color/colorMidnightExpress</item>
         <item name="themeBackgroundColorSecondary">@color/colorRegalBlue</item>
         <item name="themeColorAccent">@color/colorDodgerBlue</item>
@@ -34,9 +34,9 @@
         <item name="themeSelectedTabTextColor">@color/colorWhite</item>
     </style>
 
-    <style name="AppTheme.OverlapSystemBar.Light" parent="AppTheme.NoActionBar.Light" />
+    <style name="AppTheme.OverlapSystemBar.Light" parent="VPoiskeTheme.NoActionBar.Light" />
 
-    <style name="AppTheme.OverlapSystemBar.Dark" parent="AppTheme.NoActionBar.Dark" />
+    <style name="AppTheme.OverlapSystemBar.Dark" parent="VPoiskeTheme.NoActionBar.Dark" />
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 

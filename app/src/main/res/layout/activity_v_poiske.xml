@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/layout_app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
@@ -24,9 +25,9 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:titleTextColor="?themeTextColorPrimary"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="@style/AppTheme.AppBarOverlay"/>
+                android:theme="@style/AppTheme.AppBarOverlay"
+                app:titleTextColor="?themeTextColorPrimary" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -36,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph" />
+            app:navGraph="@navigation/v_poiske_graph" />
 
     </LinearLayout>
 
@@ -45,13 +46,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         android:background="?themeBackgroundColorPrimary"
-        app:headerLayout="@layout/nav_header"
+        android:fitsSystemWindows="true"
         android:theme="@style/NavigationStyle"
+        app:headerLayout="@layout/nav_header"
+        app:itemIconPadding="5dp"
         app:itemIconTint="@drawable/drawer_item_color"
         app:itemTextColor="@drawable/drawer_item_color"
-        app:itemIconPadding="5dp"
         app:menu="@menu/drawer_actions" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
