@@ -4,7 +4,9 @@
     android:layout_height="@dimen/spinner_item_height"
     android:background="?themeBackgroundColorSecondary"
     android:ellipsize="marquee"
+    android:gravity="center_vertical"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
     android:singleLine="true"
     android:textAlignment="inherit"
-    android:textColor="?themeTextColorPrimary"
-    android:gravity="center_vertical"/>
+    android:textColor="?themeTextColorPrimary" />

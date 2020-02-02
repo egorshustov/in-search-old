@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@id/mainViewPagerFragment"
+        android:id="@id/userListFragment"
         android:icon="@drawable/ic_list"
         android:title="@string/main_title" />
     <item
@@ -13,8 +13,7 @@
         android:icon="@drawable/ic_history"
         android:title="@string/search_list_title" />
 
-    <group
-        android:id="@+id/menu_change_theme">
+    <group android:id="@+id/menu_change_theme">
         <item
             android:id="@+id/nav_change_theme"
             android:icon="@drawable/ic_sun"

@@ -1,10 +1,6 @@
-package com.egorshustov.vpoiske.main
+package com.egorshustov.vpoiske.userlist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.viewModelScope
-import com.egorshustov.vpoiske.base.BaseViewModel
+import androidx.lifecycle.*
 import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.data.source.SearchesRepository
@@ -19,10 +15,13 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class UserListViewModel @Inject constructor(
     private val usersRepository: UsersRepository,
     private val searchesRepository: SearchesRepository
-) : BaseViewModel<MainState>(MainState()) {
+) : ViewModel() {
+
+    var currentTheme = AppTheme.DARK_THEME
+        private set
 
     private val users: LiveData<List<User>> = usersRepository.getLiveUsers()
 
@@ -43,9 +42,6 @@ class MainViewModel @Inject constructor(
 
     val searchState = MutableLiveData<SearchState>(SearchState.INACTIVE)
 
-    private val _logMessage = MutableLiveData<Event<String>>()
-    val logMessage: LiveData<Event<String>> = _logMessage
-
     @Volatile
     private var foundUsersCount: Int = 0
 
@@ -57,6 +53,10 @@ class MainViewModel @Inject constructor(
 
     init {
         Timber.d("%s init", toString())
+    }
+
+    fun onNavChangeThemeClicked() {
+        currentTheme = currentTheme.getNext()
     }
 
     fun onSearchButtonClicked(searchId: Long) {
@@ -71,7 +71,7 @@ class MainViewModel @Inject constructor(
             while (true) {
                 val randomDay = (1..MAX_DAYS_IN_MONTH).random()
                 val randomMonth = (1..MONTHS_IN_YEAR).random()
-                addMessageToLog("Поиск людей от $randomDay.$randomMonth")
+                Timber.d("Поиск людей от $randomDay.$randomMonth")
                 sendSearchUsersRequest(randomDay, randomMonth, search)
                 delay(PAUSE_DELAY_IN_MILLIS)
             }
@@ -94,10 +94,10 @@ class MainViewModel @Inject constructor(
                 val searchUsersInnerResponse =
                     searchUsersResult.data as SearchUsersInnerResponse
                 val count = searchUsersInnerResponse.count
-                addMessageToLog("Людей всего: $count")
+                Timber.d("Людей всего: $count")
                 //todo if count > 1000 split request
                 val searchUserResponseList = searchUsersInnerResponse.searchUserResponseList
-                addMessageToLog("Людей получено: ${searchUserResponseList?.size}")
+                Timber.d("Людей получено: ${searchUserResponseList?.size}")
                 if (!searchUserResponseList.isNullOrEmpty()) {
                     handleSearchUsersSuccess(searchUserResponseList, search)
                 }
@@ -125,7 +125,7 @@ class MainViewModel @Inject constructor(
                 val phoneCheckPassed = if (withPhoneOnly) it.hasCorrectPhone else true
                 isNotClosed && isFollowersCountAcceptable && isInDaysInterval && phoneCheckPassed
             }
-            addMessageToLog("Людей отфильтровано: ${filteredSearchUserResponseList.size}")
+            Timber.d("Людей отфильтровано: ${filteredSearchUserResponseList.size}")
             if (filteredSearchUserResponseList.isNullOrEmpty()) return
 
             if (friendsMinCount != null && friendsMaxCount != null) {
@@ -183,11 +183,6 @@ class MainViewModel @Inject constructor(
     private fun handleError(exception: Exception) {
         //todo change method functionality
         Timber.d("exception: $exception")
-        addMessageToLog("Ошибка запроса: $exception")
-    }
-
-    private fun addMessageToLog(message: String) {
-        _logMessage.value = Event(message)
     }
 
     private fun stopSearch() {

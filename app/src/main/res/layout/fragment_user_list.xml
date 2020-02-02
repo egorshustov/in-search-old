@@ -9,13 +9,14 @@
 
         <variable
             name="viewmodel"
-            type="com.egorshustov.vpoiske.main.MainViewModel" />
+            type="com.egorshustov.vpoiske.userlist.UserListViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?themeBackgroundColorSecondary">
+        android:background="?themeBackgroundColorSecondary"
+        android:fitsSystemWindows="true">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_users"
@@ -24,6 +25,16 @@
             app:users="@{viewmodel.currentSearchUsers}"
             tools:listitem="@layout/item_user" />
 
-    </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/margin_blocks"
+            android:onClick="@{() -> viewmodel.changeSearchState()}"
+            android:src="@{viewmodel.searchState == viewmodel.SearchState.INACTIVE ? @drawable/ic_add : @drawable/ic_stop}"
+            app:backgroundTint="?themeColorAccent" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

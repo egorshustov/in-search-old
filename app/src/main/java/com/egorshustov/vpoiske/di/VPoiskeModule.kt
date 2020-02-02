@@ -1,12 +1,11 @@
 package com.egorshustov.vpoiske.di
 
-import com.egorshustov.vpoiske.main.SearchLogFragment
+import com.egorshustov.vpoiske.VPoiskeActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class SearchLogModule {
-
+abstract class VPoiskeModule {
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
-    internal abstract fun searchLogFragment(): SearchLogFragment
+    abstract fun contributeMainActivity(): VPoiskeActivity
 }

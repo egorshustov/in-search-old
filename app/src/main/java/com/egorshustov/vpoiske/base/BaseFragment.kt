@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.egorshustov.vpoiske.BR
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-abstract class BaseFragment<State : BaseState, ViewModel : BaseViewModel<State>, Binding : ViewDataBinding> :
+abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
     DaggerFragment() {
 
     @LayoutRes
@@ -31,10 +32,11 @@ abstract class BaseFragment<State : BaseState, ViewModel : BaseViewModel<State>,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return DataBindingUtil.inflate<Binding>(inflater, getLayoutResId(), container, false).apply {
-            lifecycleOwner = viewLifecycleOwner
-            setVariable(BR.viewmodel, viewModel)
-            binding = this
-        }.root
+        return DataBindingUtil.inflate<Binding>(inflater, getLayoutResId(), container, false)
+            .apply {
+                lifecycleOwner = viewLifecycleOwner
+                setVariable(BR.viewmodel, viewModel)
+                binding = this
+            }.root
     }
 }

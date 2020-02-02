@@ -1,11 +1,11 @@
 package com.egorshustov.vpoiske.searchlist
 
-import com.egorshustov.vpoiske.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
 class SearchListViewModel @Inject constructor(
-) : BaseViewModel<SearchListState>(SearchListState()) {
+) : ViewModel() {
     init {
         Timber.d("%s init", toString())
     }

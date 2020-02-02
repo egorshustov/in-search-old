@@ -13,9 +13,8 @@ import javax.inject.Singleton
     modules = [
         ApplicationModule::class,
         AndroidInjectionModule::class,
-        MainModule::class,
+        VPoiskeModule::class,
         UserListModule::class,
-        SearchLogModule::class,
         NewSearchModule::class,
         SearchListModule::class
     ]

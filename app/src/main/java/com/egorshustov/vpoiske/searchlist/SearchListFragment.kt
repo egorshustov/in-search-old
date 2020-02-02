@@ -6,7 +6,7 @@ import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentSearchListBinding
 
 class SearchListFragment :
-    BaseFragment<SearchListState, SearchListViewModel, FragmentSearchListBinding>() {
+    BaseFragment<SearchListViewModel, FragmentSearchListBinding>() {
 
     override fun getLayoutResId(): Int = R.layout.fragment_search_list
 

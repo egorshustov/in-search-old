@@ -1,13 +1,11 @@
 <resources>
     <string name="app_name">ВПоиске</string>
     <string name="navigation_view_header_title">Поиски</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="main_title">Последний поиск</string>
     <string name="new_search_title">Новый поиск</string>
     <string name="search_list_title">История поисков</string>
     <string name="change_theme_title">Сменить тему</string>
     <string name="user_list_title">Люди</string>
-    <string name="search_log_title">Лог</string>
 
     <string name="text_search_params">Параметры поиска</string>
     <string name="text_reset">Сбросить</string>

@@ -2,8 +2,8 @@ package com.egorshustov.vpoiske.newsearch
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.egorshustov.vpoiske.base.BaseViewModel
 import com.egorshustov.vpoiske.data.City
 import com.egorshustov.vpoiske.data.Country
 import com.egorshustov.vpoiske.data.Search
@@ -20,7 +20,7 @@ class NewSearchViewModel @Inject constructor(
     countriesRepository: CountriesRepository,
     private val citiesRepository: CitiesRepository,
     private val searchesRepository: SearchesRepository
-) : BaseViewModel<NewSearchState>(NewSearchState()) {
+) : ViewModel() {
 
     val countries: LiveData<List<Country>> = countriesRepository.getLiveCountries()
 

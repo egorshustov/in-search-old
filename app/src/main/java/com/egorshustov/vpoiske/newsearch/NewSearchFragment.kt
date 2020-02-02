@@ -13,7 +13,7 @@ import com.egorshustov.vpoiske.adapters.CitiesAdapter
 import com.egorshustov.vpoiske.adapters.CountriesAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentNewSearchBinding
-import com.egorshustov.vpoiske.main.MainViewModel
+import com.egorshustov.vpoiske.userlist.UserListViewModel
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.Relation
 import com.egorshustov.vpoiske.util.extractInt
@@ -21,11 +21,11 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_new_search.*
 
 class NewSearchFragment :
-    BaseFragment<NewSearchState, NewSearchViewModel, FragmentNewSearchBinding>() {
+    BaseFragment<NewSearchViewModel, FragmentNewSearchBinding>() {
 
     override fun getLayoutResId(): Int = R.layout.fragment_new_search
     override val viewModel by viewModels<NewSearchViewModel> { viewModelFactory }
-    private val mainViewModel by activityViewModels<MainViewModel> { viewModelFactory }
+    private val mainViewModel by activityViewModels<UserListViewModel> { viewModelFactory }
 
     private lateinit var relationAdapter: ArrayAdapter<Relation>
 
@@ -208,7 +208,7 @@ class NewSearchFragment :
         viewModel.newSearchId.observe(viewLifecycleOwner, EventObserver { newSearchId ->
             newSearchId?.let {
                 mainViewModel.onSearchButtonClicked(it)
-                findNavController().popBackStack(R.id.mainViewPagerFragment, false)
+                findNavController().popBackStack(R.id.userListFragment, false)
             }
         })
     }

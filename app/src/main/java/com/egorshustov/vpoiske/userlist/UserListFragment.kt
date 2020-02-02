@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.main
+package com.egorshustov.vpoiske.userlist
 
 import android.content.Intent
 import android.net.Uri
@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.egorshustov.vpoiske.R
@@ -16,11 +17,12 @@ import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentUserListBinding
 import com.egorshustov.vpoiske.util.EventObserver
 
-class UserListFragment : BaseFragment<MainState, MainViewModel, FragmentUserListBinding>() {
+class UserListFragment : BaseFragment<UserListViewModel, FragmentUserListBinding>() {
 
+    //todo use or kotlin ext or databinding
     override fun getLayoutResId(): Int = R.layout.fragment_user_list
 
-    override val viewModel by activityViewModels<MainViewModel> { viewModelFactory }
+    override val viewModel by activityViewModels<UserListViewModel> { viewModelFactory }
 
     private lateinit var gridLayoutManager: GridLayoutManager
     private var spanCount = DEFAULT_SPAN_COUNT
@@ -30,6 +32,7 @@ class UserListFragment : BaseFragment<MainState, MainViewModel, FragmentUserList
         setHasOptionsMenu(true)
         setupListAdapter()
         observeOpenUserEvent()
+        observeOpenNewSearch()
     }
 
     private fun setupListAdapter() {
@@ -47,8 +50,16 @@ class UserListFragment : BaseFragment<MainState, MainViewModel, FragmentUserList
         })
     }
 
+    private fun observeOpenNewSearch() {
+        viewModel.openNewSearch.observe(viewLifecycleOwner, EventObserver {
+            val action =
+                UserListFragmentDirections.actionUserListFragmentToNewSearchFragment()
+            findNavController().navigate(action)
+        })
+    }
+
     private fun openUserDetails(userId: Long) {
-        /*val action = MainViewPagerFragmentDirections.actionMainViewPagerFragmentToUserDetailFragment(userId)
+        /*val action = UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(userId)
         findNavController().navigate(action)*/
         val userUrl = "https://vk.com/id$userId"
         val intent = Intent(Intent.ACTION_VIEW).apply {
