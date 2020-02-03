@@ -15,7 +15,7 @@
         android:theme="@style/VPoiskeTheme">
 
         <activity android:name=".VPoiskeActivity"
-            android:theme="@style/AppTheme.OverlapSystemBar.Dark">
+            android:theme="@style/VPoiskeTheme.NoActionBar.Dark">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

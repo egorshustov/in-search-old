@@ -14,7 +14,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.egorshustov.vpoiske.search.SearchState
 import com.egorshustov.vpoiske.search.SearchViewModel
 import com.egorshustov.vpoiske.util.VPoiskeTheme
-import com.google.android.material.appbar.AppBarLayout
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_v_poiske.*
 import javax.inject.Inject
@@ -45,10 +44,6 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph, drawer_layout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            findViewById<AppBarLayout>(R.id.layout_app_bar).fitsSystemWindows =
-                destination.id == R.id.searchFragment
-        }
     }
 
     private fun setChangeThemeListener() {

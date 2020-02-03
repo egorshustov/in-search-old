@@ -76,7 +76,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
         when (item.itemId) {
             R.id.item_change_view -> {
                 gridLayoutManager.apply {
-                    spanCount = (spanCount % MAX_SPAN_COUNT).inc()
+                    spanCount = if (spanCount.dec() == 0) MAX_SPAN_COUNT else spanCount.dec()
                     this@SearchFragment.spanCount = spanCount
                 }
                 true
@@ -85,7 +85,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
         }
 
     companion object {
-        private const val DEFAULT_SPAN_COUNT = 2
+        private const val DEFAULT_SPAN_COUNT = 3
         private const val MAX_SPAN_COUNT = 3
     }
 }

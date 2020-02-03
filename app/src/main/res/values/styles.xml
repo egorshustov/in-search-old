@@ -1,4 +1,5 @@
 <resources>
+
     <style name="VPoiskeTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">?themeBackgroundColorPrimary</item>
         <item name="colorPrimaryDark">?themeBackgroundColorSecondary</item>
@@ -7,6 +8,8 @@
         <item name="android:textColorSecondary">?themeTextColorSecondary</item>
         <item name="android:textColorTertiary">?themeTextColorTertiary</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
     <style name="VPoiskeTheme.NoActionBar">
@@ -33,14 +36,6 @@
         <item name="themeTextColorTertiary">@color/colorEbonyClay</item>
         <item name="themeSelectedTabTextColor">@color/colorWhite</item>
     </style>
-
-    <style name="AppTheme.OverlapSystemBar.Light" parent="VPoiskeTheme.NoActionBar.Light" />
-
-    <style name="AppTheme.OverlapSystemBar.Dark" parent="VPoiskeTheme.NoActionBar.Dark" />
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
 
     <style name="NavigationStyle">
         <item name="android:textSize">@dimen/text_size_medium</item>

@@ -1,29 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="VPoiskeTheme.NoActionBar.Light">
-        <item name="themeBackgroundColorPrimary">@color/colorSolitudeFirst</item>
-        <item name="themeBackgroundColorSecondary">@color/colorAliceBlue</item>
-        <item name="themeColorAccent">@color/colorDodgerBlue</item>
-        <item name="themeTextColorPrimary">@color/colorEbonyClay</item>
-        <item name="themeTextColorSecondary">@color/colorPoloBlueFirst</item>
-        <item name="themeTextColorTertiary">@color/colorEbonyClay</item>
-        <item name="themeSelectedTabTextColor">@color/colorDodgerBlue</item>
+    <style name="VPoiskeTheme" parent="Theme.MaterialComponents.Light">
+        <item name="colorPrimary">?themeBackgroundColorPrimary</item>
+        <item name="colorPrimaryDark">?themeBackgroundColorSecondary</item>
+        <item name="colorAccent">?themeColorAccent</item>
+        <item name="android:textColorPrimary">?themeTextColorPrimary</item>
+        <item name="android:textColorSecondary">?themeTextColorSecondary</item>
+        <item name="android:textColorTertiary">?themeTextColorTertiary</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:fitsSystemWindows">true</item>
 
-        <item name="android:navigationBarColor">@color/colorSolitudeFirst</item>
-        <item name="android:statusBarColor">@color/colorSolitudeFirst</item>
-    </style>
-
-    <style name="VPoiskeTheme.NoActionBar.Dark">
-        <item name="themeBackgroundColorPrimary">@color/colorMidnightExpress</item>
-        <item name="themeBackgroundColorSecondary">@color/colorRegalBlue</item>
-        <item name="themeColorAccent">@color/colorDodgerBlue</item>
-        <item name="themeTextColorPrimary">@color/colorWhite</item>
-        <item name="themeTextColorSecondary">@color/colorLightSteelBlue</item>
-        <item name="themeTextColorTertiary">@color/colorEbonyClay</item>
-        <item name="themeSelectedTabTextColor">@color/colorWhite</item>
-
-        <item name="android:navigationBarColor">@color/colorMidnightExpress</item>
-        <item name="android:statusBarColor">@color/colorMidnightExpress</item>
+        <item name="android:navigationBarColor">?themeBackgroundColorPrimary</item>
+        <item name="android:statusBarColor">?themeBackgroundColorPrimary</item>
     </style>
 </resources>
