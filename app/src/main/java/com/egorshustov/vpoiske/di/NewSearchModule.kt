@@ -1,8 +1,8 @@
 package com.egorshustov.vpoiske.di
 
 import androidx.lifecycle.ViewModel
-import com.egorshustov.vpoiske.newsearch.NewSearchFragment
-import com.egorshustov.vpoiske.newsearch.NewSearchViewModel
+import com.egorshustov.vpoiske.searchparams.SearchParamsFragment
+import com.egorshustov.vpoiske.searchparams.SearchParamsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -12,10 +12,10 @@ import dagger.multibindings.IntoMap
 abstract class NewSearchModule {
 
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
-    internal abstract fun newSearchFragment(): NewSearchFragment
+    internal abstract fun newSearchFragment(): SearchParamsFragment
 
     @Binds
     @IntoMap
-    @ViewModelKey(NewSearchViewModel::class)
-    abstract fun bindViewModel(viewmodel: NewSearchViewModel): ViewModel
+    @ViewModelKey(SearchParamsViewModel::class)
+    abstract fun bindViewModel(viewmodel: SearchParamsViewModel): ViewModel
 }

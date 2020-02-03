@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.userlist
+package com.egorshustov.vpoiske.search
 
 import android.content.Intent
 import android.net.Uri
@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.UsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
-import com.egorshustov.vpoiske.databinding.FragmentUserListBinding
+import com.egorshustov.vpoiske.databinding.FragmentSearchBinding
 import com.egorshustov.vpoiske.util.EventObserver
 
-class UserListFragment : BaseFragment<UserListViewModel, FragmentUserListBinding>() {
+class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
 
-    //todo use or kotlin ext or databinding
-    override fun getLayoutResId(): Int = R.layout.fragment_user_list
+    //todo use or kotlin ext or data binding
+    override fun getLayoutResId(): Int = R.layout.fragment_search
 
-    override val viewModel by activityViewModels<UserListViewModel> { viewModelFactory }
+    override val viewModel by activityViewModels<SearchViewModel> { viewModelFactory }
 
     private lateinit var gridLayoutManager: GridLayoutManager
     private var spanCount = DEFAULT_SPAN_COUNT
@@ -53,13 +53,13 @@ class UserListFragment : BaseFragment<UserListViewModel, FragmentUserListBinding
     private fun observeOpenNewSearch() {
         viewModel.openNewSearch.observe(viewLifecycleOwner, EventObserver {
             val action =
-                UserListFragmentDirections.actionUserListFragmentToNewSearchFragment()
+                SearchFragmentDirections.actionSearchFragmentToSearchParamsFragment()
             findNavController().navigate(action)
         })
     }
 
     private fun openUserDetails(userId: Long) {
-        /*val action = UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(userId)
+        /*val action = SearchFragmentDirections.actionSearchFragmentToUserDetailFragment(userId)
         findNavController().navigate(action)*/
         val userUrl = "https://vk.com/id$userId"
         val intent = Intent(Intent.ACTION_VIEW).apply {
@@ -69,7 +69,7 @@ class UserListFragment : BaseFragment<UserListViewModel, FragmentUserListBinding
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.user_list_fragment_menu, menu)
+        inflater.inflate(R.menu.search_fragment_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
@@ -77,7 +77,7 @@ class UserListFragment : BaseFragment<UserListViewModel, FragmentUserListBinding
             R.id.item_change_view -> {
                 gridLayoutManager.apply {
                     spanCount = (spanCount % MAX_SPAN_COUNT).inc()
-                    this@UserListFragment.spanCount = spanCount
+                    this@SearchFragment.spanCount = spanCount
                 }
                 true
             }

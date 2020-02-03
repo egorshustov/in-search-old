@@ -3,11 +3,11 @@ package com.egorshustov.vpoiske.util
 import androidx.annotation.StyleRes
 import com.egorshustov.vpoiske.R
 
-enum class AppTheme(@StyleRes val themeId: Int) {
+enum class VPoiskeTheme(@StyleRes val themeId: Int) {
     LIGHT_THEME(R.style.AppTheme_OverlapSystemBar_Light),
     DARK_THEME(R.style.AppTheme_OverlapSystemBar_Dark);
 
-    fun getNext(): AppTheme {
+    fun getNext(): VPoiskeTheme {
         return values()[((ordinal + 1) % values().size)]
     }
 }

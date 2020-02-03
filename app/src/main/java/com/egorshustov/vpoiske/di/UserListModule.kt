@@ -1,8 +1,8 @@
 package com.egorshustov.vpoiske.di
 
 import androidx.lifecycle.ViewModel
-import com.egorshustov.vpoiske.userlist.UserListFragment
-import com.egorshustov.vpoiske.userlist.UserListViewModel
+import com.egorshustov.vpoiske.search.SearchFragment
+import com.egorshustov.vpoiske.search.SearchViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -12,10 +12,10 @@ import dagger.multibindings.IntoMap
 abstract class UserListModule {
 
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
-    internal abstract fun userListFragment(): UserListFragment
+    internal abstract fun userListFragment(): SearchFragment
 
     @Binds
     @IntoMap
-    @ViewModelKey(UserListViewModel::class)
-    abstract fun bindViewModel(viewmodel: UserListViewModel): ViewModel
+    @ViewModelKey(SearchViewModel::class)
+    abstract fun bindViewModel(viewmodel: SearchViewModel): ViewModel
 }

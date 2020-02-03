@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.userlist
+package com.egorshustov.vpoiske.search
 
 import androidx.lifecycle.*
 import com.egorshustov.vpoiske.data.Search
@@ -15,12 +15,12 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class UserListViewModel @Inject constructor(
+class SearchViewModel @Inject constructor(
     private val usersRepository: UsersRepository,
     private val searchesRepository: SearchesRepository
 ) : ViewModel() {
 
-    var currentTheme = AppTheme.DARK_THEME
+    var currentTheme = VPoiskeTheme.DARK_THEME
         private set
 
     private val users: LiveData<List<User>> = usersRepository.getLiveUsers()
@@ -35,20 +35,12 @@ class UserListViewModel @Inject constructor(
     private val _openNewSearch = MutableLiveData<Event<Unit>>()
     val openNewSearch: LiveData<Event<Unit>> = _openNewSearch
 
-    enum class SearchState {
-        INACTIVE,
-        IN_PROGRESS
-    }
-
     val searchState = MutableLiveData<SearchState>(SearchState.INACTIVE)
 
-    @Volatile
     private var foundUsersCount: Int = 0
 
-    @Volatile
     private var newSearchId: Long? = null
 
-    @Volatile
     private var searchJob: Job? = null
 
     init {
@@ -86,7 +78,11 @@ class UserListViewModel @Inject constructor(
             search.ageTo,
             birthDay,
             birthMonth,
-            if (search.friendsMinCount == null && search.friendsMaxCount == null) SEARCH_USERS_FRIENDS_LIMIT_NOT_SET_FIELDS else SEARCH_USERS_FRIENDS_LIMIT_SET_FIELDS,
+            if (search.friendsMinCount == null && search.friendsMaxCount == null) {
+                SEARCH_USERS_FRIENDS_LIMIT_NOT_SET_FIELDS
+            } else {
+                SEARCH_USERS_FRIENDS_LIMIT_SET_FIELDS
+            },
             search.relation,
             search.sex
         )) {

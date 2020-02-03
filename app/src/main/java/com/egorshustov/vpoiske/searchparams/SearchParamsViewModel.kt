@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.newsearch
+package com.egorshustov.vpoiske.searchparams
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class NewSearchViewModel @Inject constructor(
+class SearchParamsViewModel @Inject constructor(
     countriesRepository: CountriesRepository,
     private val citiesRepository: CitiesRepository,
     private val searchesRepository: SearchesRepository
@@ -73,8 +73,8 @@ class NewSearchViewModel @Inject constructor(
     private val _currentDaysInterval = MutableLiveData(DEFAULT_DAYS_INTERVAL)
     val currentDaysInterval: LiveData<Int> = _currentDaysInterval
 
-    private val _snackBarMessage = MutableLiveData<Event<String>>()
-    val snackBarMessage: LiveData<Event<String>> = _snackBarMessage
+    private val _message = MutableLiveData<Event<String>>()
+    val message: LiveData<Event<String>> = _message
 
     private val _newSearchId = MutableLiveData<Event<Long?>>(null)
     val newSearchId: LiveData<Event<Long?>> = _newSearchId
@@ -95,7 +95,7 @@ class NewSearchViewModel @Inject constructor(
         if (countryId != DEFAULT_COUNTRY_TITLE.id) {
             when (val citiesResponse = citiesRepository.getCities(countryId)) {
                 is Result.Success -> _cities.value = citiesResponse.data.map { it.toEntity() }
-                is Result.Error -> showSnackBarMessage(citiesResponse.getString())
+                is Result.Error -> showMessage(citiesResponse.getString())
             }
         }
     }
@@ -146,9 +146,9 @@ class NewSearchViewModel @Inject constructor(
         _currentDaysInterval.value = daysInterval
     }
 
-    private fun showSnackBarMessage(message: String) {
-        Timber.d("showSnackBarMessage: $message")
-        _snackBarMessage.value = Event(message)
+    private fun showMessage(message: String) {
+        Timber.d("showMessage: $message")
+        _message.value = Event(message)
     }
 
     fun onSearchButtonClicked() = viewModelScope.launch {

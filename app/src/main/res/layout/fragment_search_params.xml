@@ -10,7 +10,7 @@
 
         <variable
             name="viewmodel"
-            type="com.egorshustov.vpoiske.newsearch.NewSearchViewModel" />
+            type="com.egorshustov.vpoiske.searchparams.SearchParamsViewModel" />
     </data>
 
     <ScrollView

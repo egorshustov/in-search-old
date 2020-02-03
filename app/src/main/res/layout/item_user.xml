@@ -10,7 +10,7 @@
 
         <variable
             name="viewmodel"
-            type="com.egorshustov.vpoiske.userlist.UserListViewModel" />
+            type="com.egorshustov.vpoiske.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

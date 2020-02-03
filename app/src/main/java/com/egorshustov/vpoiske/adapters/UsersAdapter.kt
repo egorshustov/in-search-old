@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.databinding.ItemUserBinding
-import com.egorshustov.vpoiske.userlist.UserListViewModel
+import com.egorshustov.vpoiske.search.SearchViewModel
 
-class UsersAdapter(private val viewModel: UserListViewModel) :
+class UsersAdapter(private val viewModel: SearchViewModel) :
     ListAdapter<User, UsersAdapter.ViewHolder>(UserDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -22,7 +22,7 @@ class UsersAdapter(private val viewModel: UserListViewModel) :
     class ViewHolder private constructor(val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: UserListViewModel, item: User) {
+        fun bind(viewModel: SearchViewModel, item: User) {
             binding.viewmodel = viewModel
             binding.user = item
             binding.executePendingBindings()

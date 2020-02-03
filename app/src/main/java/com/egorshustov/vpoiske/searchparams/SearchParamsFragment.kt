@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.newsearch
+package com.egorshustov.vpoiske.searchparams
 
 import android.os.Bundle
 import android.view.View
@@ -12,20 +12,19 @@ import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.CitiesAdapter
 import com.egorshustov.vpoiske.adapters.CountriesAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
-import com.egorshustov.vpoiske.databinding.FragmentNewSearchBinding
-import com.egorshustov.vpoiske.userlist.UserListViewModel
+import com.egorshustov.vpoiske.databinding.FragmentSearchParamsBinding
+import com.egorshustov.vpoiske.search.SearchViewModel
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.Relation
 import com.egorshustov.vpoiske.util.extractInt
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_new_search.*
+import com.egorshustov.vpoiske.util.snackBar
+import kotlinx.android.synthetic.main.fragment_search_params.*
 
-class NewSearchFragment :
-    BaseFragment<NewSearchViewModel, FragmentNewSearchBinding>() {
+class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchParamsBinding>() {
 
-    override fun getLayoutResId(): Int = R.layout.fragment_new_search
-    override val viewModel by viewModels<NewSearchViewModel> { viewModelFactory }
-    private val mainViewModel by activityViewModels<UserListViewModel> { viewModelFactory }
+    override fun getLayoutResId(): Int = R.layout.fragment_search_params
+    override val viewModel by viewModels<SearchParamsViewModel> { viewModelFactory }
+    private val mainViewModel by activityViewModels<SearchViewModel> { viewModelFactory }
 
     private lateinit var relationAdapter: ArrayAdapter<Relation>
 
@@ -39,7 +38,7 @@ class NewSearchFragment :
         setCheckBoxListener()
         setSearchButtonListener()
         observeSelectedCountry()
-        observeSnackBarMessage()
+        observeMessage()
         observeResetAgeFromCommand()
         observeResetAgeToCommand()
         observeNewSearchId()
@@ -198,9 +197,9 @@ class NewSearchFragment :
         })
     }
 
-    private fun observeSnackBarMessage() {
-        viewModel.snackBarMessage.observe(viewLifecycleOwner, EventObserver { exception ->
-            view?.let { Snackbar.make(it, exception, Snackbar.LENGTH_LONG).show() }
+    private fun observeMessage() {
+        viewModel.message.observe(viewLifecycleOwner, EventObserver {
+            view?.snackBar(it)
         })
     }
 
@@ -208,7 +207,7 @@ class NewSearchFragment :
         viewModel.newSearchId.observe(viewLifecycleOwner, EventObserver { newSearchId ->
             newSearchId?.let {
                 mainViewModel.onSearchButtonClicked(it)
-                findNavController().popBackStack(R.id.userListFragment, false)
+                findNavController().popBackStack(R.id.searchFragment, false)
             }
         })
     }

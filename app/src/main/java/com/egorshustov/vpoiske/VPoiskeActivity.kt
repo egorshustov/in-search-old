@@ -11,8 +11,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.egorshustov.vpoiske.userlist.UserListViewModel
-import com.egorshustov.vpoiske.util.AppTheme
+import com.egorshustov.vpoiske.search.SearchState
+import com.egorshustov.vpoiske.search.SearchViewModel
+import com.egorshustov.vpoiske.util.VPoiskeTheme
 import com.google.android.material.appbar.AppBarLayout
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_v_poiske.*
@@ -23,7 +24,7 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<UserListViewModel> { viewModelFactory }
+    private val viewModel by viewModels<SearchViewModel> { viewModelFactory }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -46,7 +47,7 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
         nav_view.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             findViewById<AppBarLayout>(R.id.layout_app_bar).fitsSystemWindows =
-                destination.id == R.id.userListFragment
+                destination.id == R.id.searchFragment
         }
     }
 
@@ -60,7 +61,7 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
     }
 
     private fun customizeNavigationBar() {
-        if (viewModel.currentTheme == AppTheme.LIGHT_THEME) {
+        if (viewModel.currentTheme == VPoiskeTheme.LIGHT_THEME) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 findViewById<View>(android.R.id.content).systemUiVisibility =
                     findViewById<View>(android.R.id.content).systemUiVisibility or
@@ -70,7 +71,7 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
     }
 
     private fun customizeStatusBar() {
-        if (viewModel.currentTheme == AppTheme.LIGHT_THEME) {
+        if (viewModel.currentTheme == VPoiskeTheme.LIGHT_THEME) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 findViewById<View>(android.R.id.content).systemUiVisibility =
                     findViewById<View>(android.R.id.content).systemUiVisibility or
@@ -81,8 +82,7 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
 
     private fun observeSearchState() {
         viewModel.searchState.observe(this, Observer {
-            nav_view.menu.findItem(R.id.newSearchFragment).isVisible =
-                it == UserListViewModel.SearchState.INACTIVE
+            nav_view.menu.findItem(R.id.searchParamsFragment).isVisible = it == SearchState.INACTIVE
         })
     }
 
