@@ -34,6 +34,7 @@
                 android:id="@+id/image_user_photo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="?themeUserPhotoBackgroundColor"
                 android:contentDescription="@string/description_user_image"
                 android:scaleType="centerCrop"
                 app:imageFromUrl="@{user.photoMaxOrig}" />

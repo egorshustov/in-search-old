@@ -15,7 +15,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?themeBackgroundColorSecondary"
+        android:background="?themeBackgroundColorPrimary"
         android:fitsSystemWindows="true">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -33,7 +33,8 @@
             android:layout_margin="@dimen/margin_fab"
             android:onClick="@{() -> viewmodel.changeSearchState()}"
             android:src="@{viewmodel.searchState == viewmodel.SearchState.INACTIVE ? @drawable/ic_add : @drawable/ic_stop}"
-            app:backgroundTint="?themeColorAccent" />
+            app:backgroundTint="?themeColorAccent"
+            app:tint="?themeFabIconTintColor" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

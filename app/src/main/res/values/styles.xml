@@ -6,7 +6,7 @@
         <item name="colorAccent">?themeColorAccent</item>
         <item name="android:textColorPrimary">?themeTextColorPrimary</item>
         <item name="android:textColorSecondary">?themeTextColorSecondary</item>
-        <item name="android:textColorTertiary">?themeTextColorTertiary</item>
+        <item name="actionMenuTextColor">?themeToolbarTextColor</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:fitsSystemWindows">true</item>
@@ -18,34 +18,43 @@
     </style>
 
     <style name="VPoiskeTheme.NoActionBar.Light">
-        <item name="themeBackgroundColorPrimary">@color/colorSolitudeFirst</item>
-        <item name="themeBackgroundColorSecondary">@color/colorAliceBlue</item>
-        <item name="themeColorAccent">@color/colorDodgerBlue</item>
-        <item name="themeTextColorPrimary">@color/colorEbonyClay</item>
-        <item name="themeTextColorSecondary">@color/colorPoloBlueFirst</item>
-        <item name="themeTextColorTertiary">@color/colorEbonyClay</item>
-        <item name="themeSelectedTabTextColor">@color/colorDodgerBlue</item>
+        <item name="themeBackgroundColorPrimary">@android:color/white</item>
+        <item name="themeBackgroundColorSecondary">@color/colorHavelockBlue</item>
+        <item name="themeColorAccent">@color/colorDenim</item>
+        <item name="themeTextColorPrimary">@android:color/black</item>
+        <item name="themeTextColorSecondary">@color/colorStormGrey</item>
+        <item name="themeContainedButtonTextColor">@android:color/white</item>
+        <item name="themeNavigationBarColor">@color/colorSolitude</item>
+        <item name="themeStatusBarColor">@color/colorHavelockBlue</item>
+        <item name="themeToolbarTextColor">@android:color/white</item>
+        <item name="themeFabIconTintColor">@android:color/white</item>
+        <item name="themeUserPhotoBackgroundColor">@color/colorSolitude</item>
+        <item name="themeSeparatorBackgroundColor">@color/colorGainsboro</item>
     </style>
 
     <style name="VPoiskeTheme.NoActionBar.Dark">
-        <item name="themeBackgroundColorPrimary">@color/colorMidnightExpress</item>
-        <item name="themeBackgroundColorSecondary">@color/colorRegalBlue</item>
-        <item name="themeColorAccent">@color/colorDodgerBlue</item>
-        <item name="themeTextColorPrimary">@color/colorWhite</item>
-        <item name="themeTextColorSecondary">@color/colorLightSteelBlue</item>
-        <item name="themeTextColorTertiary">@color/colorEbonyClay</item>
-        <item name="themeSelectedTabTextColor">@color/colorWhite</item>
+        <item name="themeBackgroundColorPrimary">@color/colorNero</item>
+        <item name="themeBackgroundColorSecondary">@color/colorEbony</item>
+        <item name="themeColorAccent">@android:color/white</item>
+        <item name="themeTextColorPrimary">@color/colorHawkesBlue</item>
+        <item name="themeTextColorSecondary">@color/colorManatee</item>
+        <item name="themeContainedButtonTextColor">@color/colorNero</item>
+        <item name="themeNavigationBarColor">@color/colorCodGray</item>
+        <item name="themeStatusBarColor">@color/colorEbony</item>
+        <item name="themeToolbarTextColor">@color/colorHawkesBlue</item>
+        <item name="themeFabIconTintColor">@color/colorCodGray</item>
+        <item name="themeUserPhotoBackgroundColor">@color/colorNightRider</item>
+        <item name="themeSeparatorBackgroundColor">@color/colorEclipse</item>
     </style>
 
     <style name="NavigationStyle">
         <item name="android:textSize">@dimen/text_size_medium</item>
-        <item name="android:itemBackground">@color/colorPacificBlue</item>
         <item name="colorControlHighlight">@android:color/transparent</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
-        <item name="color">@color/colorLightSteelBlue</item>
+        <item name="color">?themeToolbarTextColor</item>
     </style>
 
 </resources>

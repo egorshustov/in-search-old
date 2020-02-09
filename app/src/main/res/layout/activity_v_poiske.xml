@@ -16,7 +16,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:elevation="0dp">
+            android:background="?themeBackgroundColorSecondary">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -25,7 +25,7 @@
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
-                app:titleTextColor="?themeTextColorPrimary" />
+                app:titleTextColor="?themeToolbarTextColor" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

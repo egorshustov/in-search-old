@@ -34,7 +34,6 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
         setupNavigation()
         setChangeThemeListener()
         customizeNavigationBar()
-        customizeStatusBar()
         observeSearchState()
     }
 
@@ -61,16 +60,6 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
                 findViewById<View>(android.R.id.content).systemUiVisibility =
                     findViewById<View>(android.R.id.content).systemUiVisibility or
                             View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-            }
-        }
-    }
-
-    private fun customizeStatusBar() {
-        if (viewModel.currentTheme == VPoiskeTheme.LIGHT_THEME) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                findViewById<View>(android.R.id.content).systemUiVisibility =
-                    findViewById<View>(android.R.id.content).systemUiVisibility or
-                            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
         }
     }

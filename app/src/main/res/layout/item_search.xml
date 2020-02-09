@@ -8,5 +8,85 @@
         android:layout_height="wrap_content"
         android:layout_margin="1dp">
 
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/image_user_first"
+                    android:layout_width="@dimen/item_search_user_image_size"
+                    android:layout_height="@dimen/item_search_user_image_size"
+                    android:contentDescription="@string/description_user_image" />
+
+                <ImageView
+                    android:id="@+id/image_user_second"
+                    android:layout_width="@dimen/item_search_user_image_size"
+                    android:layout_height="@dimen/item_search_user_image_size"
+                    android:contentDescription="@string/description_user_image" />
+
+                <ImageView
+                    android:id="@+id/image_user_third"
+                    android:layout_width="@dimen/item_search_user_image_size"
+                    android:layout_height="@dimen/item_search_user_image_size"
+                    android:contentDescription="@string/description_user_image" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/image_user_fourth"
+                    android:layout_width="@dimen/item_search_user_image_size"
+                    android:layout_height="@dimen/item_search_user_image_size"
+                    android:contentDescription="@string/description_user_image" />
+
+                <ImageView
+                    android:id="@+id/image_user_fifth"
+                    android:layout_width="@dimen/item_search_user_image_size"
+                    android:layout_height="@dimen/item_search_user_image_size"
+                    android:contentDescription="@string/description_user_image" />
+
+                <ImageView
+                    android:id="@+id/image_user_sixth"
+                    android:layout_width="@dimen/item_search_user_image_size"
+                    android:layout_height="@dimen/item_search_user_image_size"
+                    android:contentDescription="@string/description_user_image" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/image_user_seventh"
+                    android:layout_width="@dimen/item_search_user_image_size"
+                    android:layout_height="@dimen/item_search_user_image_size"
+                    android:contentDescription="@string/description_user_image" />
+
+                <ImageView
+                    android:id="@+id/image_user_eight"
+                    android:layout_width="@dimen/item_search_user_image_size"
+                    android:layout_height="@dimen/item_search_user_image_size"
+                    android:contentDescription="@string/description_user_image" />
+
+                <ImageView
+                    android:id="@+id/image_user_ninth"
+                    android:layout_width="@dimen/item_search_user_image_size"
+                    android:layout_height="@dimen/item_search_user_image_size"
+                    android:contentDescription="@string/description_user_image" />
+
+            </TableRow>
+
+        </TableLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

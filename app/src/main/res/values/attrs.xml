@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="themeBackgroundColorPrimary" format="reference" />
-    <attr name="themeBackgroundColorSecondary" format="reference" />
-    <attr name="themeColorAccent" format="reference" />
-    <attr name="themeTextColorPrimary" format="reference" />
-    <attr name="themeTextColorSecondary" format="reference" />
-    <attr name="themeTextColorTertiary" format="reference" />
-    <attr name="themeSelectedTabTextColor" format="reference" />
+    <attr name="themeBackgroundColorPrimary" format="color" />
+    <attr name="themeBackgroundColorSecondary" format="color" />
+    <attr name="themeColorAccent" format="color" />
+    <attr name="themeTextColorPrimary" format="color" />
+    <attr name="themeTextColorSecondary" format="color" />
+    <attr name="themeContainedButtonTextColor" format="color" />
+    <attr name="themeNavigationBarColor" format="color" />
+    <attr name="themeStatusBarColor" format="color" />
+    <attr name="themeToolbarTextColor" format="color" />
+    <attr name="themeFabIconTintColor" format="color" />
+    <attr name="themeUserPhotoBackgroundColor" format="color" />
+    <attr name="themeSeparatorBackgroundColor" format="color" />
 </resources>
