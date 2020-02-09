@@ -1,17 +1,15 @@
 package com.egorshustov.vpoiske.searchlist
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import timber.log.Timber
+import com.egorshustov.vpoiske.data.SearchWithUsers
+import com.egorshustov.vpoiske.data.source.SearchesRepository
 import javax.inject.Inject
 
 class SearchListViewModel @Inject constructor(
+    private val searchesRepository: SearchesRepository
 ) : ViewModel() {
-    init {
-        Timber.d("%s init", toString())
-    }
-
-    override fun onCleared() {
-        Timber.d("%s cleared", toString())
-        super.onCleared()
-    }
+    //todo filter searches with transformations to show only searches with users
+    val searchesWithUsers: LiveData<List<SearchWithUsers>> =
+        searchesRepository.getLiveSearchesWithUsers()
 }

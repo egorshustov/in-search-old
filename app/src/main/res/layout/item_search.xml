@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="1dp">
+        android:layout_margin="1dp"
+        android:background="?themeBackgroundColorPrimary"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
         <TableLayout
+            android:id="@+id/layout_users_photos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="?themeUserPhotoBackgroundColor">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -88,5 +89,80 @@
             </TableRow>
 
         </TableLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/text_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?themeTextColorPrimary"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold"
+                tools:text="Поиск от 11.02.2020, 21:00" />
+
+            <TextView
+                android:id="@+id/text_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?themeTextColorSecondary"
+                android:textSize="@dimen/text_size_small"
+                tools:text="Россия, Санкт-Петербург" />
+
+            <TextView
+                android:id="@+id/text_age_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?themeTextColorSecondary"
+                android:textSize="@dimen/text_size_small"
+                tools:text="Возраст: от 20 до 30" />
+
+            <TextView
+                android:id="@+id/text_friends_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?themeTextColorSecondary"
+                android:textSize="@dimen/text_size_small"
+                tools:text="Количество друзей: любое" />
+
+            <TextView
+                android:id="@+id/text_followers_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?themeTextColorSecondary"
+                android:textSize="@dimen/text_size_small"
+                tools:text="Количество подписчиков: от 0 до 150" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 </layout>

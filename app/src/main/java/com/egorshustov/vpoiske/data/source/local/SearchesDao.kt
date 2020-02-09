@@ -4,12 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import com.egorshustov.vpoiske.data.Search
+import com.egorshustov.vpoiske.data.SearchWithUsers
 
 @Dao
 interface SearchesDao {
-    @Query("select * from searches")
-    fun getLiveSearches(): LiveData<List<Search>>
+
+    @Transaction
+    @Query("select * from searches order by start_unix_seconds desc")
+    fun getLiveSearchesWithUsers(): LiveData<List<SearchWithUsers>>
 
     @Insert
     suspend fun insertSearch(search: Search): Long
