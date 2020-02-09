@@ -10,9 +10,9 @@ const val DEFAULT_GET_COUNTRIES_COUNT = 1000
 const val DEFAULT_GET_CITIES_COUNT = 1000
 const val SEARCH_USERS_FRIENDS_LIMIT_SET_FIELDS = "last_seen,contacts,followers_count"
 const val SEARCH_USERS_FRIENDS_LIMIT_NOT_SET_FIELDS =
-    "last_seen,contacts,followers_count,photo_id,sex,bdate,city,country,photo_max,photo_max_orig, contacts, relation, can_write_private_message, can_send_friend_request"
+    "last_seen,contacts,followers_count,photo_id,sex,bdate,city,country,photo_50,photo_max,photo_max_orig,contacts,relation,can_write_private_message,can_send_friend_request"
 const val DEFAULT_GET_USER_FIELDS =
-    "photo_id,sex,bdate,city,country,counters,photo_max,photo_max_orig, contacts, relation, can_write_private_message, can_send_friend_request"
+    "photo_id,sex,bdate,city,country,counters,photo_50,photo_max,photo_max_orig,contacts,relation,can_write_private_message,can_send_friend_request"
 const val DEFAULT_API_VERSION = "5.102"
 
 val DEFAULT_COUNTRY_TITLE = Country(-1, "Страна")

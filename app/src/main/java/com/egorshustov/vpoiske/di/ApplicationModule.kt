@@ -81,7 +81,7 @@ object ApplicationModule {
         context.applicationContext,
         VPoiskeDatabase::class.java,
         "VPoiske.db"
-    ).addMigrations(VPoiskeDatabase.MIGRATION_1_2).build()
+    ).addMigrations(VPoiskeDatabase.MIGRATION_1_2, VPoiskeDatabase.MIGRATION_2_3).build()
 
     @JvmStatic
     @Singleton

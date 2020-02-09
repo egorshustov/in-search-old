@@ -22,6 +22,8 @@ data class SearchUserResponse(
     val bDate: String?,
     val city: CityResponse?,
     val country: CountryResponse?,
+    @SerializedName("photo_50")
+    val photo50: String?,
     @SerializedName("photo_max")
     val photoMax: String?,
     @SerializedName("photo_max_orig")
@@ -68,6 +70,7 @@ data class SearchUserResponse(
             city?.title ?: "",
             country?.id ?: NO_VALUE,
             country?.title ?: "",
+            photo50 ?: "",
             photoMax ?: "",
             photoMaxOrig ?: "",
             photoId ?: "",
