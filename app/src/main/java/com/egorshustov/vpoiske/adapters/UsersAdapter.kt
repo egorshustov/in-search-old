@@ -22,10 +22,10 @@ class UsersAdapter(private val viewModel: SearchViewModel) :
     class ViewHolder private constructor(val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: SearchViewModel, item: User) {
-            binding.viewmodel = viewModel
-            binding.user = item
-            binding.executePendingBindings()
+        fun bind(viewModel: SearchViewModel, item: User) = with(binding) {
+            viewmodel = viewModel
+            user = item
+            executePendingBindings()
         }
 
         companion object {

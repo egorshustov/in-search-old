@@ -22,5 +22,5 @@ class SearchesRepository @Inject constructor(
     suspend fun updateSearchStartUnixSeconds(id: Long, startUnixSeconds: Int) =
         withContext(ioDispatcher) { searchesDao.updateSearchStartUnixSeconds(id, startUnixSeconds) }
 
-    fun getLiveSearchesWithUsers() = searchesDao.getLiveSearchesWithUsers()
+    fun getSearchesWithUsers() = searchesDao.getSearchesWithUsers()
 }

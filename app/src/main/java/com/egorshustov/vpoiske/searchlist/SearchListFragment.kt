@@ -3,8 +3,8 @@ package com.egorshustov.vpoiske.searchlist
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.egorshustov.vpoiske.R
+import com.egorshustov.vpoiske.adapters.SearchWithUsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentSearchListBinding
 
@@ -17,12 +17,10 @@ class SearchListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeMessage()
+        setupSearchWithUsersAdapter()
     }
 
-    private fun observeMessage() {
-        viewModel.searchesWithUsers.observe(viewLifecycleOwner, Observer {
-            val searchesWithUsers = it
-        })
+    private fun setupSearchWithUsersAdapter() {
+        binding.recyclerSearches.adapter = SearchWithUsersAdapter(viewModel)
     }
 }

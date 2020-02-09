@@ -1,6 +1,6 @@
 package com.egorshustov.vpoiske.data.source.local
 
-import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -13,7 +13,7 @@ interface SearchesDao {
 
     @Transaction
     @Query("select * from searches order by start_unix_seconds desc")
-    fun getLiveSearchesWithUsers(): LiveData<List<SearchWithUsers>>
+    fun getSearchesWithUsers(): DataSource.Factory<Int, SearchWithUsers>
 
     @Insert
     suspend fun insertSearch(search: Search): Long

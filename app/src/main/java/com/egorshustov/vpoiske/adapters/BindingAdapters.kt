@@ -8,12 +8,14 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.databinding.adapters.ListenerUtil
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.data.City
 import com.egorshustov.vpoiske.data.Country
+import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.util.Event
 
@@ -84,6 +86,11 @@ fun Spinner.setSelectedCityListener(attrChange: InverseBindingListener) {
         ListenerUtil.trackListener(this, newOnItemSelectedListener, R.id.onCitySelectedListener)
     if (oldOnItemSelectedListener != null) onItemSelectedListener = null
     onItemSelectedListener = newOnItemSelectedListener
+}
+
+@BindingAdapter("app:searchesWithUsers")
+fun RecyclerView.setSearchesWithUsers(searchListWithUsers: PagedList<SearchWithUsers>?) {
+    (adapter as SearchWithUsersAdapter).submitList(searchListWithUsers)
 }
 
 @BindingAdapter("app:imageFromUrl")

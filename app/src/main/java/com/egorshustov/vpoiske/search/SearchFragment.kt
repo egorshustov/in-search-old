@@ -30,12 +30,12 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        setupListAdapter()
+        setupUsersAdapter()
         observeOpenUserEvent()
         observeOpenNewSearch()
     }
 
-    private fun setupListAdapter() {
+    private fun setupUsersAdapter() {
         gridLayoutManager =
             GridLayoutManager(requireContext(), spanCount, RecyclerView.VERTICAL, false)
         binding.recyclerUsers.apply {
