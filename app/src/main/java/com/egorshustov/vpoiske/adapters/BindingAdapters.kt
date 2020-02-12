@@ -19,6 +19,7 @@ import com.egorshustov.vpoiske.data.Country
 import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.util.Event
+import com.egorshustov.vpoiske.util.Relation
 import com.egorshustov.vpoiske.util.extractInt
 
 @BindingAdapter("app:users")
@@ -114,7 +115,7 @@ fun Spinner.setSelectedAgeFromListener(attrChange: InverseBindingListener) {
             attrChange.onChange()
     }
     val oldOnItemSelectedListener =
-        ListenerUtil.trackListener(this, newOnItemSelectedListener, R.id.onCitySelectedListener)
+        ListenerUtil.trackListener(this, newOnItemSelectedListener, R.id.onAgeFromSelectedListener)
     if (oldOnItemSelectedListener != null) onItemSelectedListener = null
     onItemSelectedListener = newOnItemSelectedListener
 }
@@ -142,7 +143,33 @@ fun Spinner.setSelectedAgeToListener(attrChange: InverseBindingListener) {
             attrChange.onChange()
     }
     val oldOnItemSelectedListener =
-        ListenerUtil.trackListener(this, newOnItemSelectedListener, R.id.onCitySelectedListener)
+        ListenerUtil.trackListener(this, newOnItemSelectedListener, R.id.onAgeToSelectedListener)
+    if (oldOnItemSelectedListener != null) onItemSelectedListener = null
+    onItemSelectedListener = newOnItemSelectedListener
+}
+
+@BindingAdapter("app:selectedRelation")
+fun Spinner.setSelectedRelation(relation: Relation) {
+    (adapter as? ArrayAdapter<Relation>)?.let {
+        val relationPosition = it.getPosition(relation)
+        if (relationPosition != selectedItemPosition) setSelection(relationPosition)
+    }
+}
+
+@InverseBindingAdapter(attribute = "app:selectedRelation")
+fun Spinner.getSelectedRelation(): Relation =
+    (adapter as? ArrayAdapter<Relation>)?.getItem(selectedItemPosition) ?: Relation.NOT_DEFINED
+
+@BindingAdapter("app:selectedRelationAttrChanged")
+fun Spinner.setSelectedRelationListener(attrChange: InverseBindingListener) {
+    val newOnItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) =
+            attrChange.onChange()
+    }
+    val oldOnItemSelectedListener =
+        ListenerUtil.trackListener(this, newOnItemSelectedListener, R.id.onRelationSelectedListener)
     if (oldOnItemSelectedListener != null) onItemSelectedListener = null
     onItemSelectedListener = newOnItemSelectedListener
 }

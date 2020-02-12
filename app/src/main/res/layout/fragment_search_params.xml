@@ -137,7 +137,8 @@
                     android:id="@+id/spinner_relation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks" />
+                    android:layout_marginTop="@dimen/margin_blocks"
+                    app:selectedRelation="@={viewmodel.currentRelation}" />
 
                 <CheckBox
                     android:id="@+id/check_with_phone_only"
@@ -287,6 +288,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_blocks"
+                    android:onClick="@{() -> viewmodel.onSearchButtonClicked()}"
                     android:text="@string/text_start_search"
                     android:textColor="?themeContainedButtonTextColor"
                     android:visibility="@{(viewmodel.currentCity != ConstantsKt.DEFAULT_CITY_TITLE &amp;&amp; viewmodel.currentCountry.peekContent() != ConstantsKt.DEFAULT_COUNTRY_TITLE) ? View.VISIBLE : View.GONE}"

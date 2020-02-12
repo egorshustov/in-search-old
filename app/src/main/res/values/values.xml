@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="onCountrySelectedListener" type="id"/>
-    <item name="onCitySelectedListener" type="id"/>
+    <item name="onCountrySelectedListener" type="id" />
+    <item name="onCitySelectedListener" type="id" />
+    <item name="onAgeFromSelectedListener" type="id" />
+    <item name="onAgeToSelectedListener" type="id" />
+    <item name="onRelationSelectedListener" type="id" />
 </resources>

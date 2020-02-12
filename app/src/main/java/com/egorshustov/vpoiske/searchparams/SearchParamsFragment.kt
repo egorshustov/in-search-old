@@ -2,7 +2,6 @@ package com.egorshustov.vpoiske.searchparams
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import androidx.fragment.app.activityViewModels
@@ -18,23 +17,20 @@ import com.egorshustov.vpoiske.search.SearchViewModel
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.Relation
 import com.egorshustov.vpoiske.util.snackBar
-import kotlinx.android.synthetic.main.fragment_search_params.*
 
 class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchParamsBinding>() {
 
     override fun getLayoutResId(): Int = R.layout.fragment_search_params
-    override val viewModel by viewModels<SearchParamsViewModel> { viewModelFactory }
-    private val mainViewModel by activityViewModels<SearchViewModel> { viewModelFactory }
 
-    private lateinit var relationAdapter: ArrayAdapter<Relation>
+    override val viewModel by viewModels<SearchParamsViewModel> { viewModelFactory }
+
+    private val mainViewModel by activityViewModels<SearchViewModel> { viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupSpinners()
-        setRelationSpinnerListener()
         setSeekBarsListeners()
         setCheckBoxListener()
-        setSearchButtonListener()
         observeSelectedCountry()
         observeMessage()
         observeCurrentAgeFrom()
@@ -43,7 +39,8 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
     }
 
     private fun setupSpinners() = with(binding) {
-        relationAdapter = ArrayAdapter(requireContext(), R.layout.item_spinner, Relation.values())
+        spinnerRelation.adapter =
+            ArrayAdapter(requireContext(), R.layout.item_spinner, Relation.values())
         spinnerCountries.adapter = CountriesAdapter(requireContext(), R.layout.item_spinner)
         spinnerCities.adapter = CitiesAdapter(requireContext(), R.layout.item_spinner)
         spinnerAgeFrom.adapter = ArrayAdapter(
@@ -56,30 +53,10 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
             R.layout.item_spinner,
             resources.getStringArray(R.array.ages_to)
         )
-        spinnerRelation.adapter = relationAdapter
     }
 
-    private fun setRelationSpinnerListener() {
-        spinner_relation.apply {
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    relationAdapter.getItem(position)?.let { viewModel.onRelationSelected(it) }
-                }
-
-            }
-        }
-    }
-
-    private fun setSeekBarsListeners() {
-        //todo create custom seekBar with range
-        seek_founded_users_limit.setOnSeekBarChangeListener(object :
+    private fun setSeekBarsListeners() = with(binding) {
+        seekFoundedUsersLimit.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 viewModel.onFoundedUsersLimitChanged(seekProgressToUsersLimit(progress))
@@ -89,7 +66,8 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-        seek_friends_max_count.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        //todo create custom seekBar with range
+        seekFriendsMaxCount.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) viewModel.onFriendsMaxCountChanged(
                     seekProgressToDaysFriendsMaxCount(
@@ -102,7 +80,7 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-        seek_followers_max_count.setOnSeekBarChangeListener(object :
+        seekFollowersMaxCount.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) viewModel.onFollowersMaxCountChanged(progress)
@@ -112,7 +90,7 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-        seek_days_interval.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        seekDaysInterval.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) viewModel.onDaysIntervalChanged(seekProgressToDaysInterval(progress))
             }
@@ -124,13 +102,10 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
     }
 
     private fun setCheckBoxListener() {
-        check_set_friends_limits.setOnCheckedChangeListener { _, isChecked ->
+        binding.checkSetFriendsLimits.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onSetFriendsLimitsChanged(isChecked)
         }
     }
-
-    private fun setSearchButtonListener() =
-        button_search.setOnClickListener { viewModel.onSearchButtonClicked() }
 
     private fun seekProgressToUsersLimit(seekProgress: Int) = (seekProgress + 1) * 10
 

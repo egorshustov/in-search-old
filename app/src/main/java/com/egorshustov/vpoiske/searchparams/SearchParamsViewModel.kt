@@ -41,8 +41,7 @@ class SearchParamsViewModel @Inject constructor(
     private val _resetAgeFromCommand = MutableLiveData<Event<Unit>>()
     val resetAgeFromCommand: LiveData<Event<Unit>> = _resetAgeFromCommand
 
-    private val _currentRelation = MutableLiveData(Relation.NOT_DEFINED)
-    val currentRelation: LiveData<Relation> = _currentRelation
+    val currentRelation = MutableLiveData(Relation.NOT_DEFINED)
 
     private val _currentSex = MutableLiveData(Sex.FEMALE)
     val currentSex: LiveData<Sex> = _currentSex
@@ -78,7 +77,6 @@ class SearchParamsViewModel @Inject constructor(
     val newSearchId: LiveData<Event<Long?>> = _newSearchId
 
     init {
-        Timber.d("%s init", toString())
         viewModelScope.launch {
             countriesRepository.getCountries()
         }
@@ -108,10 +106,6 @@ class SearchParamsViewModel @Inject constructor(
         currentAgeFrom.value?.let {
             if (ageTo != null && it > ageTo) currentAgeFrom.value = ageTo
         }
-    }
-
-    fun onRelationSelected(relation: Relation) {
-        _currentRelation.value = relation
     }
 
     fun onFoundedUsersLimitChanged(usersCount: Int) {
@@ -190,10 +184,5 @@ class SearchParamsViewModel @Inject constructor(
             )
             _newSearchId.value = Event(newSearchId)
         }
-    }
-
-    override fun onCleared() {
-        Timber.d("%s cleared", toString())
-        super.onCleared()
     }
 }
