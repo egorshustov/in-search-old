@@ -31,11 +31,9 @@ class SearchParamsViewModel @Inject constructor(
 
     val currentCity = MutableLiveData(DEFAULT_CITY_TITLE)
 
-    private val _currentAgeFrom = MutableLiveData(DEFAULT_AGE_FROM)
-    val currentAgeFrom: LiveData<Int?> = _currentAgeFrom
+    val currentAgeFrom = MutableLiveData(DEFAULT_AGE_FROM)
 
-    private val _currentAgeTo = MutableLiveData(DEFAULT_AGE_TO)
-    val currentAgeTo: LiveData<Int?> = _currentAgeTo
+    val currentAgeTo = MutableLiveData(DEFAULT_AGE_TO)
 
     private val _resetAgeToCommand = MutableLiveData<Event<Unit>>()
     val resetAgeToCommand: LiveData<Event<Unit>> = _resetAgeToCommand
@@ -100,23 +98,15 @@ class SearchParamsViewModel @Inject constructor(
         }
     }
 
-    fun onAgeFromSelected(ageFrom: Int?) {
-        _currentAgeFrom.value = ageFrom
+    fun onAgeFromChanged(ageFrom: Int?) {
         currentAgeTo.value?.let {
-            if (ageFrom != null && it < ageFrom) {
-                _currentAgeTo.value = ageFrom
-                _resetAgeToCommand.value = Event(Unit)
-            }
+            if (ageFrom != null && it < ageFrom) currentAgeTo.value = ageFrom
         }
     }
 
-    fun onAgeToSelected(ageTo: Int?) {
-        _currentAgeTo.value = ageTo
+    fun onAgeToChanged(ageTo: Int?) {
         currentAgeFrom.value?.let {
-            if (ageTo != null && it > ageTo) {
-                _currentAgeFrom.value = ageTo
-                _resetAgeFromCommand.value = Event(Unit)
-            }
+            if (ageTo != null && it > ageTo) currentAgeFrom.value = ageTo
         }
     }
 

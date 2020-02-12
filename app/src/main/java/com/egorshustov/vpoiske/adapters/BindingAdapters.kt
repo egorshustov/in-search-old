@@ -2,6 +2,7 @@ package com.egorshustov.vpoiske.adapters
 
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
 import androidx.databinding.BindingAdapter
@@ -18,6 +19,7 @@ import com.egorshustov.vpoiske.data.Country
 import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.util.Event
+import com.egorshustov.vpoiske.util.extractInt
 
 @BindingAdapter("app:users")
 fun RecyclerView.setUsers(userList: List<User>?) {
@@ -33,7 +35,7 @@ fun Spinner.setCountries(countryList: List<Country>?) {
 fun Spinner.setSelectedCountry(country: Event<Country>) {
     (adapter as CountriesAdapter?)?.let {
         val countryPosition = it.getPosition(country.peekContent())
-        if (countryPosition != selectedItemPosition) setSelection(it.getPosition(country.peekContent()))
+        if (countryPosition != selectedItemPosition) setSelection(countryPosition)
     }
 }
 
@@ -66,7 +68,7 @@ fun Spinner.setCities(cityList: List<City>?) {
 fun Spinner.setSelectedCity(city: City?) {
     (adapter as CitiesAdapter?)?.let {
         val cityPosition = it.getPosition(city)
-        if (cityPosition != selectedItemPosition) setSelection(it.getPosition(city))
+        if (cityPosition != selectedItemPosition) setSelection(cityPosition)
     }
 }
 
@@ -76,6 +78,63 @@ fun Spinner.getSelectedCity() =
 
 @BindingAdapter("app:selectedCityAttrChanged")
 fun Spinner.setSelectedCityListener(attrChange: InverseBindingListener) {
+    val newOnItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) =
+            attrChange.onChange()
+    }
+    val oldOnItemSelectedListener =
+        ListenerUtil.trackListener(this, newOnItemSelectedListener, R.id.onCitySelectedListener)
+    if (oldOnItemSelectedListener != null) onItemSelectedListener = null
+    onItemSelectedListener = newOnItemSelectedListener
+}
+
+@BindingAdapter("app:selectedAgeFrom")
+fun Spinner.setSelectedAgeFrom(ageFrom: Int?) {
+    (adapter as? ArrayAdapter<String>)?.let {
+        val ageFromArray = resources.getStringArray(R.array.ages_from)
+        val ageFromString =
+            ageFromArray.find { ageFrom.toString() in it.toString() } ?: ageFromArray[0]
+        val ageFromStringPosition = it.getPosition(ageFromString)
+        if (ageFromStringPosition != selectedItemPosition) setSelection(ageFromStringPosition)
+    }
+}
+
+@InverseBindingAdapter(attribute = "app:selectedAgeFrom")
+fun Spinner.getSelectedAgeFrom(): Int? =
+    (adapter as? ArrayAdapter<String>)?.getItem(selectedItemPosition)?.extractInt()
+
+@BindingAdapter("app:selectedAgeFromAttrChanged")
+fun Spinner.setSelectedAgeFromListener(attrChange: InverseBindingListener) {
+    val newOnItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) =
+            attrChange.onChange()
+    }
+    val oldOnItemSelectedListener =
+        ListenerUtil.trackListener(this, newOnItemSelectedListener, R.id.onCitySelectedListener)
+    if (oldOnItemSelectedListener != null) onItemSelectedListener = null
+    onItemSelectedListener = newOnItemSelectedListener
+}
+
+@BindingAdapter("app:selectedAgeTo")
+fun Spinner.setSelectedAgeTo(ageTo: Int?) {
+    (adapter as? ArrayAdapter<String>)?.let {
+        val ageToArray = resources.getStringArray(R.array.ages_to)
+        val ageToString = ageToArray.find { ageTo.toString() in it.toString() } ?: ageToArray[0]
+        val ageToStringPosition = it.getPosition(ageToString)
+        if (ageToStringPosition != selectedItemPosition) setSelection(ageToStringPosition)
+    }
+}
+
+@InverseBindingAdapter(attribute = "app:selectedAgeTo")
+fun Spinner.getSelectedAgeTo(): Int? =
+    (adapter as? ArrayAdapter<String>)?.getItem(selectedItemPosition)?.extractInt()
+
+@BindingAdapter("app:selectedAgeToAttrChanged")
+fun Spinner.setSelectedAgeToListener(attrChange: InverseBindingListener) {
     val newOnItemSelectedListener = object : AdapterView.OnItemSelectedListener {
         override fun onNothingSelected(parent: AdapterView<*>?) {}
 

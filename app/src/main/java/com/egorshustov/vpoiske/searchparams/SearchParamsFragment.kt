@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.CitiesAdapter
@@ -16,7 +17,6 @@ import com.egorshustov.vpoiske.databinding.FragmentSearchParamsBinding
 import com.egorshustov.vpoiske.search.SearchViewModel
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.Relation
-import com.egorshustov.vpoiske.util.extractInt
 import com.egorshustov.vpoiske.util.snackBar
 import kotlinx.android.synthetic.main.fragment_search_params.*
 
@@ -31,16 +31,14 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupSpinners()
-        setAgeFromSpinnerListener()
-        setAgeToSpinnerListener()
         setRelationSpinnerListener()
         setSeekBarsListeners()
         setCheckBoxListener()
         setSearchButtonListener()
         observeSelectedCountry()
         observeMessage()
-        observeResetAgeFromCommand()
-        observeResetAgeToCommand()
+        observeCurrentAgeFrom()
+        observeCurrentAgeTo()
         observeNewSearchId()
     }
 
@@ -59,44 +57,6 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
             resources.getStringArray(R.array.ages_to)
         )
         spinnerRelation.adapter = relationAdapter
-    }
-
-    private fun setAgeFromSpinnerListener() {
-        spinner_age_from.apply {
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    val ageFrom = parent?.getItemAtPosition(position)?.toString()?.extractInt()
-                    viewModel.onAgeFromSelected(ageFrom)
-                }
-
-            }
-        }
-    }
-
-    private fun setAgeToSpinnerListener() {
-        spinner_age_to.apply {
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    val ageTo = parent?.getItemAtPosition(position)?.toString()?.extractInt()
-                    viewModel.onAgeToSelected(ageTo)
-                }
-
-            }
-        }
     }
 
     private fun setRelationSpinnerListener() {
@@ -185,22 +145,16 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
         })
     }
 
-    private fun observeResetAgeFromCommand() {
-        viewModel.resetAgeFromCommand.observe(viewLifecycleOwner, EventObserver {
-            spinner_age_from.setSelection(spinner_age_to.selectedItemPosition)
-        })
+    private fun observeCurrentAgeFrom() {
+        viewModel.currentAgeFrom.observe(viewLifecycleOwner) { viewModel.onAgeFromChanged(it) }
     }
 
-    private fun observeResetAgeToCommand() {
-        viewModel.resetAgeToCommand.observe(viewLifecycleOwner, EventObserver {
-            spinner_age_to.setSelection(spinner_age_from.selectedItemPosition)
-        })
+    private fun observeCurrentAgeTo() {
+        viewModel.currentAgeTo.observe(viewLifecycleOwner) { viewModel.onAgeToChanged(it) }
     }
 
     private fun observeMessage() {
-        viewModel.message.observe(viewLifecycleOwner, EventObserver {
-            view?.snackBar(it)
-        })
+        viewModel.message.observe(viewLifecycleOwner, EventObserver { view?.snackBar(it) })
     }
 
     private fun observeNewSearchId() {
