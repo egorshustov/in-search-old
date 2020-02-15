@@ -1,6 +1,8 @@
 package com.egorshustov.vpoiske.searchlist
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.Config
 import androidx.paging.PagedList
@@ -13,9 +15,16 @@ class SearchListViewModel @Inject constructor(
     private val searchesRepository: SearchesRepository
 ) : ViewModel() {
 
+    val isLoading = MutableLiveData<Boolean>(true)
+
     val searchesWithUsers: LiveData<PagedList<SearchWithUsers>> =
-        searchesRepository.getSearchesWithUsers()
-            .toLiveData(Config(pageSize = 10, enablePlaceholders = false, maxSize = 100))
+        Transformations.map(
+            searchesRepository.getSearchesWithUsers()
+                .toLiveData(Config(pageSize = 10, enablePlaceholders = false, maxSize = 100))
+        ) {
+            isLoading.value = false
+            it
+        }
 
     fun openSearch(searchId: Long) {
 

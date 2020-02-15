@@ -12,7 +12,7 @@
             type="com.egorshustov.vpoiske.searchlist.SearchListViewModel" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?themeBackgroundColorPrimary">
@@ -26,6 +26,12 @@
             app:searchesWithUsers="@{viewmodel.searchesWithUsers}"
             tools:listitem="@layout/item_search" />
 
-    </LinearLayout>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:isGone="@{!viewmodel.isLoading()}" />
+
+    </FrameLayout>
 
 </layout>

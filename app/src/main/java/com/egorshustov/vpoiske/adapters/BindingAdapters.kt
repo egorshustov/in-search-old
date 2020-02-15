@@ -188,3 +188,12 @@ fun ImageView.bindImageFromUrl(imageUrl: String?) {
             .into(this)
     }
 }
+
+@BindingAdapter("app:isGone")
+fun View.bindIsGone(isGone: Boolean) {
+    visibility = if (isGone) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
+}
