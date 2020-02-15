@@ -8,5 +8,6 @@
     <dimen name="text_size_big">18sp</dimen>
     <dimen name="text_size_medium">16sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
-    <dimen name="item_search_user_image_size">40dp</dimen>
+    <dimen name="item_search_user_image_size">30dp</dimen>
+    <dimen name="item_separator_height">1dp</dimen>
 </resources>

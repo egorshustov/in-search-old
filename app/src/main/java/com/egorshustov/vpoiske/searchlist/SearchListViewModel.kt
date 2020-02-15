@@ -17,6 +17,10 @@ class SearchListViewModel @Inject constructor(
         searchesRepository.getSearchesWithUsers()
             .toLiveData(Config(pageSize = 20, enablePlaceholders = false, maxSize = 1000))
 
+    fun openSearch(searchId: Long) {
+
+    }
+
     /*val searchesWithExistingUsers: LiveData<List<SearchWithUsers>> =
         Transformations.map(searchesWithUsers) {
             it.filter { !it.userList.isNullOrEmpty() }

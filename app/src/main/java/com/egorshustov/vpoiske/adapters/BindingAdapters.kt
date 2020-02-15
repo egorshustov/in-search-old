@@ -24,7 +24,7 @@ import com.egorshustov.vpoiske.util.extractInt
 
 @BindingAdapter("app:users")
 fun RecyclerView.setUsers(userList: List<User>?) {
-    (adapter as UsersAdapter).submitList(userList)
+    (adapter as? UsersAdapter)?.submitList(userList)
 }
 
 @BindingAdapter("app:countries")
@@ -34,7 +34,7 @@ fun Spinner.setCountries(countryList: List<Country>?) {
 
 @BindingAdapter("app:selectedCountry")
 fun Spinner.setSelectedCountry(country: Event<Country>) {
-    (adapter as CountriesAdapter?)?.let {
+    (adapter as? CountriesAdapter)?.let {
         val countryPosition = it.getPosition(country.peekContent())
         if (countryPosition != selectedItemPosition) setSelection(countryPosition)
     }
@@ -42,7 +42,7 @@ fun Spinner.setSelectedCountry(country: Event<Country>) {
 
 @InverseBindingAdapter(attribute = "app:selectedCountry")
 fun Spinner.getSelectedCountry() =
-    Event((adapter as CountriesAdapter?)?.getItem(selectedItemPosition))
+    Event((adapter as? CountriesAdapter)?.getItem(selectedItemPosition))
 
 @BindingAdapter("app:selectedCountryAttrChanged")
 fun Spinner.setSelectedCountryListener(attrChange: InverseBindingListener) {
@@ -67,7 +67,7 @@ fun Spinner.setCities(cityList: List<City>?) {
 
 @BindingAdapter("app:selectedCity")
 fun Spinner.setSelectedCity(city: City?) {
-    (adapter as CitiesAdapter?)?.let {
+    (adapter as? CitiesAdapter)?.let {
         val cityPosition = it.getPosition(city)
         if (cityPosition != selectedItemPosition) setSelection(cityPosition)
     }
@@ -75,7 +75,7 @@ fun Spinner.setSelectedCity(city: City?) {
 
 @InverseBindingAdapter(attribute = "app:selectedCity")
 fun Spinner.getSelectedCity() =
-    (adapter as CitiesAdapter?)?.getItem(selectedItemPosition)
+    (adapter as? CitiesAdapter)?.getItem(selectedItemPosition)
 
 @BindingAdapter("app:selectedCityAttrChanged")
 fun Spinner.setSelectedCityListener(attrChange: InverseBindingListener) {
@@ -176,7 +176,7 @@ fun Spinner.setSelectedRelationListener(attrChange: InverseBindingListener) {
 
 @BindingAdapter("app:searchesWithUsers")
 fun RecyclerView.setSearchesWithUsers(searchListWithUsers: PagedList<SearchWithUsers>?) {
-    (adapter as SearchWithUsersAdapter).submitList(searchListWithUsers)
+    (adapter as? SearchWithUsersAdapter)?.submitList(searchListWithUsers)
 }
 
 @BindingAdapter("app:imageFromUrl")

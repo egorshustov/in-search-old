@@ -7,9 +7,7 @@ enum class VPoiskeTheme(@StyleRes val themeId: Int) {
     LIGHT_THEME(R.style.VPoiskeTheme_NoActionBar_Light),
     DARK_THEME(R.style.VPoiskeTheme_NoActionBar_Dark);
 
-    fun getNext(): VPoiskeTheme {
-        return values()[((ordinal + 1) % values().size)]
-    }
+    fun getNext() = values()[((ordinal + 1) % values().size)]
 }
 
 enum class Sex(val value: Int) {
