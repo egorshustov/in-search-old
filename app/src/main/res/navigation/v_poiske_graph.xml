@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/searchFragment">
+    android:id="@+id/v_poiske_graph"
+    app:startDestination="@id/searchProcessFragment">
 
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.egorshustov.vpoiske.search.SearchFragment"
+        android:id="@+id/searchProcessFragment"
+        android:name="com.egorshustov.vpoiske.searchprocess.SearchProcessFragment"
         android:label="@string/app_name">
 
         <action
-            android:id="@+id/action_searchFragment_to_searchParamsFragment"
+            android:id="@+id/action_searchProcessFragment_to_searchParamsFragment"
             app:destination="@id/searchParamsFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit"
@@ -18,7 +18,7 @@
             app:popExitAnim="@anim/fragment_close_exit" />
 
         <action
-            android:id="@+id/action_searchFragment_to_searchListFragment"
+            android:id="@+id/action_searchProcessFragment_to_searchListFragment"
             app:destination="@id/searchListFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit"
@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/searchParamsFragment"
         android:name="com.egorshustov.vpoiske.searchparams.SearchParamsFragment"
-        android:label="@string/new_search_title" />
+        android:label="@string/search_params_title" />
 
     <fragment
         android:id="@+id/searchListFragment"

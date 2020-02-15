@@ -17,67 +17,56 @@ object ApplicationModule {
     @JvmStatic
     @Singleton
     @Provides
-    fun provideUsersRemoteDataSource(usersRetrofit: RetrofitVkApi): UsersRemoteDataSource {
-        return UsersRetrofitDataSource(usersRetrofit)
-    }
+    fun provideUsersRemoteDataSource(usersRetrofit: RetrofitVkApi): UsersRemoteDataSource =
+        UsersRetrofitDataSource(usersRetrofit)
 
     @JvmStatic
     @Singleton
     @Provides
-    fun provideCountriesRemoteDataSource(usersRetrofit: RetrofitVkApi): CountriesRemoteDataSource {
-        return CountriesRetrofitDataSource(usersRetrofit)
-    }
+    fun provideCountriesRemoteDataSource(usersRetrofit: RetrofitVkApi): CountriesRemoteDataSource =
+        CountriesRetrofitDataSource(usersRetrofit)
 
     @JvmStatic
     @Singleton
     @Provides
-    fun provideCitiesRemoteDataSource(usersRetrofit: RetrofitVkApi): CitiesRemoteDataSource {
-        return CitiesRetrofitDataSource(usersRetrofit)
-    }
+    fun provideCitiesRemoteDataSource(usersRetrofit: RetrofitVkApi): CitiesRemoteDataSource =
+        CitiesRetrofitDataSource(usersRetrofit)
 
     @JvmStatic
     @Singleton
     @Provides
-    fun provideVkApiService(): RetrofitVkApi {
-        return Retrofit.Builder()
-            .baseUrl("https://api.vk.com/method/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(RetrofitVkApi::class.java)
-    }
+    fun provideVkApiService(): RetrofitVkApi = Retrofit.Builder()
+        .baseUrl("https://api.vk.com/method/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(RetrofitVkApi::class.java)
 
     @JvmStatic
     @Singleton
     @Provides
-    fun provideUsersDao(vPoiskeDatabase: VPoiskeDatabase): UsersDao {
-        return vPoiskeDatabase.usersDao()
-    }
+    fun provideUsersDao(vPoiskeDatabase: VPoiskeDatabase): UsersDao = vPoiskeDatabase.usersDao()
 
     @JvmStatic
     @Singleton
     @Provides
-    fun provideSearchesDao(vPoiskeDatabase: VPoiskeDatabase): SearchesDao {
-        return vPoiskeDatabase.searchesDao()
-    }
+    fun provideSearchesDao(vPoiskeDatabase: VPoiskeDatabase): SearchesDao =
+        vPoiskeDatabase.searchesDao()
 
     @JvmStatic
     @Singleton
     @Provides
-    fun provideCitiesDao(vPoiskeDatabase: VPoiskeDatabase): CitiesDao {
-        return vPoiskeDatabase.citiesDao()
-    }
+    fun provideCitiesDao(vPoiskeDatabase: VPoiskeDatabase): CitiesDao = vPoiskeDatabase.citiesDao()
 
     @JvmStatic
     @Singleton
     @Provides
-    fun provideCountriesDao(vPoiskeDatabase: VPoiskeDatabase): CountriesDao {
-        return vPoiskeDatabase.countriesDao()
-    }
+    fun provideCountriesDao(vPoiskeDatabase: VPoiskeDatabase): CountriesDao =
+        vPoiskeDatabase.countriesDao()
 
     @JvmStatic
     @Singleton
     @Provides
-    fun provideDatabase(context: Context) = Room.databaseBuilder(
+    fun provideDatabase(context: Context): VPoiskeDatabase = Room.databaseBuilder(
         context.applicationContext,
         VPoiskeDatabase::class.java,
         "VPoiske.db"
@@ -90,6 +79,4 @@ object ApplicationModule {
 }
 
 @Module
-abstract class ApplicationModuleBinds {
-
-}
+abstract class ApplicationModuleBinds

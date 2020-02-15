@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@id/searchFragment"
+        android:id="@id/searchProcessFragment"
         android:icon="@drawable/ic_list"
         android:title="@string/main_title" />
     <item
         android:id="@id/searchParamsFragment"
         android:icon="@drawable/ic_search"
-        android:title="@string/new_search_title" />
+        android:title="@string/search_params_title" />
     <item
         android:id="@id/searchListFragment"
         android:icon="@drawable/ic_history"

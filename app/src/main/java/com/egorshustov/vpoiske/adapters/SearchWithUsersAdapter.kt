@@ -53,13 +53,12 @@ class SearchWithUsersDiffCallback : DiffUtil.ItemCallback<SearchWithUsers>() {
                 && oldItem.search.startUnixSeconds == newItem.search.startUnixSeconds
                 && oldItem.getUsersCount() == newItem.getUsersCount()
                 && oldItem.getFavoritesCount() == newItem.getFavoritesCount()
-                && oldItem.userList.getOrNull(0)?.photo50 == newItem.userList.getOrNull(0)?.photo50
-                && oldItem.userList.getOrNull(1)?.photo50 == newItem.userList.getOrNull(1)?.photo50
-                && oldItem.userList.getOrNull(2)?.photo50 == newItem.userList.getOrNull(2)?.photo50
-                && oldItem.userList.getOrNull(3)?.photo50 == newItem.userList.getOrNull(3)?.photo50
-                && oldItem.userList.getOrNull(4)?.photo50 == newItem.userList.getOrNull(4)?.photo50
-                && oldItem.userList.getOrNull(5)?.photo50 == newItem.userList.getOrNull(5)?.photo50
-                && oldItem.userList.getOrNull(6)?.photo50 == newItem.userList.getOrNull(6)?.photo50
-                && oldItem.userList.getOrNull(7)?.photo50 == newItem.userList.getOrNull(7)?.photo50
-                && oldItem.userList.getOrNull(8)?.photo50 == newItem.userList.getOrNull(8)?.photo50
+                && arePhotoUrlsTheSame(oldItem, newItem)
+
+    private fun arePhotoUrlsTheSame(oldItem: SearchWithUsers, newItem: SearchWithUsers): Boolean {
+        for (i in 0..8) {
+            if (oldItem.userList.getOrNull(i)?.photo50 != newItem.userList.getOrNull(i)?.photo50) return false
+        }
+        return true
+    }
 }

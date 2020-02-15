@@ -6,6 +6,7 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class VPoiskeModule {
+
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
-    abstract fun contributeMainActivity(): VPoiskeActivity
+    abstract fun contributeVPoiskeActivity(): VPoiskeActivity
 }

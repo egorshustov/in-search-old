@@ -9,10 +9,10 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class NewSearchModule {
+abstract class SearchParamsModule {
 
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
-    internal abstract fun newSearchFragment(): SearchParamsFragment
+    internal abstract fun searchParamsFragment(): SearchParamsFragment
 
     @Binds
     @IntoMap

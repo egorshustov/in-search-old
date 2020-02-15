@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.search
+package com.egorshustov.vpoiske.searchprocess
 
 import androidx.lifecycle.*
 import com.egorshustov.vpoiske.data.Search
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(
+class SearchProcessViewModel @Inject constructor(
     private val usersRepository: UsersRepository,
     private val searchesRepository: SearchesRepository
 ) : ViewModel() {
@@ -35,7 +35,7 @@ class SearchViewModel @Inject constructor(
     private val _openNewSearch = MutableLiveData<Event<Unit>>()
     val openNewSearch: LiveData<Event<Unit>> = _openNewSearch
 
-    val searchState = MutableLiveData<SearchState>(SearchState.INACTIVE)
+    val searchState = MutableLiveData<SearchProcessState>(SearchProcessState.INACTIVE)
 
     private var foundUsersCount: Int = 0
 
@@ -55,7 +55,7 @@ class SearchViewModel @Inject constructor(
         searchJob = viewModelScope.launch {
             val search = searchesRepository.getSearch(searchId) ?: return@launch
             newSearchId = searchId
-            searchState.value = SearchState.IN_PROGRESS
+            searchState.value = SearchProcessState.IN_PROGRESS
             currentUnixSeconds.let {
                 searchesRepository.updateSearchStartUnixSeconds(searchId, it)
                 search.startUnixSeconds = it
@@ -183,7 +183,7 @@ class SearchViewModel @Inject constructor(
 
     private fun stopSearch() {
         searchJob?.cancel()
-        searchState.value = SearchState.INACTIVE
+        searchState.value = SearchProcessState.INACTIVE
     }
 
     fun openUser(userId: Long) {
@@ -191,7 +191,7 @@ class SearchViewModel @Inject constructor(
     }
 
     fun changeSearchState() {
-        if (searchState.value == SearchState.INACTIVE) _openNewSearch.value = Event(Unit)
+        if (searchState.value == SearchProcessState.INACTIVE) _openNewSearch.value = Event(Unit)
         else stopSearch()
     }
 

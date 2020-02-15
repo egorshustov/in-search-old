@@ -11,8 +11,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.egorshustov.vpoiske.search.SearchState
-import com.egorshustov.vpoiske.search.SearchViewModel
+import com.egorshustov.vpoiske.searchprocess.SearchProcessState
+import com.egorshustov.vpoiske.searchprocess.SearchProcessViewModel
 import com.egorshustov.vpoiske.util.VPoiskeTheme
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_v_poiske.*
@@ -23,7 +23,7 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<SearchViewModel> { viewModelFactory }
+    private val viewModel by viewModels<SearchProcessViewModel> { viewModelFactory }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -66,7 +66,7 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
 
     private fun observeSearchState() {
         viewModel.searchState.observe(this, Observer {
-            nav_view.menu.findItem(R.id.searchParamsFragment).isVisible = it == SearchState.INACTIVE
+            nav_view.menu.findItem(R.id.searchParamsFragment).isVisible = it == SearchProcessState.INACTIVE
         })
     }
 
