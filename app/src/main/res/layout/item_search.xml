@@ -8,8 +8,8 @@
         <import type="com.egorshustov.vpoiske.util.ExtensionsKt" />
 
         <variable
-            name="search"
-            type="com.egorshustov.vpoiske.data.Search" />
+            name="searchWithUsers"
+            type="com.egorshustov.vpoiske.data.SearchWithUsers" />
 
         <variable
             name="viewmodel"
@@ -19,7 +19,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> viewmodel.openSearch(search.id)}"
+        android:onClick="@{() -> viewmodel.openSearch(searchWithUsers.search.id)}"
         app:cardCornerRadius="0dp"
         app:cardPreventCornerOverlap="false">
 
@@ -133,7 +133,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@{search.cityTitle}"
+                        android:text="@{searchWithUsers.search.cityTitle}"
                         android:textColor="?themeTextColorPrimary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"
@@ -147,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@{ExtensionsKt.getAgeRangeText(search)}"
+                        android:text="@{ExtensionsKt.getAgeRangeText(searchWithUsers.search)}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_small"
                         app:layout_constraintStart_toStartOf="parent"
@@ -160,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@{ExtensionsKt.getWithPhoneOnlyText(search)}"
+                        android:text="@{ExtensionsKt.getWithPhoneOnlyText(searchWithUsers.search)}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_small"
                         app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +169,7 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
@@ -180,49 +180,57 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/text_date"
+                        android:id="@+id/text_date_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:ellipsize="end"
+                        android:gravity="center"
                         android:maxLines="1"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
+                        android:text="@{ExtensionsKt.getDateTimeText(searchWithUsers.search)}"
                         android:textColor="?themeTextColorSecondary"
-                        android:textSize="@dimen/text_size_small"
+                        android:textSize="@dimen/text_size_min"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="11.02.2020" />
+                        tools:text="19 дек 2019" />
 
                     <TextView
                         android:id="@+id/text_users_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_stat_users"
+                        android:drawablePadding="3dp"
                         android:ellipsize="end"
-                        android:gravity="center"
+                        android:gravity="start|center_vertical"
                         android:maxLines="1"
+                        android:minWidth="@dimen/text_search_counts_min_width"
+                        android:text="@{Integer.toString(ExtensionsKt.getUsersCount(searchWithUsers))}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_small"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_date"
-                        tools:text="100" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_date_time"
+                        tools:text="1000" />
 
                     <TextView
                         android:id="@+id/text_likes_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_stat_likes"
+                        android:drawablePadding="3dp"
                         android:ellipsize="end"
-                        android:gravity="center"
+                        android:gravity="start|center_vertical"
                         android:maxLines="1"
+                        android:minWidth="@dimen/text_search_counts_min_width"
+                        android:text="@{Integer.toString(ExtensionsKt.getFavoritesCount(searchWithUsers))}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_small"
                         app:layout_constraintStart_toStartOf="@+id/text_users_count"
                         app:layout_constraintTop_toBottomOf="@+id/text_users_count"
                         tools:text="50" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
                     android:id="@+id/layout_separator"

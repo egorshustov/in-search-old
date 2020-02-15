@@ -25,7 +25,7 @@ class SearchWithUsersAdapter(private val viewModel: SearchListViewModel) :
 
         fun bind(viewModel: SearchListViewModel, item: SearchWithUsers) = with(binding) {
             viewmodel = viewModel
-            search = item.search
+            searchWithUsers = item
             executePendingBindings()
         }
 

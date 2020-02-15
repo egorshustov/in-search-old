@@ -39,7 +39,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_blocks">
+                    android:layout_marginBottom="@dimen/blocks_margin">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:text="@string/text_country_and_city"
                     android:textColor="?themeTextColorSecondary"
                     android:textSize="@dimen/text_size_medium" />
@@ -74,7 +74,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:orientation="horizontal">
 
                     <Spinner
@@ -98,7 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:text="@string/text_age"
                     android:textColor="?themeTextColorSecondary"
                     android:textSize="@dimen/text_size_medium" />
@@ -106,7 +106,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:orientation="horizontal">
 
                     <Spinner
@@ -128,7 +128,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:text="@string/text_relation"
                     android:textColor="?themeTextColorSecondary"
                     android:textSize="@dimen/text_size_medium" />
@@ -137,14 +137,14 @@
                     android:id="@+id/spinner_relation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     app:selectedRelation="@={viewmodel.currentRelation}" />
 
                 <CheckBox
                     android:id="@+id/check_with_phone_only"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:checked="@{viewmodel.currentWithPhoneOnly}"
                     android:text="@string/text_with_phone_only"
                     android:textColor="?themeTextColorSecondary"
@@ -153,7 +153,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:orientation="horizontal">
 
                     <TextView
@@ -166,7 +166,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_blocks"
+                        android:layout_marginStart="@dimen/blocks_margin"
                         android:text="@{viewmodel.currentFoundUsersLimit.toString()}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
@@ -178,14 +178,14 @@
                     android:id="@+id/seek_founded_users_limit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:max="99"
                     android:progress="9" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:orientation="horizontal">
 
                     <TextView
@@ -198,7 +198,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_blocks"
+                        android:layout_marginStart="@dimen/blocks_margin"
                         android:text="@{viewmodel.currentDaysInterval.toString()}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
@@ -210,14 +210,14 @@
                     android:id="@+id/seek_days_interval"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:max="29"
                     android:progress="2" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:orientation="vertical">
 
                     <CheckBox
@@ -245,7 +245,7 @@
                     android:id="@+id/seek_friends_max_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:max="1000"
                     android:progress="250"
                     android:visibility="@{viewmodel.currentFriendsMaxCount == null ? View.GONE : View.VISIBLE}" />
@@ -253,7 +253,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:orientation="vertical">
 
                     <TextView
@@ -279,7 +279,7 @@
                     android:id="@+id/seek_followers_max_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:max="1000"
                     android:progress="150" />
 
@@ -287,7 +287,7 @@
                     android:id="@+id/button_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_blocks"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:onClick="@{() -> viewmodel.onSearchButtonClicked()}"
                     android:text="@string/text_start_search"
                     android:textColor="?themeContainedButtonTextColor"

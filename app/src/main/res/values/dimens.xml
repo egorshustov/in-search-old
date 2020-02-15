@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_fab">16dp</dimen>
-    <dimen name="margin_blocks">8dp</dimen>
-    <dimen name="spinner_item_height">48dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="blocks_margin">8dp</dimen>
+    <dimen name="item_spinner_height">48dp</dimen>
     <dimen name="fragment_padding">15dp</dimen>
+    <dimen name="item_search_user_image_size">30dp</dimen>
+    <dimen name="item_separator_height">1dp</dimen>
+    <dimen name="text_search_counts_min_width">55dp</dimen>
+
     <dimen name="text_size_toolbar">22sp</dimen>
     <dimen name="text_size_big">18sp</dimen>
     <dimen name="text_size_medium">16sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
-    <dimen name="item_search_user_image_size">30dp</dimen>
-    <dimen name="item_separator_height">1dp</dimen>
+    <dimen name="text_size_min">12sp</dimen>
 </resources>
