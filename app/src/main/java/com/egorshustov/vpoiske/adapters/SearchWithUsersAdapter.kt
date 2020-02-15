@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.databinding.ItemSearchBinding
 import com.egorshustov.vpoiske.searchlist.SearchListViewModel
+import com.egorshustov.vpoiske.util.getFavoritesCount
+import com.egorshustov.vpoiske.util.getUsersCount
 
 class SearchWithUsersAdapter(private val viewModel: SearchListViewModel) :
     PagedListAdapter<SearchWithUsers, SearchWithUsersAdapter.ViewHolder>(
@@ -40,13 +42,24 @@ class SearchWithUsersAdapter(private val viewModel: SearchListViewModel) :
 }
 
 class SearchWithUsersDiffCallback : DiffUtil.ItemCallback<SearchWithUsers>() {
-    override fun areItemsTheSame(oldItem: SearchWithUsers, newItem: SearchWithUsers): Boolean {
-        return oldItem.search.id == newItem.search.id
-    }
 
-    override fun areContentsTheSame(oldItem: SearchWithUsers, newItem: SearchWithUsers): Boolean {
-        return oldItem.search.countryTitle == newItem.search.countryTitle
-                && oldItem.search.cityTitle == newItem.search.cityTitle
-        //todo add rest of the necessary fields
-    }
+    override fun areItemsTheSame(oldItem: SearchWithUsers, newItem: SearchWithUsers) =
+        oldItem.search.id == newItem.search.id
+
+    override fun areContentsTheSame(oldItem: SearchWithUsers, newItem: SearchWithUsers) =
+        oldItem.search.cityTitle == newItem.search.cityTitle
+                && oldItem.search.ageFrom == newItem.search.ageTo
+                && oldItem.search.withPhoneOnly == newItem.search.withPhoneOnly
+                && oldItem.search.startUnixSeconds == newItem.search.startUnixSeconds
+                && oldItem.getUsersCount() == newItem.getUsersCount()
+                && oldItem.getFavoritesCount() == newItem.getFavoritesCount()
+                && oldItem.userList.getOrNull(0)?.photo50 == newItem.userList.getOrNull(0)?.photo50
+                && oldItem.userList.getOrNull(1)?.photo50 == newItem.userList.getOrNull(1)?.photo50
+                && oldItem.userList.getOrNull(2)?.photo50 == newItem.userList.getOrNull(2)?.photo50
+                && oldItem.userList.getOrNull(3)?.photo50 == newItem.userList.getOrNull(3)?.photo50
+                && oldItem.userList.getOrNull(4)?.photo50 == newItem.userList.getOrNull(4)?.photo50
+                && oldItem.userList.getOrNull(5)?.photo50 == newItem.userList.getOrNull(5)?.photo50
+                && oldItem.userList.getOrNull(6)?.photo50 == newItem.userList.getOrNull(6)?.photo50
+                && oldItem.userList.getOrNull(7)?.photo50 == newItem.userList.getOrNull(7)?.photo50
+                && oldItem.userList.getOrNull(8)?.photo50 == newItem.userList.getOrNull(8)?.photo50
 }

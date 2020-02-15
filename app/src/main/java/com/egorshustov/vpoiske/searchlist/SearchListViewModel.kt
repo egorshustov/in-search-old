@@ -15,7 +15,7 @@ class SearchListViewModel @Inject constructor(
 
     val searchesWithUsers: LiveData<PagedList<SearchWithUsers>> =
         searchesRepository.getSearchesWithUsers()
-            .toLiveData(Config(pageSize = 20, enablePlaceholders = false, maxSize = 1000))
+            .toLiveData(Config(pageSize = 10, enablePlaceholders = false, maxSize = 100))
 
     fun openSearch(searchId: Long) {
 

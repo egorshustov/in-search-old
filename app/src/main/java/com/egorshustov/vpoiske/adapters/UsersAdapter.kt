@@ -39,12 +39,11 @@ class UsersAdapter(private val viewModel: SearchViewModel) :
 }
 
 class UserDiffCallback : DiffUtil.ItemCallback<User>() {
-    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-        return oldItem.id == newItem.id
-    }
 
-    override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
-        return oldItem.inBlacklist == newItem.inBlacklist
+    override fun areItemsTheSame(oldItem: User, newItem: User) = oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: User, newItem: User) =
+        oldItem.inBlacklist == newItem.inBlacklist
                 && oldItem.isFavorite == newItem.isFavorite
-    }
+                && oldItem.photoMaxOrig == newItem.photoMaxOrig
 }

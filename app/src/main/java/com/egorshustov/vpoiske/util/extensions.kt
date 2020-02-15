@@ -89,3 +89,6 @@ fun Search.getDateTimeText(): String {
 fun SearchWithUsers.getUsersCount(): Int = userList.size
 
 fun SearchWithUsers.getFavoritesCount() = userList.filter { it.isFavorite }.size
+
+fun SearchWithUsers.getUserPhoto50Url(userOrder: Int): String? =
+    userList.getOrNull(userOrder)?.photo50

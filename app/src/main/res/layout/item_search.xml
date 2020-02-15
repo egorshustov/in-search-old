@@ -45,19 +45,22 @@
                         android:id="@+id/image_user_first"
                         android:layout_width="@dimen/item_search_user_image_size"
                         android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image" />
+                        android:contentDescription="@string/description_user_image"
+                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 0)}" />
 
                     <ImageView
                         android:id="@+id/image_user_second"
                         android:layout_width="@dimen/item_search_user_image_size"
                         android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image" />
+                        android:contentDescription="@string/description_user_image"
+                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 1)}" />
 
                     <ImageView
                         android:id="@+id/image_user_third"
                         android:layout_width="@dimen/item_search_user_image_size"
                         android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image" />
+                        android:contentDescription="@string/description_user_image"
+                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 2)}" />
 
                 </TableRow>
 
@@ -66,22 +69,22 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/image_user_fourth"
                         android:layout_width="@dimen/item_search_user_image_size"
                         android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image" />
+                        android:contentDescription="@string/description_user_image"
+                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 3)}" />
 
                     <ImageView
-                        android:id="@+id/image_user_fifth"
                         android:layout_width="@dimen/item_search_user_image_size"
                         android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image" />
+                        android:contentDescription="@string/description_user_image"
+                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 4)}" />
 
                     <ImageView
-                        android:id="@+id/image_user_sixth"
                         android:layout_width="@dimen/item_search_user_image_size"
                         android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image" />
+                        android:contentDescription="@string/description_user_image"
+                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 5)}" />
 
                 </TableRow>
 
@@ -90,22 +93,22 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/image_user_seventh"
                         android:layout_width="@dimen/item_search_user_image_size"
                         android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image" />
+                        android:contentDescription="@string/description_user_image"
+                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 6)}" />
 
                     <ImageView
-                        android:id="@+id/image_user_eight"
                         android:layout_width="@dimen/item_search_user_image_size"
                         android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image" />
+                        android:contentDescription="@string/description_user_image"
+                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 7)}" />
 
                     <ImageView
-                        android:id="@+id/image_user_ninth"
                         android:layout_width="@dimen/item_search_user_image_size"
                         android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image" />
+                        android:contentDescription="@string/description_user_image"
+                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 8)}" />
 
                 </TableRow>
 
