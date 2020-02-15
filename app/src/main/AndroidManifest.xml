@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.egorshustov.vpoiske">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".VPoiskeApplication"
@@ -14,8 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/VPoiskeTheme">
 
-        <activity android:name=".VPoiskeActivity"
-            android:theme="@style/VPoiskeTheme.NoActionBar.Dark">
+        <activity
+            android:name=".VPoiskeActivity"
+            android:theme="@style/VPoiskeTheme.NoActionBar.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,15 +24,15 @@
             </intent-filter>
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
                     android:host="egorshustov.com"
                     android:pathPattern="/vpoiske"
-                    android:scheme="https"/>
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 

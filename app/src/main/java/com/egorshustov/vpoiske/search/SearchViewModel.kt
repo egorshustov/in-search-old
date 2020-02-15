@@ -20,7 +20,7 @@ class SearchViewModel @Inject constructor(
     private val searchesRepository: SearchesRepository
 ) : ViewModel() {
 
-    var currentTheme = VPoiskeTheme.DARK_THEME
+    var currentTheme = VPoiskeTheme.LIGHT_THEME
         private set
 
     private val users: LiveData<List<User>> = usersRepository.getLiveUsers()

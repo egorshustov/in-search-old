@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.egorshustov.vpoiske.util.ExtensionsKt" />
+
         <variable
             name="search"
             type="com.egorshustov.vpoiske.data.Search" />
@@ -131,6 +133,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:text="@{search.cityTitle}"
                         android:textColor="?themeTextColorPrimary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"
@@ -144,6 +147,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:text="@{ExtensionsKt.getAgeRangeText(search)}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_small"
                         app:layout_constraintStart_toStartOf="parent"
@@ -156,6 +160,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:text="@{ExtensionsKt.getWithPhoneOnlyText(search)}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_small"
                         app:layout_constraintStart_toStartOf="parent"

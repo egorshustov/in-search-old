@@ -3,6 +3,7 @@ package com.egorshustov.vpoiske.util
 import android.content.Context
 import android.view.View
 import android.widget.Toast
+import com.egorshustov.vpoiske.data.Search
 import com.google.android.material.snackbar.Snackbar
 
 fun String.extractDigits(): String = replace("\\D+".toRegex(), "")
@@ -44,3 +45,8 @@ fun View.snackBar(message: String, duration: MessageLength = MessageLength.LONG)
 }
 
 enum class MessageLength { SHORT, LONG }
+
+fun Search.getAgeRangeText(): String = "Возраст: от ${ageFrom ?: "любого"} до ${ageTo ?: "любого"}"
+
+fun Search.getWithPhoneOnlyText(): String =
+    "Только с телефоном: ${if (withPhoneOnly) "да" else "нет"}"
