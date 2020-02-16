@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.data.SearchWithUsers
+import com.egorshustov.vpoiske.data.source.remote.CustomException
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
@@ -92,3 +93,7 @@ fun SearchWithUsers.getFavoritesCount() = userList.filter { it.isFavorite }.size
 
 fun SearchWithUsers.getUserPhoto50Url(userOrder: Int): String? =
     userList.getOrNull(userOrder)?.photo50
+
+fun CustomException.needToWait(): Boolean =
+    vkErrorCode == VkApiErrors.TOO_MANY_REQUESTS_PER_SECOND.code
+            || vkErrorCode == VkApiErrors.FLOOD_CONTROL.code

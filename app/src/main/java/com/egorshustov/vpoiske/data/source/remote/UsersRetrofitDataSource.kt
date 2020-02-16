@@ -45,22 +45,22 @@ class UsersRetrofitDataSource @Inject constructor(
                 count,
                 sortType
             )
-            if (response.isSuccessful) {
-                response.body()?.response?.let {
-                    return@withContext Result.Success(it)
-                }
-                return@withContext Result.Error(
-                    Exception("SearchUsersInnerResponse is not found")
-                )
+            val searchUsersInnerResponse = response.body()?.response
+            return@withContext if (response.isSuccessful && searchUsersInnerResponse != null) {
+                Result.Success(searchUsersInnerResponse)
             } else {
-                return@withContext Result.Error(
-                    Exception("searchUsers response is not successful")
+                val vkErrorResponse = response.body()?.error
+                var errorText = vkErrorResponse?.errorMessage
+                if (errorText.isNullOrBlank()) errorText = SEARCH_USERS_ERROR
+                Result.Error(
+                    CustomException(
+                        message = errorText,
+                        vkErrorCode = vkErrorResponse?.errorCode
+                    )
                 )
             }
-        } catch (e: Exception) {
-            return@withContext Result.Error(
-                Exception(e)
-            )
+        } catch (t: Throwable) {
+            return@withContext Result.Error(CustomException(cause = t))
         }
     }
 
@@ -77,22 +77,27 @@ class UsersRetrofitDataSource @Inject constructor(
                 apiVersion,
                 accessToken
             )
-            if (response.isSuccessful) {
-                response.body()?.userResponseList?.firstOrNull()?.let {
-                    return@withContext Result.Success(it)
-                }
-                return@withContext Result.Error(
-                    Exception("userResponseList is not found")
-                )
+            val userResponse = response.body()?.userResponseList?.firstOrNull()
+            return@withContext if (response.isSuccessful && userResponse != null) {
+                Result.Success(userResponse)
             } else {
-                return@withContext Result.Error(
-                    Exception("getUser response is not successful")
+                val vkErrorResponse = response.body()?.error
+                var errorText = vkErrorResponse?.errorMessage
+                if (errorText.isNullOrBlank()) errorText = GET_USER_ERROR
+                Result.Error(
+                    CustomException(
+                        message = errorText,
+                        vkErrorCode = vkErrorResponse?.errorCode
+                    )
                 )
             }
-        } catch (e: Exception) {
-            return@withContext Result.Error(
-                Exception(e)
-            )
+        } catch (t: Throwable) {
+            return@withContext Result.Error(CustomException(cause = t))
         }
+    }
+
+    companion object {
+        private const val SEARCH_USERS_ERROR = "Не удалось выполнить поиск пользователей"
+        private const val GET_USER_ERROR = "Не удалось получить информацию о пользователе"
     }
 }

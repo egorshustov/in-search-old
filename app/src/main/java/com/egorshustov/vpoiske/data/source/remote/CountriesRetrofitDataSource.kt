@@ -10,36 +10,40 @@ class CountriesRetrofitDataSource @Inject constructor(
     private val retrofitVkApi: RetrofitVkApi,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : CountriesRemoteDataSource {
+
     override suspend fun getCountries(
         needAll: Boolean,
         apiVersion: String,
         accessToken: String,
         count: Int
-    ): Result<List<CountryResponse>> =
-        withContext(ioDispatcher) {
-            try {
-                val response = retrofitVkApi.getCountries(
-                    if (needAll) 1 else 0,
-                    apiVersion,
-                    accessToken,
-                    count
-                )
-                if (response.isSuccessful) {
-                    response.body()?.response?.countryResponseList?.let {
-                        return@withContext Result.Success(it)
-                    }
-                    return@withContext Result.Error(
-                        Exception("countryResponseList is not found")
+    ): Result<List<CountryResponse>> = withContext(ioDispatcher) {
+        try {
+            val response = retrofitVkApi.getCountries(
+                if (needAll) 1 else 0,
+                apiVersion,
+                accessToken,
+                count
+            )
+            val countryResponseList = response.body()?.response?.countryResponseList
+            return@withContext if (response.isSuccessful && !countryResponseList.isNullOrEmpty()) {
+                Result.Success(countryResponseList)
+            } else {
+                val vkErrorResponse = response.body()?.error
+                var errorText = vkErrorResponse?.errorMessage
+                if (errorText.isNullOrBlank()) errorText = GET_COUNTRIES_ERROR
+                Result.Error(
+                    CustomException(
+                        message = errorText,
+                        vkErrorCode = vkErrorResponse?.errorCode
                     )
-                } else {
-                    return@withContext Result.Error(
-                        Exception("getCountries response is not successful")
-                    )
-                }
-            } catch (e: Exception) {
-                return@withContext Result.Error(
-                    Exception(e)
                 )
             }
+        } catch (t: Throwable) {
+            return@withContext Result.Error(CustomException(cause = t))
         }
+    }
+
+    companion object {
+        private const val GET_COUNTRIES_ERROR = "Не удалось получить список стран"
+    }
 }

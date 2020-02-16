@@ -37,6 +37,9 @@ class SearchProcessViewModel @Inject constructor(
 
     val searchState = MutableLiveData<SearchProcessState>(SearchProcessState.INACTIVE)
 
+    private val _message = MutableLiveData<Event<String>>()
+    val message: LiveData<Event<String>> = _message
+
     private var foundUsersCount: Int = 0
 
     private var newSearchId: Long? = null
@@ -99,10 +102,14 @@ class SearchProcessViewModel @Inject constructor(
                 }
             }
             is Result.Error -> {
-                handleError(searchUsersResult.exception)
-                //todo delay and resend only if 'frequent requests exception'
-                delay(ERROR_DELAY_IN_MILLIS)
-                sendSearchUsersRequest(birthDay, birthMonth, search)
+                Timber.d("exception: ${searchUsersResult.exception}")
+                if (searchUsersResult.exception.needToWait()) {
+                    delay(ERROR_DELAY_IN_MILLIS)
+                    sendSearchUsersRequest(birthDay, birthMonth, search)
+                } else {
+                    stopSearch()
+                    _message.value = Event(searchUsersResult.getString())
+                }
             }
         }
     }
@@ -168,17 +175,16 @@ class SearchProcessViewModel @Inject constructor(
                 }
             }
             is Result.Error -> {
-                handleError(getUserResult.exception)
-                //todo delay and resend only if 'frequent requests exception'
-                delay(ERROR_DELAY_IN_MILLIS)
-                sendGetUserRequest(userId, search)
+                Timber.d("exception: ${getUserResult.exception}")
+                if (getUserResult.exception.needToWait()) {
+                    delay(ERROR_DELAY_IN_MILLIS)
+                    sendGetUserRequest(userId, search)
+                } else {
+                    stopSearch()
+                    _message.value = Event(getUserResult.getString())
+                }
             }
         }
-    }
-
-    private fun handleError(exception: Exception) {
-        //todo change method functionality
-        Timber.d("exception: $exception")
     }
 
     private fun stopSearch() {
@@ -190,7 +196,11 @@ class SearchProcessViewModel @Inject constructor(
         _openUserEvent.value = Event(userId)
     }
 
-    fun changeSearchState() {
+    fun onFabStartClicked() {
+        changeSearchState()
+    }
+
+    private fun changeSearchState() {
         if (searchState.value == SearchProcessState.INACTIVE) _openNewSearch.value = Event(Unit)
         else stopSearch()
     }

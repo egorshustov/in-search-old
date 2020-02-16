@@ -16,6 +16,7 @@ import com.egorshustov.vpoiske.adapters.UsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentSearchProcessBinding
 import com.egorshustov.vpoiske.util.EventObserver
+import com.egorshustov.vpoiske.util.showMessage
 
 class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearchProcessBinding>() {
 
@@ -33,6 +34,7 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
         setupUsersAdapter()
         observeOpenUserEvent()
         observeOpenNewSearch()
+        observeMessage()
     }
 
     private fun setupUsersAdapter() {
@@ -56,6 +58,12 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
                 SearchProcessFragmentDirections.actionSearchProcessFragmentToSearchParamsFragment()
             findNavController().navigate(action)
         })
+    }
+
+    private fun observeMessage() {
+        viewModel.message.observe(
+            viewLifecycleOwner,
+            EventObserver { requireActivity().applicationContext.showMessage(it) })
     }
 
     private fun openUserDetails(userId: Long) {

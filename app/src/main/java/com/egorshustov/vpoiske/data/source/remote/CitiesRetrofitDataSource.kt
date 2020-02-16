@@ -10,6 +10,7 @@ class CitiesRetrofitDataSource @Inject constructor(
     private val retrofitVkApi: RetrofitVkApi,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : CitiesRemoteDataSource {
+
     override suspend fun getCities(
         countryId: Int,
         needAll: Boolean,
@@ -17,33 +18,36 @@ class CitiesRetrofitDataSource @Inject constructor(
         apiVersion: String,
         accessToken: String,
         count: Int
-    ): Result<List<CityResponse>> =
-        withContext(ioDispatcher) {
-            try {
-                val response = retrofitVkApi.getCities(
-                    countryId,
-                    if (needAll) 1 else 0,
-                    searchQuery,
-                    apiVersion,
-                    accessToken,
-                    count
-                )
-                if (response.isSuccessful) {
-                    response.body()?.response?.cityResponseList?.let {
-                        return@withContext Result.Success(it)
-                    }
-                    return@withContext Result.Error(
-                        Exception("cityResponseList is not found")
+    ): Result<List<CityResponse>> = withContext(ioDispatcher) {
+        try {
+            val response = retrofitVkApi.getCities(
+                countryId,
+                if (needAll) 1 else 0,
+                searchQuery,
+                apiVersion,
+                accessToken,
+                count
+            )
+            val cityResponseList = response.body()?.response?.cityResponseList
+            return@withContext if (response.isSuccessful && !cityResponseList.isNullOrEmpty()) {
+                Result.Success(cityResponseList)
+            } else {
+                val vkErrorResponse = response.body()?.error
+                var errorText = vkErrorResponse?.errorMessage
+                if (errorText.isNullOrBlank()) errorText = GET_CITIES_ERROR
+                Result.Error(
+                    CustomException(
+                        message = errorText,
+                        vkErrorCode = vkErrorResponse?.errorCode
                     )
-                } else {
-                    return@withContext Result.Error(
-                        Exception("getCities response is not successful")
-                    )
-                }
-            } catch (e: Exception) {
-                return@withContext Result.Error(
-                    Exception(e)
                 )
             }
+        } catch (t: Throwable) {
+            return@withContext Result.Error(CustomException(cause = t))
         }
+    }
+
+    companion object {
+        private const val GET_CITIES_ERROR = "Не удалось получить список городов"
+    }
 }

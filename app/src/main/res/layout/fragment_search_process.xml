@@ -27,12 +27,12 @@
             tools:listitem="@layout/item_user" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_stop"
+            android:id="@+id/fab_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:onClick="@{() -> viewmodel.changeSearchState()}"
+            android:onClick="@{() -> viewmodel.onFabStartClicked()}"
             android:src="@{viewmodel.searchState == viewmodel.SearchState.INACTIVE ? @drawable/ic_add : @drawable/ic_stop}"
             app:backgroundTint="?themeColorAccent"
             app:tint="?themeFabIconTintColor" />

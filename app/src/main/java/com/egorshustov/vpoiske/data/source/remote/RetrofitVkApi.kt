@@ -9,7 +9,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface RetrofitVkApi {
-    @GET("users.searchprocess")
+
+    @GET("users.search")
     suspend fun searchUsers(
         @Query("country") countryId: Int,
         @Query("city") cityId: Int,
