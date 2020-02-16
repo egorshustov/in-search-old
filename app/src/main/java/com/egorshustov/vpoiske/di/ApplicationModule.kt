@@ -2,11 +2,14 @@ package com.egorshustov.vpoiske.di
 
 import android.content.Context
 import androidx.room.Room
+import com.egorshustov.vpoiske.BuildConfig
 import com.egorshustov.vpoiske.data.source.local.*
 import com.egorshustov.vpoiske.data.source.remote.*
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.Dispatchers
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -35,7 +38,22 @@ object ApplicationModule {
     @JvmStatic
     @Singleton
     @Provides
-    fun provideVkApiService(): RetrofitVkApi = Retrofit.Builder()
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor()
+        .setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE)
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideVkApiService(okHttpClient: OkHttpClient): RetrofitVkApi = Retrofit.Builder()
+        .client(okHttpClient)
         .baseUrl("https://api.vk.com/method/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()

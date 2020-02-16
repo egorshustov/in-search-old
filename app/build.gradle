@@ -68,9 +68,10 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$pagingVersion"
     implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
 
-    // Retrofit
+    // Network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttp3Logging"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
