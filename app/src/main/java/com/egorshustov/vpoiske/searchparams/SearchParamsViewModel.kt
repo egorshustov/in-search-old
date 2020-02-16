@@ -35,12 +35,6 @@ class SearchParamsViewModel @Inject constructor(
 
     val currentAgeTo = MutableLiveData(DEFAULT_AGE_TO)
 
-    private val _resetAgeToCommand = MutableLiveData<Event<Unit>>()
-    val resetAgeToCommand: LiveData<Event<Unit>> = _resetAgeToCommand
-
-    private val _resetAgeFromCommand = MutableLiveData<Event<Unit>>()
-    val resetAgeFromCommand: LiveData<Event<Unit>> = _resetAgeFromCommand
-
     val currentRelation = MutableLiveData(Relation.NOT_DEFINED)
 
     private val _currentSex = MutableLiveData(Sex.FEMALE)

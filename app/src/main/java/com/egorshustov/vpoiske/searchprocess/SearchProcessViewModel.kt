@@ -25,8 +25,8 @@ class SearchProcessViewModel @Inject constructor(
 
     private val users: LiveData<List<User>> = usersRepository.getLiveUsers()
 
-    val currentSearchUsers: LiveData<List<User>> = Transformations.map(users) {
-        it.filter { it.searchId == newSearchId }
+    val currentSearchUsers: LiveData<List<User>> = Transformations.map(users) { users ->
+        users.filter { it.searchId == newSearchId }
     }
 
     private val _openUserEvent = MutableLiveData<Event<Long>>()
@@ -90,7 +90,7 @@ class SearchProcessViewModel @Inject constructor(
             search.sex
         )) {
             is Result.Success -> {
-                val searchUsersInnerResponse =
+                @Suppress("USELESS_CAST") val searchUsersInnerResponse =
                     searchUsersResult.data as SearchUsersInnerResponse
                 val count = searchUsersInnerResponse.count
                 Timber.d("Людей всего: $count")
