@@ -1,0 +1,136 @@
+ext {
+    def versions = [
+            appCompat    : '1.1.0',
+            core         : '1.2.0',
+            annotations  : '1.1.0',
+            legacySupport: '1.0.0',
+            kotlin       : '1.3.61',
+            coroutines   : '1.3.0',
+            material     : '1.2.0-alpha05',
+            card         : '1.0.0',
+            constraint   : '1.1.3',
+            recyclerView : '1.1.0',
+            paging       : '2.1.1',
+            lifecycle    : '2.2.0',
+            fragmentKtx  : '1.2.2',
+            navigation   : '2.2.1',
+            room         : '2.2.4',
+            retrofit     : '2.6.2',
+            okHttp3      : '3.9.0',
+            dagger       : '2.26',
+            glide        : '4.10.0',
+            timber       : '4.7.1',
+            junit        : '4.12',
+            testExtJunit : '1.1.1',
+            espresso     : '3.3.0-alpha02'
+    ]
+
+    def libs = [
+            appCompat             : "androidx.appcompat:appcompat:${versions.appCompat}",
+            core                  : "androidx.core:core-ktx:${versions.core}",
+            annotations           : "androidx.annotation:annotation:${versions.annotations}",
+            legacySupport         : "androidx.legacy:legacy-support-v4:${versions.legacySupport}",
+
+            kotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}",
+            coroutines            : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}",
+
+            material              : "com.google.android.material:material:${versions.material}",
+            card                  : "androidx.cardview:cardview:${versions.card}",
+            constraint            : "androidx.constraintlayout:constraintlayout:${versions.constraint}",
+            recyclerView          : "androidx.recyclerview:recyclerview:${versions.recyclerView}",
+            pagingRuntime         : "androidx.paging:paging-runtime:${versions.paging}",
+            pagingRuntimeKtx      : "androidx.paging:paging-runtime-ktx:${versions.paging}",
+
+            lifecycleExtensions   : "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}",
+            lifecycleCommon       : "androidx.lifecycle:lifecycle-common-java8:${versions.lifecycle}",
+            lifecycleViewModel    : "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}",
+            fragmentKtx           : "androidx.fragment:fragment-ktx:${versions.fragmentKtx}",
+            navigationFragment    : "androidx.navigation:navigation-fragment-ktx:${versions.navigation}",
+            navigationUi          : "androidx.navigation:navigation-ui-ktx:${versions.navigation}",
+
+            roomRuntime           : "androidx.room:room-runtime:${versions.room}",
+            roomCompiler          : "androidx.room:room-compiler:${versions.room}",
+            roomKtx               : "androidx.room:room-ktx:${versions.room}",
+
+            retrofit              : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+            retrofitConverterGson : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
+            okHttp3Logging        : "com.squareup.okhttp3:logging-interceptor:${versions.okHttp3}",
+
+            dagger                : "com.google.dagger:dagger:${versions.dagger}",
+            daggerCompiler        : "com.google.dagger:dagger-compiler:${versions.dagger}",
+            daggerAndroidSupport  : "com.google.dagger:dagger-android-support:${versions.dagger}",
+            daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${versions.dagger}",
+
+            glide                 : "com.github.bumptech.glide:glide:${versions.glide}",
+            glideCompiler         : "com.github.bumptech.glide:compiler:${versions.glide}",
+            timber                : "com.jakewharton.timber:timber:${versions.timber}"
+    ]
+
+    def testLibs = [
+            junit       : "junit:junit:${versions.junit}",
+            testExtJunit: "androidx.test.ext:junit:${versions.testExtJunit}",
+            espresso    : "androidx.test.espresso:espresso-core:${versions.espresso}"
+    ]
+
+    def modules = [
+            // project modules can be added here:
+            // module: ":module"
+    ]
+
+    def impl = "implementation"
+    def kapt = "kapt"
+    def annProc = "annotationProcessor"
+    def testImpl = "testImplementation"
+    def androidTestImpl = "androidTestImplementation"
+
+    appDependencies = [
+            // local modules dependencies can be also added here:
+            // [configuration: impl, dependency: project(modules.module)],
+
+            [configuration: impl, dependency: libs.appCompat],
+            [configuration: impl, dependency: libs.core],
+            [configuration: impl, dependency: libs.annotations],
+            [configuration: impl, dependency: libs.legacySupport],
+
+            [configuration: impl, dependency: libs.kotlin],
+            [configuration: impl, dependency: libs.coroutines],
+
+            [configuration: impl, dependency: libs.material],
+            [configuration: impl, dependency: libs.card],
+            [configuration: impl, dependency: libs.constraint],
+            [configuration: impl, dependency: libs.recyclerView],
+            [configuration: impl, dependency: libs.pagingRuntime],
+            [configuration: impl, dependency: libs.pagingRuntimeKtx],
+
+            [configuration: impl, dependency: libs.lifecycleExtensions],
+            [configuration: impl, dependency: libs.lifecycleCommon],
+            [configuration: impl, dependency: libs.lifecycleViewModel],
+            [configuration: impl, dependency: libs.fragmentKtx],
+            [configuration: impl, dependency: libs.navigationFragment],
+            [configuration: impl, dependency: libs.navigationUi],
+
+            [configuration: impl, dependency: libs.roomRuntime],
+            [configuration: kapt, dependency: libs.roomCompiler],
+            [configuration: impl, dependency: libs.roomKtx],
+
+            [configuration: impl, dependency: libs.retrofit],
+            [configuration: impl, dependency: libs.retrofitConverterGson],
+            [configuration: impl, dependency: libs.okHttp3Logging],
+
+            [configuration: impl, dependency: libs.dagger],
+            [configuration: kapt, dependency: libs.daggerCompiler],
+            [configuration: impl, dependency: libs.daggerAndroidSupport],
+            [configuration: kapt, dependency: libs.daggerAndroidProcessor],
+
+            [configuration: impl, dependency: libs.glide],
+            [configuration: annProc, dependency: libs.glideCompiler],
+            [configuration: impl, dependency: libs.timber],
+
+            [configuration: testImpl, dependency: testLibs.junit],
+            [configuration: androidTestImpl, dependency: testLibs.testExtJunit],
+            [configuration: androidTestImpl, dependency: testLibs.espresso]
+    ]
+
+    // dependencies of project modules can be added here:
+    // moduleDependencies = []
+}
