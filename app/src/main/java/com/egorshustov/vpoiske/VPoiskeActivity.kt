@@ -29,7 +29,7 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(viewModel.currentTheme.themeId)
+        setTheme(viewModel.currentThemeId)
         setContentView(R.layout.activity_v_poiske)
         setupNavigation()
         setChangeThemeListener()
@@ -55,7 +55,7 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
     }
 
     private fun customizeNavigationBar() {
-        if (viewModel.currentTheme == VPoiskeTheme.LIGHT_THEME) {
+        if (viewModel.currentThemeId == VPoiskeTheme.LIGHT_THEME.id) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 findViewById<View>(android.R.id.content).systemUiVisibility =
                     findViewById<View>(android.R.id.content).systemUiVisibility or
@@ -66,7 +66,8 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
 
     private fun observeSearchState() {
         viewModel.searchState.observe(this, Observer {
-            nav_view.menu.findItem(R.id.searchParamsFragment).isVisible = it == SearchProcessState.INACTIVE
+            nav_view.menu.findItem(R.id.searchParamsFragment).isVisible =
+                it == SearchProcessState.INACTIVE
         })
     }
 

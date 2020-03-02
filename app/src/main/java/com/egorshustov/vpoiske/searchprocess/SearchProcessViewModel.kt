@@ -1,5 +1,6 @@
 package com.egorshustov.vpoiske.searchprocess
 
+import android.content.SharedPreferences
 import androidx.lifecycle.*
 import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.data.User
@@ -17,10 +18,11 @@ import javax.inject.Inject
 
 class SearchProcessViewModel @Inject constructor(
     private val usersRepository: UsersRepository,
-    private val searchesRepository: SearchesRepository
+    private val searchesRepository: SearchesRepository,
+    sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    var currentTheme = VPoiskeTheme.LIGHT_THEME
+    var currentThemeId by DelegatedPreference(sharedPreferences, VPoiskeTheme.LIGHT_THEME.id)
         private set
 
     private val users: LiveData<List<User>> = usersRepository.getLiveUsers()
@@ -51,7 +53,9 @@ class SearchProcessViewModel @Inject constructor(
     }
 
     fun onNavChangeThemeClicked() {
-        currentTheme = currentTheme.getNext()
+        val currentTheme =
+            VPoiskeTheme.values().find { it.id == currentThemeId } ?: VPoiskeTheme.LIGHT_THEME
+        currentThemeId = currentTheme.getNext().id
     }
 
     fun onSearchButtonClicked(searchId: Long) {

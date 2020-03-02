@@ -1,10 +1,12 @@
 package com.egorshustov.vpoiske.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.egorshustov.vpoiske.BuildConfig
 import com.egorshustov.vpoiske.data.source.local.*
 import com.egorshustov.vpoiske.data.source.remote.*
+import com.egorshustov.vpoiske.util.V_POISKE_PREFERENCES_FILENAME
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.Dispatchers
@@ -94,6 +96,14 @@ object ApplicationModule {
     @Singleton
     @Provides
     fun provideIoDispatcher() = Dispatchers.IO
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(context: Context): SharedPreferences =
+        context.getSharedPreferences(
+            V_POISKE_PREFERENCES_FILENAME, Context.MODE_PRIVATE
+        )
 }
 
 @Module

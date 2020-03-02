@@ -3,6 +3,8 @@ package com.egorshustov.vpoiske.util
 import com.egorshustov.vpoiske.data.City
 import com.egorshustov.vpoiske.data.Country
 
+const val V_POISKE_PREFERENCES_FILENAME = "com.egorshustov.vpoiskepreferences"
+
 const val NO_VALUE = -1
 
 const val DEFAULT_SEARCH_USERS_COUNT = 1000
