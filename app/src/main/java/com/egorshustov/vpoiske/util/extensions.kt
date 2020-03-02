@@ -6,6 +6,8 @@ import android.widget.Toast
 import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.data.source.remote.CustomException
+import com.egorshustov.vpoiske.search.SearchViewModel
+import com.egorshustov.vpoiske.searchprocess.SearchProcessViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
@@ -97,3 +99,12 @@ fun SearchWithUsers.getUserPhoto50Url(userOrder: Int): String? =
 fun CustomException.needToWait(): Boolean =
     vkErrorCode == VkApiErrors.TOO_MANY_REQUESTS_PER_SECOND.code
             || vkErrorCode == VkApiErrors.FLOOD_CONTROL.code
+
+fun openUser(
+    searchProcessViewModel: SearchProcessViewModel?,
+    searchViewModel: SearchViewModel?,
+    userId: Long
+) {
+    searchProcessViewModel?.openUser(userId)
+    searchViewModel?.openUser(userId)
+}

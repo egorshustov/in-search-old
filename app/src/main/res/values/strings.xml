@@ -6,6 +6,7 @@
     <string name="search_list_title">История поисков</string>
     <string name="change_theme_title">Сменить тему</string>
     <string name="user_list_title">Люди</string>
+    <string name="search_title">Поиск</string>
 
     <string name="text_search_params">Параметры поиска</string>
     <string name="text_reset">Сбросить</string>

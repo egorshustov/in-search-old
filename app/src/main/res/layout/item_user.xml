@@ -4,13 +4,20 @@
 
     <data>
 
+        <import type="com.egorshustov.vpoiske.util.ExtensionsKt" />
+
         <variable
             name="user"
             type="com.egorshustov.vpoiske.data.User" />
 
         <variable
-            name="viewmodel"
+            name="searchprocessviewmodel"
             type="com.egorshustov.vpoiske.searchprocess.SearchProcessViewModel" />
+
+        <variable
+            name="searchviewmodel"
+            type="com.egorshustov.vpoiske.search.SearchViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +28,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:onClick="@{() -> viewmodel.openUser(user.id)}"
+            android:onClick="@{() -> ExtensionsKt.openUser(searchprocessviewmodel, searchviewmodel, user.id)}"
             app:cardCornerRadius="0dp"
             app:cardPreventCornerOverlap="false"
             app:layout_constraintBottom_toBottomOf="parent"

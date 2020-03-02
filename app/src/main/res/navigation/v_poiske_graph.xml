@@ -35,6 +35,23 @@
     <fragment
         android:id="@+id/searchListFragment"
         android:name="com.egorshustov.vpoiske.searchlist.SearchListFragment"
-        android:label="@string/search_list_title" />
+        android:label="@string/search_list_title">
+
+        <action
+            android:id="@+id/action_searchListFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.egorshustov.vpoiske.search.SearchFragment"
+        android:label="@string/search_title">
+
+        <argument
+            android:name="searchId"
+            app:argType="long" />
+
+    </fragment>
 
 </navigation>

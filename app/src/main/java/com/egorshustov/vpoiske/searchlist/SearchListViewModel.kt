@@ -9,11 +9,14 @@ import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.data.source.SearchesRepository
+import com.egorshustov.vpoiske.util.Event
 import javax.inject.Inject
 
-class SearchListViewModel @Inject constructor(
-    private val searchesRepository: SearchesRepository
-) : ViewModel() {
+class SearchListViewModel @Inject constructor(searchesRepository: SearchesRepository) :
+    ViewModel() {
+
+    private val _openSearch = MutableLiveData<Event<Long>>()
+    val openSearch: LiveData<Event<Long>> = _openSearch
 
     val isLoading = MutableLiveData<Boolean>(true)
 
@@ -27,7 +30,7 @@ class SearchListViewModel @Inject constructor(
         }
 
     fun openSearch(searchId: Long) {
-
+        _openSearch.value = Event(searchId)
     }
 
     /*val searchesWithExistingUsers: LiveData<List<SearchWithUsers>> =

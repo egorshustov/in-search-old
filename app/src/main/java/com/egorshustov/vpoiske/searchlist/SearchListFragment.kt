@@ -3,10 +3,12 @@ package com.egorshustov.vpoiske.searchlist
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.SearchWithUsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentSearchListBinding
+import com.egorshustov.vpoiske.util.EventObserver
 
 class SearchListFragment :
     BaseFragment<SearchListViewModel, FragmentSearchListBinding>() {
@@ -18,9 +20,18 @@ class SearchListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupSearchWithUsersAdapter()
+        observeOpenSearch()
     }
 
     private fun setupSearchWithUsersAdapter() {
         binding.recyclerSearches.adapter = SearchWithUsersAdapter(viewModel)
+    }
+
+    private fun observeOpenSearch() {
+        viewModel.openSearch.observe(viewLifecycleOwner, EventObserver {
+            val action =
+                SearchListFragmentDirections.actionSearchListFragmentToSearchFragment(it)
+            findNavController().navigate(action)
+        })
     }
 }

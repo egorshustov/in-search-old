@@ -16,7 +16,8 @@ import javax.inject.Singleton
         VPoiskeModule::class,
         SearchProcessModule::class,
         SearchParamsModule::class,
-        SearchListModule::class
+        SearchListModule::class,
+        SearchModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<VPoiskeApplication> {

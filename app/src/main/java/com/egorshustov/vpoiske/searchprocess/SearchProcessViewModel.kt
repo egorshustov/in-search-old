@@ -42,6 +42,8 @@ class SearchProcessViewModel @Inject constructor(
     private val _message = MutableLiveData<Event<String>>()
     val message: LiveData<Event<String>> = _message
 
+    val isLoading = MutableLiveData<Boolean>(true)
+
     private var foundUsersCount: Int = 0
 
     private var newSearchId: Long? = null
