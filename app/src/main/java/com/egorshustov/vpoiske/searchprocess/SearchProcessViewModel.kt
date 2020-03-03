@@ -25,6 +25,12 @@ class SearchProcessViewModel @Inject constructor(
     var currentThemeId by DelegatedPreference(sharedPreferences, VPoiskeTheme.LIGHT_THEME.id)
         private set
 
+    var currentSpanCount by DelegatedPreference(sharedPreferences, DEFAULT_SPAN_COUNT)
+        private set
+
+    private val _currentSpanCountChanged = MutableLiveData<Int>()
+    val currentSpanCountChanged: LiveData<Int> = _currentSpanCountChanged
+
     private val users: LiveData<List<User>> = usersRepository.getLiveUsers()
 
     val currentSearchUsers: LiveData<List<User>> = Transformations.map(users) { users ->
@@ -209,6 +215,12 @@ class SearchProcessViewModel @Inject constructor(
     private fun changeSearchState() {
         if (searchState.value == SearchProcessState.INACTIVE) _openNewSearch.value = Event(Unit)
         else stopSearch()
+    }
+
+    fun onItemChangeViewClicked() {
+        currentSpanCount =
+            if (currentSpanCount.dec() == 0) MAX_SPAN_COUNT else currentSpanCount.dec()
+        _currentSpanCountChanged.value = currentSpanCount
     }
 
     override fun onCleared() {

@@ -7,6 +7,9 @@ const val V_POISKE_PREFERENCES_FILENAME = "com.egorshustov.vpoiskepreferences"
 
 const val NO_VALUE = -1
 
+const val DEFAULT_SPAN_COUNT = 3
+const val MAX_SPAN_COUNT = 3
+
 const val DEFAULT_SEARCH_USERS_COUNT = 1000
 const val DEFAULT_GET_COUNTRIES_COUNT = 1000
 const val DEFAULT_GET_CITIES_COUNT = 1000

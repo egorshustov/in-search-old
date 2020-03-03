@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,6 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
     override val viewModel by activityViewModels<SearchProcessViewModel> { viewModelFactory }
 
     private lateinit var gridLayoutManager: GridLayoutManager
-    private var spanCount = DEFAULT_SPAN_COUNT
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,11 +35,17 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
         observeOpenUserEvent()
         observeOpenNewSearch()
         observeMessage()
+        observeCurrentSpanCountChanged()
     }
 
     private fun setupUsersAdapter() {
         gridLayoutManager =
-            GridLayoutManager(requireContext(), spanCount, RecyclerView.VERTICAL, false)
+            GridLayoutManager(
+                requireContext(),
+                viewModel.currentSpanCount,
+                RecyclerView.VERTICAL,
+                false
+            )
         binding.recyclerUsers.apply {
             layoutManager = gridLayoutManager
             adapter = UsersAdapter(viewModel)
@@ -66,6 +72,12 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
             EventObserver { requireActivity().applicationContext.showMessage(it) })
     }
 
+    private fun observeCurrentSpanCountChanged() {
+        viewModel.currentSpanCountChanged.observe(viewLifecycleOwner) {
+            gridLayoutManager.apply { spanCount = it }
+        }
+    }
+
     private fun openUserDetails(userId: Long) {
         /*val action = SearchProcessFragmentDirections.actionSearchProcessFragmentToUserDetailFragment(userId)
         findNavController().navigate(action)*/
@@ -75,23 +87,15 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.search_fragment_menu, menu)
+        inflater.inflate(R.menu.search_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
             R.id.item_change_view -> {
-                gridLayoutManager.apply {
-                    spanCount = if (spanCount.dec() == 0) MAX_SPAN_COUNT else spanCount.dec()
-                    this@SearchProcessFragment.spanCount = spanCount
-                }
+                viewModel.onItemChangeViewClicked()
                 true
             }
             else -> false
         }
-
-    companion object {
-        private const val DEFAULT_SPAN_COUNT = 3
-        private const val MAX_SPAN_COUNT = 3
-    }
 }
