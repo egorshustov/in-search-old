@@ -25,6 +25,7 @@
         <item name="themeColorAccent">@color/colorDenim</item>
         <item name="themeTextColorPrimary">@android:color/black</item>
         <item name="themeTextColorSecondary">@color/colorStormGrey</item>
+        <item name="themeTextColorTertiary">@color/colorSteelBlue</item>
         <item name="themeContainedButtonTextColor">@android:color/white</item>
         <item name="themeNavigationBarColor">@color/colorSolitude</item>
         <item name="themeStatusBarColor">@color/colorHavelockBlue</item>
@@ -32,6 +33,7 @@
         <item name="themeFabIconTintColor">@android:color/white</item>
         <item name="themeUserPhotoBackgroundColor">@color/colorSolitude</item>
         <item name="themeSeparatorBackgroundColor">@color/colorGainsboro</item>
+        <item name="themeButtonsAnimationsColor">@color/colorSolitude</item>
     </style>
 
     <style name="VPoiskeTheme.NoActionBar.Dark">
@@ -40,6 +42,7 @@
         <item name="themeColorAccent">@android:color/white</item>
         <item name="themeTextColorPrimary">@color/colorHawkesBlue</item>
         <item name="themeTextColorSecondary">@color/colorManatee</item>
+        <item name="themeTextColorTertiary">@android:color/white</item>
         <item name="themeContainedButtonTextColor">@color/colorNero</item>
         <item name="themeNavigationBarColor">@color/colorCodGray</item>
         <item name="themeStatusBarColor">@color/colorEbony</item>
@@ -47,6 +50,7 @@
         <item name="themeFabIconTintColor">@color/colorCodGray</item>
         <item name="themeUserPhotoBackgroundColor">@color/colorNightRider</item>
         <item name="themeSeparatorBackgroundColor">@color/colorEclipse</item>
+        <item name="themeButtonsAnimationsColor">@color/colorEclipse</item>
     </style>
 
     <style name="NavigationStyle">
@@ -57,6 +61,16 @@
     <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">?themeToolbarTextColor</item>
+    </style>
+
+    <style name="ButtonFaintStyle">
+        <item name="android:background">@drawable/button_ripple_rounded_faint</item>
+        <item name="android:textColor">?themeTextColorTertiary</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
     </style>
 
 </resources>

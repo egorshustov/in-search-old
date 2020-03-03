@@ -7,6 +7,7 @@
     <dimen name="item_search_user_image_size">30dp</dimen>
     <dimen name="item_separator_height">1dp</dimen>
     <dimen name="text_search_counts_min_width">55dp</dimen>
+    <dimen name="buttons_corners_radius">10dp</dimen>
 
     <dimen name="text_size_toolbar">22sp</dimen>
     <dimen name="text_size_big">18sp</dimen>

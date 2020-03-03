@@ -6,10 +6,12 @@
     <color name="colorManatee">#909398</color>
     <color name="colorStormGrey">#77787A</color>
     <color name="colorHavelockBlue">#5281B9</color>
+    <color name="colorSteelBlue">#527FB3</color>
     <color name="colorDenim">#2A74C9</color>
     <color name="colorEclipse">#393939</color>
     <color name="colorEbony">#2C2D2F</color>
     <color name="colorNightRider">#2C2C2C</color>
     <color name="colorCodGray">#0A0A0A</color>
+    <color name="colorVeryDarkGray">#1E1E1E</color>
     <color name="colorNero">#191919</color>
 </resources>

@@ -37,6 +37,32 @@
             app:backgroundTint="?themeColorAccent"
             app:tint="?themeFabIconTintColor" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_no_searches"
+                android:layout_gravity="center"
+                android:textColor="?themeTextColorPrimary"
+                android:textSize="@dimen/text_size_medium" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_start_new_search"
+                style="@style/ButtonFaintStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:stateListAnimator="@null"
+                android:text="@string/text_start_new_search" />
+
+        </LinearLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

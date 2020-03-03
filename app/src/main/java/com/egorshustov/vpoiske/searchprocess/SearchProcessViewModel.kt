@@ -52,7 +52,7 @@ class SearchProcessViewModel @Inject constructor(
 
     private var foundUsersCount: Int = 0
 
-    private var newSearchId: Long? = null
+    private var newSearchId: Long? = null //todo get last search id here
 
     private var searchJob: Job? = null
 

@@ -32,6 +32,7 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         setupUsersAdapter()
+        setButtonListeners()
         observeOpenUserEvent()
         observeOpenNewSearch()
         observeMessage()
@@ -52,6 +53,14 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
         }
     }
 
+    private fun setButtonListeners() = with(binding) {
+        buttonStartNewSearch.setOnClickListener {
+            findNavController().navigate(
+                SearchProcessFragmentDirections.actionSearchProcessFragmentToSearchParamsFragment()
+            )
+        }
+    }
+
     private fun observeOpenUserEvent() {
         viewModel.openUserEvent.observe(viewLifecycleOwner, EventObserver {
             openUserDetails(it)
@@ -60,9 +69,9 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
 
     private fun observeOpenNewSearch() {
         viewModel.openNewSearch.observe(viewLifecycleOwner, EventObserver {
-            val action =
+            findNavController().navigate(
                 SearchProcessFragmentDirections.actionSearchProcessFragmentToSearchParamsFragment()
-            findNavController().navigate(action)
+            )
         })
     }
 
