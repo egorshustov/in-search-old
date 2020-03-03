@@ -33,8 +33,11 @@ class SearchProcessViewModel @Inject constructor(
 
     private val users: LiveData<List<User>> = usersRepository.getLiveUsers()
 
+    val lastSearchId = searchesRepository.getLiveLastSearchId()
+
     val currentSearchUsers: LiveData<List<User>> = Transformations.map(users) { users ->
-        users.filter { it.searchId == newSearchId }
+        isLoading.value = false
+        users.filter { it.searchId == lastSearchId.value }
     }
 
     private val _openUserEvent = MutableLiveData<Event<Long>>()
@@ -52,8 +55,6 @@ class SearchProcessViewModel @Inject constructor(
 
     private var foundUsersCount: Int = 0
 
-    private var newSearchId: Long? = null //todo get last search id here
-
     private var searchJob: Job? = null
 
     init {
@@ -67,9 +68,10 @@ class SearchProcessViewModel @Inject constructor(
     }
 
     fun onSearchButtonClicked(searchId: Long) {
+        isLoading.value = true
         searchJob = viewModelScope.launch {
             val search = searchesRepository.getSearch(searchId) ?: return@launch
-            newSearchId = searchId
+            //lastSearchId.value = searchId
             searchState.value = SearchProcessState.IN_PROGRESS
             currentUnixSeconds.let {
                 searchesRepository.updateSearchStartUnixSeconds(searchId, it)
@@ -201,6 +203,7 @@ class SearchProcessViewModel @Inject constructor(
 
     private fun stopSearch() {
         searchJob?.cancel()
+        isLoading.value = false
         searchState.value = SearchProcessState.INACTIVE
     }
 

@@ -1,5 +1,6 @@
 package com.egorshustov.vpoiske.data.source.local
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -20,6 +21,9 @@ interface SearchesDao {
 
     @Query("select * from searches where id = :id")
     suspend fun getSearch(id: Long): Search?
+
+    @Query("select id from searches order by start_unix_seconds desc")
+    fun getLiveLastSearchId(): LiveData<Long?>
 
     @Query("update searches set start_unix_seconds = :startUnixSeconds where id = :id")
     suspend fun updateSearchStartUnixSeconds(id: Long, startUnixSeconds: Int)

@@ -76,8 +76,7 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
     }
 
     private fun observeMessage() {
-        viewModel.message.observe(
-            viewLifecycleOwner,
+        viewModel.message.observe(viewLifecycleOwner,
             EventObserver { requireActivity().applicationContext.showMessage(it) })
     }
 

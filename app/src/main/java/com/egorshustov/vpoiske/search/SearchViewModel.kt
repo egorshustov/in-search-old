@@ -27,6 +27,7 @@ class SearchViewModel @Inject constructor(
     private val users: LiveData<List<User>> = usersRepository.getLiveUsers()
 
     val currentSearchUsers: LiveData<List<User>> = Transformations.map(users) { users ->
+        isLoading.value = false
         users.filter { it.searchId == currentSearchId }
     }
 
@@ -42,7 +43,6 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onCurrentSearchIdObtained(searchId: Long) {
-        isLoading.value = false
         currentSearchId = searchId
     }
 
