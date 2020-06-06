@@ -1,28 +1,28 @@
 ext {
     def versions = [
             appCompat    : '1.1.0',
-            core         : '1.2.0',
+            core         : '1.3.0',
             annotations  : '1.1.0',
             legacySupport: '1.0.0',
-            kotlin       : '1.3.61',
-            coroutines   : '1.3.0',
-            material     : '1.2.0-alpha05',
+            kotlin       : '1.3.72',
+            coroutines   : '1.3.7',
+            material     : '1.2.0-alpha06',
             card         : '1.0.0',
             constraint   : '1.1.3',
             recyclerView : '1.1.0',
-            paging       : '2.1.1',
+            paging       : '2.1.2',
             lifecycle    : '2.2.0',
-            fragmentKtx  : '1.2.2',
-            navigation   : '2.2.1',
-            room         : '2.2.4',
-            retrofit     : '2.6.2',
-            okHttp3      : '3.9.0',
-            dagger       : '2.26',
-            glide        : '4.10.0',
+            fragmentKtx  : '1.2.4',
+            navigation   : '2.2.2',
+            room         : '2.2.5',
+            retrofit     : '2.9.0',
+            okHttp3      : '4.7.2',
+            dagger       : '2.28',
+            glide        : '4.11.0',
             timber       : '4.7.1',
             junit        : '4.12',
             testExtJunit : '1.1.1',
-            espresso     : '3.3.0-alpha02'
+            espresso     : '3.2.0'
     ]
 
     def libs = [
