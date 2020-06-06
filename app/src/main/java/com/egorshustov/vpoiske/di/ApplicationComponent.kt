@@ -15,6 +15,7 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         VPoiskeModule::class,
         MainModule::class,
+        LoginModule::class,
         SearchParamsModule::class,
         SearchListModule::class,
         SearchModule::class

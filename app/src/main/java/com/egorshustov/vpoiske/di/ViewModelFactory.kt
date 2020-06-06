@@ -35,13 +35,13 @@ class ViewModelFactory @Inject constructor(
 @Module
 internal abstract class ViewModelBuilder {
     @Binds
-    internal abstract fun bindViewModelFactory(
-        factory: ViewModelFactory
-    ): ViewModelProvider.Factory
+    internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }
 
 @Target(
-    AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER
+    AnnotationTarget.FUNCTION,
+    AnnotationTarget.PROPERTY_GETTER,
+    AnnotationTarget.PROPERTY_SETTER
 )
 @Retention(AnnotationRetention.RUNTIME)
 @MapKey

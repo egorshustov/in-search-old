@@ -22,11 +22,13 @@ class MainViewModel @Inject constructor(
     sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    var currentThemeId by DelegatedPreference(sharedPreferences, VPoiskeTheme.LIGHT_THEME.id)
+    var currentThemeId by DelegatedPreference(sharedPreferences, PREF_KEY_CURRENT_THEME_ID, VPoiskeTheme.LIGHT_THEME.id)
         private set
 
-    var currentSpanCount by DelegatedPreference(sharedPreferences, DEFAULT_SPAN_COUNT)
+    var currentSpanCount by DelegatedPreference(sharedPreferences, PREF_KEY_CURRENT_SPAN_COUNT, DEFAULT_SPAN_COUNT)
         private set
+
+
 
     private val _currentSpanCountChanged = MutableLiveData<Int>()
     val currentSpanCountChanged: LiveData<Int> = _currentSpanCountChanged

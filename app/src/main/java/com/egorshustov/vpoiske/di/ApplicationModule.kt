@@ -19,31 +19,26 @@ import javax.inject.Singleton
 @Module(includes = [ApplicationModuleBinds::class])
 object ApplicationModule {
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideUsersRemoteDataSource(usersRetrofit: RetrofitVkApi): UsersRemoteDataSource =
         UsersRetrofitDataSource(usersRetrofit)
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideCountriesRemoteDataSource(usersRetrofit: RetrofitVkApi): CountriesRemoteDataSource =
         CountriesRetrofitDataSource(usersRetrofit)
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideCitiesRemoteDataSource(usersRetrofit: RetrofitVkApi): CitiesRemoteDataSource =
         CitiesRetrofitDataSource(usersRetrofit)
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor()
         .setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE)
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
@@ -51,7 +46,6 @@ object ApplicationModule {
             .addInterceptor(httpLoggingInterceptor)
             .build()
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideVkApiService(okHttpClient: OkHttpClient): RetrofitVkApi = Retrofit.Builder()
@@ -61,29 +55,24 @@ object ApplicationModule {
         .build()
         .create(RetrofitVkApi::class.java)
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideUsersDao(vPoiskeDatabase: VPoiskeDatabase): UsersDao = vPoiskeDatabase.usersDao()
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideSearchesDao(vPoiskeDatabase: VPoiskeDatabase): SearchesDao =
         vPoiskeDatabase.searchesDao()
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideCitiesDao(vPoiskeDatabase: VPoiskeDatabase): CitiesDao = vPoiskeDatabase.citiesDao()
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideCountriesDao(vPoiskeDatabase: VPoiskeDatabase): CountriesDao =
         vPoiskeDatabase.countriesDao()
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideDatabase(context: Context): VPoiskeDatabase = Room.databaseBuilder(
@@ -92,12 +81,10 @@ object ApplicationModule {
         "VPoiske.db"
     ).addMigrations(VPoiskeDatabase.MIGRATION_1_2, VPoiskeDatabase.MIGRATION_2_3).build()
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideIoDispatcher() = Dispatchers.IO
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideSharedPreferences(context: Context): SharedPreferences =

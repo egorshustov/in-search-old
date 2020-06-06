@@ -4,6 +4,8 @@ import com.egorshustov.vpoiske.data.City
 import com.egorshustov.vpoiske.data.Country
 
 const val V_POISKE_PREFERENCES_FILENAME = "com.egorshustov.vpoiskepreferences"
+const val PREF_KEY_CURRENT_THEME_ID = "com.egorshustov.vpoiske.PREF_KEY_CURRENT_THEME_ID"
+const val PREF_KEY_CURRENT_SPAN_COUNT = "com.egorshustov.vpoiske.PREF_KEY_CURRENT_SPAN_COUNT"
 
 const val NO_VALUE = -1
 

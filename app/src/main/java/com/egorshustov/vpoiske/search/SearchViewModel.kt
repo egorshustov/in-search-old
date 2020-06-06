@@ -7,10 +7,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.data.source.UsersRepository
-import com.egorshustov.vpoiske.util.DEFAULT_SPAN_COUNT
-import com.egorshustov.vpoiske.util.DelegatedPreference
-import com.egorshustov.vpoiske.util.Event
-import com.egorshustov.vpoiske.util.MAX_SPAN_COUNT
+import com.egorshustov.vpoiske.util.*
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
@@ -18,7 +15,11 @@ class SearchViewModel @Inject constructor(
     sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    var currentSpanCount by DelegatedPreference(sharedPreferences, DEFAULT_SPAN_COUNT)
+    var currentSpanCount by DelegatedPreference(
+        sharedPreferences,
+        PREF_KEY_CURRENT_SPAN_COUNT,
+        DEFAULT_SPAN_COUNT
+    )
         private set
 
     private val _currentSpanCountChanged = MutableLiveData<Int>()

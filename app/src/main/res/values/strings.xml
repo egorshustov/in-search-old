@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">ВПоиске</string>
+
+    <string name="text_enter">Войти</string>
+    <string name="text_email_or_phone">Email или телефон</string>
+    <string name="text_password">Пароль</string>
+
     <string name="navigation_view_header_title">Поиски</string>
     <string name="main_title">Последний поиск</string>
     <string name="text_no_searches">Поиски отсутствуют</string>

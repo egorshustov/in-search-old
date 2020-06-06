@@ -6,21 +6,13 @@ import kotlin.reflect.KProperty
 
 class DelegatedPreference<T>(
     private val sharedPreferences: SharedPreferences,
+    private val key: String,
     private val defValue: T
 ) : ReadWriteProperty<Any?, T> {
 
-    private var key = this::class.java.name
-        set(value) {
-            field = this::class.java.name + "." + value
-        }
-
-    override fun getValue(thisRef: Any?, property: KProperty<*>): T {
-        key = property.name
-        return findPreference(defValue)
-    }
+    override fun getValue(thisRef: Any?, property: KProperty<*>): T = findPreference(defValue)
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-        key = property.name
         putPreference(value)
     }
 
