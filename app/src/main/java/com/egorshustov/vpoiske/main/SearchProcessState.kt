@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.searchprocess
+package com.egorshustov.vpoiske.main
 
 enum class SearchProcessState {
     INACTIVE,

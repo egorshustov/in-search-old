@@ -11,8 +11,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.egorshustov.vpoiske.searchprocess.SearchProcessState
-import com.egorshustov.vpoiske.searchprocess.SearchProcessViewModel
+import com.egorshustov.vpoiske.main.SearchProcessState
+import com.egorshustov.vpoiske.main.MainViewModel
 import com.egorshustov.vpoiske.util.VPoiskeTheme
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_v_poiske.*
@@ -23,7 +23,7 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<SearchProcessViewModel> { viewModelFactory }
+    private val viewModel by viewModels<MainViewModel> { viewModelFactory }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 

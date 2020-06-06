@@ -13,7 +13,7 @@ import com.egorshustov.vpoiske.adapters.CitiesAdapter
 import com.egorshustov.vpoiske.adapters.CountriesAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentSearchParamsBinding
-import com.egorshustov.vpoiske.searchprocess.SearchProcessViewModel
+import com.egorshustov.vpoiske.main.MainViewModel
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.Relation
 import com.egorshustov.vpoiske.util.snackBar
@@ -24,7 +24,7 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
 
     override val viewModel by viewModels<SearchParamsViewModel> { viewModelFactory }
 
-    private val mainViewModel by activityViewModels<SearchProcessViewModel> { viewModelFactory }
+    private val mainViewModel by activityViewModels<MainViewModel> { viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -136,7 +136,7 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
         viewModel.newSearchId.observe(viewLifecycleOwner, EventObserver { newSearchId ->
             newSearchId?.let {
                 mainViewModel.onSearchButtonClicked(it)
-                findNavController().popBackStack(R.id.searchProcessFragment, false)
+                findNavController().popBackStack(R.id.mainFragment, false)
             }
         })
     }

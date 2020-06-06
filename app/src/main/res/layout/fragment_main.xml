@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="com.egorshustov.vpoiske.searchprocess.SearchProcessViewModel" />
+            type="com.egorshustov.vpoiske.main.MainViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

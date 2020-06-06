@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.searchprocess
+package com.egorshustov.vpoiske.main
 
 import android.content.Intent
 import android.net.Uri
@@ -15,16 +15,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.UsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
-import com.egorshustov.vpoiske.databinding.FragmentSearchProcessBinding
+import com.egorshustov.vpoiske.databinding.FragmentMainBinding
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.showMessage
 
-class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearchProcessBinding>() {
+class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     //todo use or kotlin ext or data binding
-    override fun getLayoutResId(): Int = R.layout.fragment_search_process
+    override fun getLayoutResId(): Int = R.layout.fragment_main
 
-    override val viewModel by activityViewModels<SearchProcessViewModel> { viewModelFactory }
+    override val viewModel by activityViewModels<MainViewModel> { viewModelFactory }
 
     private lateinit var gridLayoutManager: GridLayoutManager
 
@@ -56,7 +56,7 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
     private fun setButtonListeners() = with(binding) {
         buttonStartNewSearch.setOnClickListener {
             findNavController().navigate(
-                SearchProcessFragmentDirections.actionSearchProcessFragmentToSearchParamsFragment()
+                MainFragmentDirections.actionMainFragmentToSearchParamsFragment()
             )
         }
     }
@@ -70,7 +70,7 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
     private fun observeOpenNewSearch() {
         viewModel.openNewSearch.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(
-                SearchProcessFragmentDirections.actionSearchProcessFragmentToSearchParamsFragment()
+                MainFragmentDirections.actionMainFragmentToSearchParamsFragment()
             )
         })
     }
@@ -87,7 +87,7 @@ class SearchProcessFragment : BaseFragment<SearchProcessViewModel, FragmentSearc
     }
 
     private fun openUserDetails(userId: Long) {
-        /*val action = SearchProcessFragmentDirections.actionSearchProcessFragmentToUserDetailFragment(userId)
+        /*val action = MainFragmentDirections.actionMainFragmentToUserDetailFragment(userId)
         findNavController().navigate(action)*/
         val userUrl = "https://vk.com/id$userId"
         val intent = Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(userUrl) }

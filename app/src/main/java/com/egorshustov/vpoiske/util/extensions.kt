@@ -7,7 +7,7 @@ import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.data.source.remote.CustomException
 import com.egorshustov.vpoiske.search.SearchViewModel
-import com.egorshustov.vpoiske.searchprocess.SearchProcessViewModel
+import com.egorshustov.vpoiske.main.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
@@ -101,10 +101,10 @@ fun CustomException.needToWait(): Boolean =
             || vkErrorCode == VkApiErrors.FLOOD_CONTROL.code
 
 fun openUser(
-    searchProcessViewModel: SearchProcessViewModel?,
+    mainViewModel: MainViewModel?,
     searchViewModel: SearchViewModel?,
     userId: Long
 ) {
-    searchProcessViewModel?.openUser(userId)
+    mainViewModel?.openUser(userId)
     searchViewModel?.openUser(userId)
 }

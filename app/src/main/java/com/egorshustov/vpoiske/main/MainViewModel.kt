@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.searchprocess
+package com.egorshustov.vpoiske.main
 
 import android.content.SharedPreferences
 import androidx.lifecycle.*
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class SearchProcessViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val usersRepository: UsersRepository,
     private val searchesRepository: SearchesRepository,
     sharedPreferences: SharedPreferences
@@ -46,12 +46,12 @@ class SearchProcessViewModel @Inject constructor(
     private val _openNewSearch = MutableLiveData<Event<Unit>>()
     val openNewSearch: LiveData<Event<Unit>> = _openNewSearch
 
-    val searchState = MutableLiveData<SearchProcessState>(SearchProcessState.INACTIVE)
+    val searchState = MutableLiveData(SearchProcessState.INACTIVE)
 
     private val _message = MutableLiveData<Event<String>>()
     val message: LiveData<Event<String>> = _message
 
-    val isLoading = MutableLiveData<Boolean>(true)
+    val isLoading = MutableLiveData(true)
 
     private var foundUsersCount: Int = 0
 
