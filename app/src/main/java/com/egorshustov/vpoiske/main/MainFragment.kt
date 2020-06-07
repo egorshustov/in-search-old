@@ -17,6 +17,7 @@ import com.egorshustov.vpoiske.adapters.UsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentMainBinding
 import com.egorshustov.vpoiske.util.EventObserver
+import com.egorshustov.vpoiske.util.safeNavigate
 import com.egorshustov.vpoiske.util.showMessage
 
 class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
@@ -33,10 +34,16 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         setHasOptionsMenu(true)
         setupUsersAdapter()
         setButtonListeners()
+        observeAuthenticationState()
         observeOpenUserEvent()
         observeOpenNewSearch()
         observeMessage()
         observeCurrentSpanCountChanged()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.invalidateAll()
     }
 
     private fun setupUsersAdapter() {
@@ -55,9 +62,19 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     private fun setButtonListeners() = with(binding) {
         buttonStartNewSearch.setOnClickListener {
-            findNavController().navigate(
+            findNavController().safeNavigate(
                 MainFragmentDirections.actionMainFragmentToSearchParamsFragment()
             )
+        }
+    }
+
+    private fun observeAuthenticationState() {
+        viewModel.authenticationState.observe(viewLifecycleOwner) {
+            when (it) {
+                AuthenticationState.UNAUTHENTICATED -> findNavController().safeNavigate(
+                    MainFragmentDirections.actionMainFragmentToLoginFragment()
+                )
+            }
         }
     }
 
@@ -69,7 +86,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     private fun observeOpenNewSearch() {
         viewModel.openNewSearch.observe(viewLifecycleOwner, EventObserver {
-            findNavController().navigate(
+            findNavController().safeNavigate(
                 MainFragmentDirections.actionMainFragmentToSearchParamsFragment()
             )
         })
@@ -88,7 +105,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     private fun openUserDetails(userId: Long) {
         /*val action = MainFragmentDirections.actionMainFragmentToUserDetailFragment(userId)
-        findNavController().navigate(action)*/
+        findNavController().safeNavigate(action)*/
         val userUrl = "https://vk.com/id$userId"
         val intent = Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(userUrl) }
         startActivity(intent)

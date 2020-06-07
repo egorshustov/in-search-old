@@ -27,6 +27,10 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
 
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+
     </fragment>
 
     <fragment
@@ -58,5 +62,11 @@
             app:argType="long" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.egorshustov.vpoiske.login.LoginFragment"
+        android:label="@string/text_authorization"
+        tools:layout="@layout/fragment_login" />
 
 </navigation>

@@ -14,7 +14,14 @@
         android:layout_height="match_parent"
         android:background="?themeBackgroundColorPrimary">
 
+        <WebView
+            android:id="@+id/web_view_auth"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
         <LinearLayout
+            android:id="@+id/layout_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -38,15 +45,27 @@
                 android:inputType="textVisiblePassword" />
 
             <Button
-                android:id="@+id/button_login"
+                android:id="@+id/button_auth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/blocks_margin"
                 android:text="@string/text_enter"
                 android:textColor="?themeContainedButtonTextColor"
-                app:backgroundTint="?themeColorAccent" />
+                app:backgroundTint="?themeColorAccent"
+                app:isGone="@{viewmodel.isRequestProcessing}" />
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_auth"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:isGone="@{!viewmodel.isRequestProcessing}"
+            app:layout_constraintBottom_toBottomOf="@+id/layout_input"
+            app:layout_constraintEnd_toEndOf="@+id/layout_input"
+            app:layout_constraintStart_toStartOf="@+id/layout_input"
+            app:layout_constraintTop_toTopOf="@+id/layout_input" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

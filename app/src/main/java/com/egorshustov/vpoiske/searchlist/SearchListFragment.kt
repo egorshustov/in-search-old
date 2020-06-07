@@ -9,6 +9,7 @@ import com.egorshustov.vpoiske.adapters.SearchWithUsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentSearchListBinding
 import com.egorshustov.vpoiske.util.EventObserver
+import com.egorshustov.vpoiske.util.safeNavigate
 
 class SearchListFragment :
     BaseFragment<SearchListViewModel, FragmentSearchListBinding>() {
@@ -31,7 +32,7 @@ class SearchListFragment :
         viewModel.openSearch.observe(viewLifecycleOwner, EventObserver {
             val action =
                 SearchListFragmentDirections.actionSearchListFragmentToSearchFragment(it)
-            findNavController().navigate(action)
+            findNavController().safeNavigate(action)
         })
     }
 }

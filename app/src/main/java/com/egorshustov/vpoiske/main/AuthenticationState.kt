@@ -1,7 +1,7 @@
 package com.egorshustov.vpoiske.main
 
 enum class AuthenticationState {
-    UNAUTHENTICATED,
     AUTHENTICATED,
+    UNAUTHENTICATED,
     INVALID_AUTHENTICATION
 }

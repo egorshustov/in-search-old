@@ -22,13 +22,24 @@ class MainViewModel @Inject constructor(
     sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    var currentThemeId by DelegatedPreference(sharedPreferences, PREF_KEY_CURRENT_THEME_ID, VPoiskeTheme.LIGHT_THEME.id)
+    var currentThemeId by DelegatedPreference(
+        sharedPreferences,
+        PREF_KEY_CURRENT_THEME_ID,
+        VPoiskeTheme.LIGHT_THEME.id
+    )
         private set
 
-    var currentSpanCount by DelegatedPreference(sharedPreferences, PREF_KEY_CURRENT_SPAN_COUNT, DEFAULT_SPAN_COUNT)
+    var currentSpanCount by DelegatedPreference(
+        sharedPreferences,
+        PREF_KEY_CURRENT_SPAN_COUNT,
+        DEFAULT_SPAN_COUNT
+    )
         private set
 
+    var accessToken by DelegatedPreference(sharedPreferences, PREF_KEY_ACCESS_TOKEN, "")
+        private set
 
+    val authenticationState = MutableLiveData<AuthenticationState>()
 
     private val _currentSpanCountChanged = MutableLiveData<Int>()
     val currentSpanCountChanged: LiveData<Int> = _currentSpanCountChanged
@@ -60,7 +71,16 @@ class MainViewModel @Inject constructor(
     private var searchJob: Job? = null
 
     init {
-        Timber.d("%s init", toString())
+        authenticationState.value = if (accessToken.isNotBlank()) {
+            AuthenticationState.AUTHENTICATED
+        } else {
+            AuthenticationState.UNAUTHENTICATED
+        }
+    }
+
+    fun onAuthDataObtained(userId: Long, accessToken: String) {
+        //this.accessToken = accessToken
+        authenticationState.value = AuthenticationState.AUTHENTICATED
     }
 
     fun onNavChangeThemeClicked() {
@@ -226,10 +246,5 @@ class MainViewModel @Inject constructor(
         currentSpanCount =
             if (currentSpanCount.dec() == 0) MAX_SPAN_COUNT else currentSpanCount.dec()
         _currentSpanCountChanged.value = currentSpanCount
-    }
-
-    override fun onCleared() {
-        Timber.d("%s cleared", toString())
-        super.onCleared()
     }
 }

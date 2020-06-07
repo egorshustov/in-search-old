@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ВПоиске</string>
 
+    <string name="text_authorization">Авторизация</string>
     <string name="text_enter">Войти</string>
     <string name="text_email_or_phone">Email или телефон</string>
     <string name="text_password">Пароль</string>
@@ -31,6 +32,10 @@
     <string name="item_change_view">Сменить вид</string>
 
     <string name="description_user_image">Изображение пользователя</string>
+
+    <string name="error_something_went_wrong">Что-то пошло не так. Попробуйте повторить позднее</string>
+    <string name="error_check_internet">Нет соединения с интернетом, пожалуйста, проверьте ваше подключение</string>
+    <string name="error_check_internet_or_unavailable">Ошибка соединения: отсутствует подключение к сети или сервер недоступен</string>
 
     <string-array name="ages_from">
         <item>От любого</item>

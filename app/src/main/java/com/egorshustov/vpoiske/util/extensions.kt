@@ -3,12 +3,15 @@ package com.egorshustov.vpoiske.util
 import android.content.Context
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.data.source.remote.CustomException
-import com.egorshustov.vpoiske.search.SearchViewModel
 import com.egorshustov.vpoiske.main.MainViewModel
+import com.egorshustov.vpoiske.search.SearchViewModel
 import com.google.android.material.snackbar.Snackbar
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,6 +26,14 @@ val currentUnixMillis: Long
 
 val currentUnixSeconds: Int
     get() = (System.currentTimeMillis() / MILLIS_IN_SECOND).toInt()
+
+fun NavController.safeNavigate(navDirections: NavDirections) {
+    try {
+        navigate(navDirections)
+    } catch (e: Exception) {
+        Timber.e(e)
+    }
+}
 
 /**
  * Universal way for the project to display a toast message to a user.

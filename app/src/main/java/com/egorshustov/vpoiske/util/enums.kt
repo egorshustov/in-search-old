@@ -48,6 +48,11 @@ enum class SortType(val value: Int) {
     BY_REGISTRATION_DATE(1)
 }
 
+enum class AuthRequestTypes {
+    IMPLICIT_FLOW,
+    AUTHORIZATION_CODE_FLOW
+}
+
 enum class VkApiErrors(val code: Int) {
     UNKNOWN_ERROR_OCCURED(1),
     APPLICATION_IS_DISABLED(2),

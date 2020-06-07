@@ -11,8 +11,8 @@ data class CityResponse(
 ) {
     fun toEntity() = City(
         id ?: NO_VALUE,
-        title ?: "",
-        area ?: "",
-        region ?: ""
+        title.orEmpty(),
+        area.orEmpty(),
+        region.orEmpty()
     )
 }

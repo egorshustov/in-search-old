@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.main.SearchProcessState
 import com.egorshustov.vpoiske.main.MainViewModel
 import com.egorshustov.vpoiske.util.VPoiskeTheme

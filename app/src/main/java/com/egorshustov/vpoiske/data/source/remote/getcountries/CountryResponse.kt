@@ -7,5 +7,5 @@ data class CountryResponse(
     val id: Int?,
     val title: String?
 ) {
-    fun toEntity() = Country(id ?: NO_VALUE, title ?: "")
+    fun toEntity() = Country(id ?: NO_VALUE, title.orEmpty())
 }
