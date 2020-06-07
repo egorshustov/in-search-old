@@ -36,11 +36,6 @@ class MainViewModel @Inject constructor(
     )
         private set
 
-    var accessToken by DelegatedPreference(sharedPreferences, PREF_KEY_ACCESS_TOKEN, "")
-        private set
-
-    val authenticationState = MutableLiveData<AuthenticationState>()
-
     private val _currentSpanCountChanged = MutableLiveData<Int>()
     val currentSpanCountChanged: LiveData<Int> = _currentSpanCountChanged
 
@@ -69,19 +64,6 @@ class MainViewModel @Inject constructor(
     private var foundUsersCount: Int = 0
 
     private var searchJob: Job? = null
-
-    init {
-        authenticationState.value = if (accessToken.isNotBlank()) {
-            AuthenticationState.AUTHENTICATED
-        } else {
-            AuthenticationState.UNAUTHENTICATED
-        }
-    }
-
-    fun onAuthDataObtained(userId: Long, accessToken: String) {
-        //this.accessToken = accessToken
-        authenticationState.value = AuthenticationState.AUTHENTICATED
-    }
 
     fun onNavChangeThemeClicked() {
         val currentTheme =

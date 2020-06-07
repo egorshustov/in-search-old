@@ -16,6 +16,7 @@ import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.UsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentMainBinding
+import com.egorshustov.vpoiske.login.LoginViewModel
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.safeNavigate
 import com.egorshustov.vpoiske.util.showMessage
@@ -26,6 +27,8 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     override fun getLayoutResId(): Int = R.layout.fragment_main
 
     override val viewModel by activityViewModels<MainViewModel> { viewModelFactory }
+
+    private val loginViewModel by activityViewModels<LoginViewModel> { viewModelFactory }
 
     private lateinit var gridLayoutManager: GridLayoutManager
 
@@ -69,7 +72,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     }
 
     private fun observeAuthenticationState() {
-        viewModel.authenticationState.observe(viewLifecycleOwner) {
+        loginViewModel.authenticationState.observe(viewLifecycleOwner) {
             when (it) {
                 AuthenticationState.UNAUTHENTICATED -> findNavController().safeNavigate(
                     MainFragmentDirections.actionMainFragmentToLoginFragment()

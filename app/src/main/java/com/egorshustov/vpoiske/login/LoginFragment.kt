@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentLoginBinding
-import com.egorshustov.vpoiske.main.MainViewModel
 import com.egorshustov.vpoiske.util.*
 import kotlinx.coroutines.launch
 
@@ -19,8 +18,6 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun getLayoutResId(): Int = R.layout.fragment_login
 
     override val viewModel by activityViewModels<LoginViewModel> { viewModelFactory }
-
-    private val mainViewModel by activityViewModels<MainViewModel> { viewModelFactory }
 
     private val authWebViewClient = AuthWebViewClient()
 
@@ -53,7 +50,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
                     val userId = uri.getQueryParameter("user_id")?.toLong()
                     if (userId != null && accessToken != null) {
                         lifecycleScope.launch {
-                            mainViewModel.onAuthDataObtained(userId, accessToken)
+                            viewModel.onAuthDataObtained(userId, accessToken)
                             findNavController().popBackStack(R.id.mainFragment, false)
                         }
                         return
