@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentLoginBinding
+import com.egorshustov.vpoiske.main.AuthenticationState
 import com.egorshustov.vpoiske.util.*
 import kotlinx.coroutines.launch
 
@@ -30,6 +32,10 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         override fun onPageObtained(url: String, html: String) = with(binding) {
             when (currentRequestType) {
                 AuthRequestTypes.IMPLICIT_FLOW -> {
+                    if (html.contains("service_msg_warning")) {
+                        lifecycleScope.launch { showErrorMessage(getString(R.string.text_wrong_login_or_password)) }
+                        return
+                    }
                     if (html.contains("name=\"email\"")) {
                         lifecycleScope.launch {
                             webViewAuth.evaluateJavascript(
@@ -49,16 +55,13 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
                     val accessToken = uri.getQueryParameter("access_token")
                     val userId = uri.getQueryParameter("user_id")?.toLong()
                     if (userId != null && accessToken != null) {
-                        lifecycleScope.launch {
-                            viewModel.onAuthDataObtained(userId, accessToken)
-                            findNavController().popBackStack(R.id.mainFragment, false)
-                        }
+                        lifecycleScope.launch { viewModel.onAuthDataObtained(userId, accessToken) }
                         return
                     }
                 }
                 AuthRequestTypes.AUTHORIZATION_CODE_FLOW -> {
                     if (html.contains("Code is invalid or expired")) {
-                        showErrorMessage()
+                        lifecycleScope.launch { showErrorMessage() }
                         return
                     }
 
@@ -86,11 +89,29 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeAuthenticationState()
         binding.editLogin.setText(VK_LOGIN) // todo remove
         binding.editPassword.setText(VK_PASSWORD) // todo remove
         setButtonAuthListener()
         setAuthWebViewClientCallback()
         setupWebView()
+    }
+
+    private fun observeAuthenticationState() {
+        viewModel.authenticationState.observe(viewLifecycleOwner) {
+            when (it) {
+                AuthenticationState.AUTHENTICATED -> findNavController().safeNavigate(
+                    LoginFragmentDirections.actionLoginFragmentToMainFragment()
+                )
+                AuthenticationState.UNAUTHENTICATED -> requireContext().showMessage(
+                    getString(R.string.text_authorization_required)
+                )
+                AuthenticationState.INVALID_AUTHENTICATION -> {
+                }
+                null -> {
+                }
+            }
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")

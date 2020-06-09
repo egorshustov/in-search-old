@@ -2,6 +2,8 @@
     <string name="app_name">ВПоиске</string>
 
     <string name="text_authorization">Авторизация</string>
+    <string name="text_authorization_required">Необходимо авторизоваться</string>
+    <string name="text_wrong_login_or_password">Указан неверный логин или пароль!</string>
     <string name="text_enter">Войти</string>
     <string name="text_email_or_phone">Email или телефон</string>
     <string name="text_password">Пароль</string>

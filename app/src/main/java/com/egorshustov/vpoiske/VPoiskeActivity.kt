@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -11,9 +12,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.egorshustov.vpoiske.R
-import com.egorshustov.vpoiske.main.SearchProcessState
 import com.egorshustov.vpoiske.main.MainViewModel
+import com.egorshustov.vpoiske.main.SearchProcessState
 import com.egorshustov.vpoiske.util.VPoiskeTheme
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_v_poiske.*
@@ -41,9 +41,16 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
     private fun setupNavigation() {
         setSupportActionBar(findViewById(R.id.toolbar))
         val navController = findNavController(R.id.nav_host_fragment)
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawer_layout)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.mainFragment), layout_drawer)
         setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            layout_drawer.setDrawerLockMode(if (destination.id == R.id.loginFragment) DrawerLayout.LOCK_MODE_LOCKED_CLOSED else DrawerLayout.LOCK_MODE_UNLOCKED)
+        }
+        supportActionBar?.apply {
+            setHomeButtonEnabled(false)
+            setDisplayHomeAsUpEnabled(false)
+        }
     }
 
     private fun setChangeThemeListener() {

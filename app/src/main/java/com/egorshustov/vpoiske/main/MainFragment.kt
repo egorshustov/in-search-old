@@ -74,9 +74,9 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     private fun observeAuthenticationState() {
         loginViewModel.authenticationState.observe(viewLifecycleOwner) {
             when (it) {
-                AuthenticationState.UNAUTHENTICATED -> findNavController().safeNavigate(
+                /*AuthenticationState.UNAUTHENTICATED -> findNavController().safeNavigate(
                     MainFragmentDirections.actionMainFragmentToLoginFragment()
-                )
+                )*/
             }
         }
     }
@@ -122,6 +122,9 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         when (item.itemId) {
             R.id.item_change_view -> {
                 viewModel.onItemChangeViewClicked()
+                findNavController().safeNavigate( //todo remove
+                    MainFragmentDirections.actionMainFragmentToLoginFragment()
+                )
                 true
             }
             else -> false
