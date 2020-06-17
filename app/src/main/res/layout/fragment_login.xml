@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,7 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?themeBackgroundColorPrimary">
+        android:background="?themeBackgroundColorPrimary"
+        android:paddingStart="@dimen/fragment_padding"
+        android:paddingEnd="@dimen/fragment_padding">
 
         <WebView
             android:id="@+id/web_view_auth"
@@ -26,10 +29,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp">
 
             <EditText
                 android:id="@+id/edit_login"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/text_email_or_phone"
@@ -38,20 +43,22 @@
 
             <EditText
                 android:id="@+id/edit_password"
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/blocks_margin"
                 android:hint="@string/text_password"
                 android:importantForAutofill="no"
-                android:inputType="textVisiblePassword" />
+                android:inputType="textPassword" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_auth"
                 style="@style/ButtonPrimaryStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/blocks_margin"
-                android:text="@string/text_enter"
-                app:isGone="@{viewmodel.isRequestProcessing}" />
+                android:layout_marginTop="12dp"
+                android:enabled="@{!viewmodel.isRequestProcessing}"
+                android:text="@string/text_enter" />
 
         </LinearLayout>
 

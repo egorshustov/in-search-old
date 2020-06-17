@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorSolitude">#ECEDF1</color>
+    <color name="colorSolitude2">#E2E3E5</color>
+    <color name="colorSolitude3">#F2F3F5</color>
     <color name="colorGainsboro">#DEDEDE</color>
     <color name="colorHawkesBlue">#E2E3E7</color>
     <color name="colorManatee">#909398</color>
@@ -14,7 +16,9 @@
     <color name="colorEclipse">#393939</color>
     <color name="colorEbony">#2C2D2F</color>
     <color name="colorNightRider">#2C2C2C</color>
+    <color name="colorNightRider2">#303030</color>
     <color name="colorCodGray">#0A0A0A</color>
     <color name="colorVeryDarkGray">#1E1E1E</color>
     <color name="colorNero">#191919</color>
+    <color name="colorNero2">#232323</color>
 </resources>

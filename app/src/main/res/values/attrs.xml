@@ -18,5 +18,8 @@
     <attr name="themeSecondaryButtonBackgroundColor" format="color" />
     <attr name="themeSecondaryButtonTextColor" format="color" />
     <attr name="themeButtonsAnimationsColor" format="color" />
-    <attr name="themeBackgroundColorButtonFaint" format="color" />
+    <attr name="themeEditTextBackgroundColor" format="color" />
+    <attr name="themeEditTextBorderColor" format="color" />
+    <attr name="themeEditTextTextColor" format="color" />
+    <attr name="themeEditTextHintColor" format="color" />
 </resources>

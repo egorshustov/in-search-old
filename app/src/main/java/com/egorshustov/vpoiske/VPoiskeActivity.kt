@@ -46,10 +46,10 @@ class VPoiskeActivity : DaggerAppCompatActivity() {
         nav_view.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             layout_drawer.setDrawerLockMode(if (destination.id == R.id.loginFragment) DrawerLayout.LOCK_MODE_LOCKED_CLOSED else DrawerLayout.LOCK_MODE_UNLOCKED)
-        }
-        supportActionBar?.apply {
-            setHomeButtonEnabled(false)
-            setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.apply {
+                setHomeButtonEnabled(destination.id != R.id.loginFragment)
+                setDisplayHomeAsUpEnabled(destination.id != R.id.loginFragment)
+            }
         }
     }
 
