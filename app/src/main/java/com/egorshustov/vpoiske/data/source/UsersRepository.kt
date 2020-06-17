@@ -28,7 +28,7 @@ class UsersRepository @Inject constructor(
         sex: Int = Sex.FEMALE.value,
         hasPhoto: Int = HasPhoto.NECESSARY.value,
         apiVersion: String = DEFAULT_API_VERSION,
-        accessToken: String = ACCESS_TOKEN,
+        accessToken: String = Credentials.accessToken,
         count: Int = DEFAULT_SEARCH_USERS_COUNT,
         sortType: Int = SortType.BY_REGISTRATION_DATE.value
     ) = usersRemoteDataSource.searchUsers(
@@ -52,7 +52,7 @@ class UsersRepository @Inject constructor(
         userId: Long,
         fields: String = DEFAULT_GET_USER_FIELDS,
         apiVersion: String = DEFAULT_API_VERSION,
-        accessToken: String = ACCESS_TOKEN
+        accessToken: String = Credentials.accessToken
     ) = usersRemoteDataSource.getUser(
         userId,
         fields,

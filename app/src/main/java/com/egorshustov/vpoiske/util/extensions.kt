@@ -3,6 +3,8 @@ package com.egorshustov.vpoiske.util
 import android.content.Context
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.egorshustov.vpoiske.data.Search
@@ -119,3 +121,5 @@ fun openUser(
     mainViewModel?.openUser(userId)
     searchViewModel?.openUser(userId)
 }
+
+fun <T, R> LiveData<T>.switchMap(func: (T) -> LiveData<R>) = Transformations.switchMap(this, func)

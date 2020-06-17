@@ -16,7 +16,8 @@
 
         <activity
             android:name=".VPoiskeActivity"
-            android:theme="@style/VPoiskeTheme.NoActionBar.Light">
+            android:theme="@style/VPoiskeTheme.NoActionBar.Light"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

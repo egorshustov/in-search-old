@@ -24,8 +24,6 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     private val authWebViewClient = AuthWebViewClient()
 
     private var currentRequestType = AuthRequestTypes.IMPLICIT_FLOW
-    private var login = ""
-    private var password = ""
 
     private val appJsInterfaceCallback = object : AppJsInterface.AppJsInterfaceCallback {
 
@@ -39,8 +37,8 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
                     if (html.contains("name=\"email\"")) {
                         lifecycleScope.launch {
                             webViewAuth.evaluateJavascript(
-                                "javascript:document.querySelector('dl.fi_row:nth-child(5) > dd:nth-child(2) > div:nth-child(1) > input:nth-child(1)').value='$login';" +
-                                        "document.querySelector('dl.fi_row:nth-child(6) > dd:nth-child(2) > div:nth-child(1) > input:nth-child(1)').value='$password';" +
+                                "javascript:document.querySelector('dl.fi_row:nth-child(5) > dd:nth-child(2) > div:nth-child(1) > input:nth-child(1)').value='${viewModel.loginText.value}';" +
+                                        "document.querySelector('dl.fi_row:nth-child(6) > dd:nth-child(2) > div:nth-child(1) > input:nth-child(1)').value='${viewModel.passwordText.value}';" +
                                         "document.querySelector('input.button').click()", null
                             )
                         }
@@ -90,8 +88,6 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeAuthenticationState()
-        binding.editLogin.setText(VK_LOGIN) // todo remove
-        binding.editPassword.setText(VK_PASSWORD) // todo remove
         setButtonAuthListener()
         setAuthWebViewClientCallback()
         setupWebView()
@@ -127,10 +123,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
     private fun setButtonAuthListener() = with(binding) {
         buttonAuth.setOnClickListener {
-            //todo trim and check credentials
             viewModel.isRequestProcessing.value = true
-            login = editLogin.text.toString()
-            password = editPassword.text.toString()
             webViewAuth.loadUrl(urlToLoad)
         }
     }

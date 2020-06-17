@@ -37,9 +37,11 @@
                 style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="@{!viewmodel.isRequestProcessing}"
                 android:hint="@string/text_email_or_phone"
                 android:importantForAutofill="no"
-                android:inputType="text" />
+                android:inputType="text"
+                android:text="@={viewmodel.loginText}" />
 
             <EditText
                 android:id="@+id/edit_password"
@@ -47,9 +49,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/blocks_margin"
+                android:enabled="@{!viewmodel.isRequestProcessing}"
                 android:hint="@string/text_password"
                 android:importantForAutofill="no"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="@={viewmodel.passwordText}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_auth"
@@ -57,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:enabled="@{!viewmodel.isRequestProcessing}"
+                android:enabled="@{!viewmodel.isRequestProcessing &amp;&amp; viewmodel.areCredentialsValid}"
                 android:text="@string/text_enter" />
 
         </LinearLayout>
