@@ -44,14 +44,13 @@
                 android:importantForAutofill="no"
                 android:inputType="textVisiblePassword" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_auth"
+                style="@style/ButtonPrimaryStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/blocks_margin"
                 android:text="@string/text_enter"
-                android:textColor="?themeContainedButtonTextColor"
-                app:backgroundTint="?themeColorAccent"
                 app:isGone="@{viewmodel.isRequestProcessing}" />
 
         </LinearLayout>

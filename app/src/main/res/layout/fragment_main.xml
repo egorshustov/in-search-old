@@ -54,12 +54,11 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_start_new_search"
-                style="@style/ButtonFaintStyle"
+                style="@style/ButtonSecondaryStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="7dp"
-                android:stateListAnimator="@null"
                 android:text="@string/text_start_new_search" />
 
         </LinearLayout>

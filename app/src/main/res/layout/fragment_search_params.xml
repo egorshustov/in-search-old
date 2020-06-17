@@ -237,7 +237,7 @@
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"
-                        android:visibility="@{viewmodel.currentFriendsMaxCount == null ? View.GONE : View.VISIBLE}" />
+                        app:isGone="@{viewmodel.currentFriendsMaxCount != null}" />
 
                 </LinearLayout>
 
@@ -248,7 +248,7 @@
                     android:layout_marginTop="@dimen/blocks_margin"
                     android:max="1000"
                     android:progress="250"
-                    android:visibility="@{viewmodel.currentFriendsMaxCount == null ? View.GONE : View.VISIBLE}" />
+                    app:isGone="@{viewmodel.currentFriendsMaxCount != null}" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -271,7 +271,7 @@
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"
-                        android:visibility="@{viewmodel.currentFollowersMaxCount == null ? View.GONE : View.VISIBLE}" />
+                        app:isGone="@{viewmodel.currentFollowersMaxCount != null}" />
 
                 </LinearLayout>
 
@@ -283,16 +283,15 @@
                     android:max="1000"
                     android:progress="150" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_search"
+                    style="@style/ButtonPrimaryStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/blocks_margin"
+                    android:enabled="@{(viewmodel.currentCity != ConstantsKt.DEFAULT_CITY_TITLE &amp;&amp; viewmodel.currentCountry.peekContent() != ConstantsKt.DEFAULT_COUNTRY_TITLE)}"
                     android:onClick="@{() -> viewmodel.onSearchButtonClicked()}"
-                    android:text="@string/text_start_search"
-                    android:textColor="?themeContainedButtonTextColor"
-                    android:visibility="@{(viewmodel.currentCity != ConstantsKt.DEFAULT_CITY_TITLE &amp;&amp; viewmodel.currentCountry.peekContent() != ConstantsKt.DEFAULT_COUNTRY_TITLE) ? View.VISIBLE : View.GONE}"
-                    app:backgroundTint="?themeColorAccent" />
+                    android:text="@string/text_start_search" />
 
             </LinearLayout>
 

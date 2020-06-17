@@ -6,13 +6,17 @@
     <attr name="themeTextColorPrimary" format="color" />
     <attr name="themeTextColorSecondary" format="color" />
     <attr name="themeTextColorTertiary" format="color" />
-    <attr name="themeContainedButtonTextColor" format="color" />
     <attr name="themeNavigationBarColor" format="color" />
     <attr name="themeStatusBarColor" format="color" />
     <attr name="themeToolbarTextColor" format="color" />
     <attr name="themeFabIconTintColor" format="color" />
     <attr name="themeUserPhotoBackgroundColor" format="color" />
     <attr name="themeSeparatorBackgroundColor" format="color" />
+    <attr name="themePrimaryButtonEnabledBackgroundColor" format="color" />
+    <attr name="themePrimaryButtonDisabledBackgroundColor" format="color" />
+    <attr name="themePrimaryButtonTextColor" format="color" />
+    <attr name="themeSecondaryButtonBackgroundColor" format="color" />
+    <attr name="themeSecondaryButtonTextColor" format="color" />
     <attr name="themeButtonsAnimationsColor" format="color" />
     <attr name="themeBackgroundColorButtonFaint" format="color" />
 </resources>

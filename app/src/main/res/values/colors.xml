@@ -4,8 +4,11 @@
     <color name="colorGainsboro">#DEDEDE</color>
     <color name="colorHawkesBlue">#E2E3E7</color>
     <color name="colorManatee">#909398</color>
+    <color name="colorShuttleGrey">#696A6C</color>
     <color name="colorStormGrey">#77787A</color>
+    <color name="colorTropicalBlue">#B6D0EB</color>
     <color name="colorHavelockBlue">#5281B9</color>
+    <color name="colorPictonBlue">#4A86CC</color>
     <color name="colorSteelBlue">#527FB3</color>
     <color name="colorDenim">#2A74C9</color>
     <color name="colorEclipse">#393939</color>

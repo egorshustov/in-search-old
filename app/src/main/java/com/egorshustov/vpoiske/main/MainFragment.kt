@@ -122,9 +122,9 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         when (item.itemId) {
             R.id.item_change_view -> {
                 viewModel.onItemChangeViewClicked()
-                findNavController().safeNavigate( //todo remove
+                /*findNavController().safeNavigate( //todo remove
                     MainFragmentDirections.actionMainFragmentToLoginFragment()
-                )
+                )*/
                 true
             }
             else -> false
