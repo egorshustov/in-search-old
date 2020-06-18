@@ -9,6 +9,9 @@ import com.egorshustov.vpoiske.data.source.remote.*
 import com.egorshustov.vpoiske.util.V_POISKE_PREFERENCES_FILENAME
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,7 +19,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@Module(includes = [ApplicationModuleBinds::class])
+@Module
+@InstallIn(ApplicationComponent::class)
 object ApplicationModule {
 
     @Singleton
@@ -75,11 +79,12 @@ object ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(context: Context): VPoiskeDatabase = Room.databaseBuilder(
-        context.applicationContext,
-        VPoiskeDatabase::class.java,
-        "VPoiske.db"
-    ).addMigrations(VPoiskeDatabase.MIGRATION_1_2, VPoiskeDatabase.MIGRATION_2_3).build()
+    fun provideDatabase(@ApplicationContext context: Context): VPoiskeDatabase =
+        Room.databaseBuilder(
+            context.applicationContext,
+            VPoiskeDatabase::class.java,
+            "VPoiske.db"
+        ).addMigrations(VPoiskeDatabase.MIGRATION_1_2, VPoiskeDatabase.MIGRATION_2_3).build()
 
     @Singleton
     @Provides
@@ -87,11 +92,12 @@ object ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideSharedPreferences(context: Context): SharedPreferences =
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
         context.getSharedPreferences(
             V_POISKE_PREFERENCES_FILENAME, Context.MODE_PRIVATE
         )
 }
 
 @Module
+@InstallIn(ApplicationComponent::class)
 abstract class ApplicationModuleBinds

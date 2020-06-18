@@ -17,14 +17,16 @@ import com.egorshustov.vpoiske.main.MainViewModel
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.Relation
 import com.egorshustov.vpoiske.util.snackBar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchParamsBinding>() {
 
     override fun getLayoutResId(): Int = R.layout.fragment_search_params
 
-    override val viewModel by viewModels<SearchParamsViewModel> { viewModelFactory }
+    override val viewModel: SearchParamsViewModel by viewModels()
 
-    private val mainViewModel by activityViewModels<MainViewModel> { viewModelFactory }
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

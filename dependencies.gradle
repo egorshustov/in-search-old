@@ -18,6 +18,8 @@ ext {
             retrofit     : '2.9.0',
             okHttp3      : '4.7.2',
             dagger       : '2.28',
+            hilt         : '2.28-alpha',
+            hiltAndroidX : '1.0.0-alpha01',
             glide        : '4.11.0',
             timber       : '4.7.1',
             junit        : '4.12',
@@ -60,6 +62,11 @@ ext {
             daggerCompiler        : "com.google.dagger:dagger-compiler:${versions.dagger}",
             daggerAndroidSupport  : "com.google.dagger:dagger-android-support:${versions.dagger}",
             daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${versions.dagger}",
+
+            daggerHilt            : "com.google.dagger:hilt-android:${versions.hilt}",
+            daggerHiltCompiler    : "com.google.dagger:hilt-android-compiler:${versions.hilt}",
+            hiltLifecycleViewModel: "androidx.hilt:hilt-lifecycle-viewmodel:${versions.hiltAndroidX}",
+            hiltCompiler          : "androidx.hilt:hilt-compiler:${versions.hiltAndroidX}",
 
             glide                 : "com.github.bumptech.glide:glide:${versions.glide}",
             glideCompiler         : "com.github.bumptech.glide:compiler:${versions.glide}",
@@ -121,6 +128,11 @@ ext {
             [configuration: kapt, dependency: libs.daggerCompiler],
             [configuration: impl, dependency: libs.daggerAndroidSupport],
             [configuration: kapt, dependency: libs.daggerAndroidProcessor],
+
+            [configuration: impl, dependency: libs.daggerHilt],
+            [configuration: kapt, dependency: libs.daggerHiltCompiler],
+            [configuration: impl, dependency: libs.hiltLifecycleViewModel],
+            [configuration: kapt, dependency: libs.hiltCompiler],
 
             [configuration: impl, dependency: libs.glide],
             [configuration: annProc, dependency: libs.glideCompiler],

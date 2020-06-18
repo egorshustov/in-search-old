@@ -1,6 +1,7 @@
 package com.egorshustov.vpoiske.login
 
 import android.content.SharedPreferences
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +10,9 @@ import com.egorshustov.vpoiske.util.Credentials
 import com.egorshustov.vpoiske.util.DelegatedPreference
 import com.egorshustov.vpoiske.util.PREF_KEY_ACCESS_TOKEN
 import com.egorshustov.vpoiske.util.switchMap
-import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(sharedPreferences: SharedPreferences) : ViewModel() {
+class LoginViewModel @ViewModelInject constructor(sharedPreferences: SharedPreferences) :
+    ViewModel() {
 
     val isRequestProcessing = MutableLiveData(false)
 

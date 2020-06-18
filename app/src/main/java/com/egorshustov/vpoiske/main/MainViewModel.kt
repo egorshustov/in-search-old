@@ -1,6 +1,7 @@
 package com.egorshustov.vpoiske.main
 
 import android.content.SharedPreferences
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.data.User
@@ -14,9 +15,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class MainViewModel @ViewModelInject constructor(
     private val usersRepository: UsersRepository,
     private val searchesRepository: SearchesRepository,
     sharedPreferences: SharedPreferences

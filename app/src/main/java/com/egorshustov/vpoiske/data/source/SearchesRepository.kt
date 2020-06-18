@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 class SearchesRepository @Inject constructor(
     private val searchesDao: SearchesDao,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val ioDispatcher: CoroutineDispatcher
 ) {
     suspend fun insertSearch(search: Search): Long =
         withContext(ioDispatcher) { searchesDao.insertSearch(search) }

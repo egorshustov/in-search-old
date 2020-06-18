@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class UsersRepository @Inject constructor(
     private val usersDao: UsersDao,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val ioDispatcher: CoroutineDispatcher,
     private val usersRemoteDataSource: UsersRemoteDataSource
 ) {
     suspend fun searchUsers(

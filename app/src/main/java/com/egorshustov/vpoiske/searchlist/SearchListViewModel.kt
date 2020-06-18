@@ -1,5 +1,6 @@
 package com.egorshustov.vpoiske.searchlist
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -10,9 +11,8 @@ import androidx.paging.toLiveData
 import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.data.source.SearchesRepository
 import com.egorshustov.vpoiske.util.Event
-import javax.inject.Inject
 
-class SearchListViewModel @Inject constructor(searchesRepository: SearchesRepository) :
+class SearchListViewModel @ViewModelInject constructor(searchesRepository: SearchesRepository) :
     ViewModel() {
 
     private val _openSearch = MutableLiveData<Event<Long>>()

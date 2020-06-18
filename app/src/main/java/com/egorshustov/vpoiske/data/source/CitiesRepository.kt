@@ -15,7 +15,7 @@ import javax.inject.Singleton
 class CitiesRepository @Inject constructor(
     private val citiesDao: CitiesDao,
     private val citiesRemoteDataSource: CitiesRemoteDataSource,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val ioDispatcher: CoroutineDispatcher
 ) {
     suspend fun getCities(
         countryId: Int,

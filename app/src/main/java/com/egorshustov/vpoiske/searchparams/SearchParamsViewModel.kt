@@ -1,5 +1,6 @@
 package com.egorshustov.vpoiske.searchparams
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,9 +15,8 @@ import com.egorshustov.vpoiske.data.source.remote.Result
 import com.egorshustov.vpoiske.util.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
-class SearchParamsViewModel @Inject constructor(
+class SearchParamsViewModel @ViewModelInject constructor(
     countriesRepository: CountriesRepository,
     private val citiesRepository: CitiesRepository,
     private val searchesRepository: SearchesRepository

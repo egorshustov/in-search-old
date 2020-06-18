@@ -1,14 +1,11 @@
 package com.egorshustov.vpoiske
 
-import com.egorshustov.vpoiske.di.DaggerApplicationComponent
-import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
-open class VPoiskeApplication : DaggerApplication() {
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
-        DaggerApplicationComponent.factory().create(applicationContext)
+@HiltAndroidApp
+open class VPoiskeApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

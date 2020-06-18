@@ -20,15 +20,17 @@ import com.egorshustov.vpoiske.login.LoginViewModel
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.safeNavigate
 import com.egorshustov.vpoiske.util.showMessage
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     //todo use or kotlin ext or data binding
     override fun getLayoutResId(): Int = R.layout.fragment_main
 
-    override val viewModel by activityViewModels<MainViewModel> { viewModelFactory }
+    override val viewModel: MainViewModel by activityViewModels()
 
-    private val loginViewModel by activityViewModels<LoginViewModel> { viewModelFactory }
+    private val loginViewModel: LoginViewModel by activityViewModels()
 
     private lateinit var gridLayoutManager: GridLayoutManager
 

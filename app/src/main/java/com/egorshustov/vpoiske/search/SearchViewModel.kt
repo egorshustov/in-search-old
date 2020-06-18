@@ -1,6 +1,7 @@
 package com.egorshustov.vpoiske.search
 
 import android.content.SharedPreferences
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -8,9 +9,8 @@ import androidx.lifecycle.ViewModel
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.data.source.UsersRepository
 import com.egorshustov.vpoiske.util.*
-import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(
+class SearchViewModel @ViewModelInject constructor(
     usersRepository: UsersRepository,
     sharedPreferences: SharedPreferences
 ) : ViewModel() {

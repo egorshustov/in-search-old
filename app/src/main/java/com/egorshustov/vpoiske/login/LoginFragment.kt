@@ -13,13 +13,15 @@ import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentLoginBinding
 import com.egorshustov.vpoiske.main.AuthenticationState
 import com.egorshustov.vpoiske.util.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
     override fun getLayoutResId(): Int = R.layout.fragment_login
 
-    override val viewModel by activityViewModels<LoginViewModel> { viewModelFactory }
+    override val viewModel: LoginViewModel by activityViewModels()
 
     private val authWebViewClient = AuthWebViewClient()
 

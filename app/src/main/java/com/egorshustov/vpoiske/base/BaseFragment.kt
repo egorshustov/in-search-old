@@ -7,20 +7,14 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.egorshustov.vpoiske.BR
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
 
-abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
-    DaggerFragment() {
+abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> : Fragment() {
 
     @LayoutRes
     abstract fun getLayoutResId(): Int
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     protected abstract val viewModel: ViewModel
 

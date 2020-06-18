@@ -4,9 +4,9 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -15,16 +15,13 @@ import androidx.navigation.ui.setupWithNavController
 import com.egorshustov.vpoiske.main.MainViewModel
 import com.egorshustov.vpoiske.main.SearchProcessState
 import com.egorshustov.vpoiske.util.VPoiskeTheme
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_v_poiske.*
-import javax.inject.Inject
 
-class VPoiskeActivity : DaggerAppCompatActivity() {
+@AndroidEntryPoint
+class VPoiskeActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel by viewModels<MainViewModel> { viewModelFactory }
+    private val viewModel: MainViewModel by viewModels()
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 

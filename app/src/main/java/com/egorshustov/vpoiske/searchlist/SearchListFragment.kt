@@ -10,13 +10,14 @@ import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentSearchListBinding
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.safeNavigate
+import dagger.hilt.android.AndroidEntryPoint
 
-class SearchListFragment :
-    BaseFragment<SearchListViewModel, FragmentSearchListBinding>() {
+@AndroidEntryPoint
+class SearchListFragment : BaseFragment<SearchListViewModel, FragmentSearchListBinding>() {
 
     override fun getLayoutResId(): Int = R.layout.fragment_search_list
 
-    override val viewModel by viewModels<SearchListViewModel> { viewModelFactory }
+    override val viewModel: SearchListViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

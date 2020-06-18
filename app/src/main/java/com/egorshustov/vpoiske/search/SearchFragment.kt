@@ -17,15 +17,16 @@ import com.egorshustov.vpoiske.adapters.UsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentSearchBinding
 import com.egorshustov.vpoiske.util.EventObserver
+import dagger.hilt.android.AndroidEntryPoint
 
-class SearchFragment :
-    BaseFragment<SearchViewModel, FragmentSearchBinding>() {
+@AndroidEntryPoint
+class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
 
     private val args: SearchFragmentArgs by navArgs()
 
     override fun getLayoutResId(): Int = R.layout.fragment_search
 
-    override val viewModel by viewModels<SearchViewModel> { viewModelFactory }
+    override val viewModel: SearchViewModel by viewModels()
 
     private lateinit var gridLayoutManager: GridLayoutManager
 
