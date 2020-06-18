@@ -5,11 +5,11 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.egorshustov.vpoiske.main.AuthenticationState
 import com.egorshustov.vpoiske.util.Credentials
 import com.egorshustov.vpoiske.util.DelegatedPreference
 import com.egorshustov.vpoiske.util.PREF_KEY_ACCESS_TOKEN
-import com.egorshustov.vpoiske.util.switchMap
 
 class LoginViewModel @ViewModelInject constructor(sharedPreferences: SharedPreferences) :
     ViewModel() {

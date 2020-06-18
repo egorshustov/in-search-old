@@ -121,5 +121,3 @@ fun openUser(
     mainViewModel?.openUser(userId)
     searchViewModel?.openUser(userId)
 }
-
-fun <T, R> LiveData<T>.switchMap(func: (T) -> LiveData<R>) = Transformations.switchMap(this, func)
