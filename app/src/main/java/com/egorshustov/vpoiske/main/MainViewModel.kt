@@ -1,6 +1,9 @@
 package com.egorshustov.vpoiske.main
 
+import android.content.ComponentName
+import android.content.ServiceConnection
 import android.content.SharedPreferences
+import android.os.IBinder
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.egorshustov.vpoiske.data.Search
@@ -10,6 +13,7 @@ import com.egorshustov.vpoiske.data.source.UsersRepository
 import com.egorshustov.vpoiske.data.source.remote.Result
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUserResponse
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUsersInnerResponse
+import com.egorshustov.vpoiske.searchprocessservice.SearchProcessService
 import com.egorshustov.vpoiske.util.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -64,6 +68,23 @@ class MainViewModel @ViewModelInject constructor(
     private var foundUsersCount: Int = 0
 
     private var searchJob: Job? = null
+
+    private val _searchProcessBinder = MutableLiveData<SearchProcessService.SearchProcessBinder?>()
+    val searchProcessBinder: LiveData<SearchProcessService.SearchProcessBinder?> =
+        _searchProcessBinder
+
+    // Keeping this in here because it doesn't require a context
+    val serviceConnection = object : ServiceConnection {
+
+        override fun onServiceConnected(name: ComponentName?, iBinder: IBinder?) {
+            Timber.d("ServiceConnection: onServiceConnected")
+            _searchProcessBinder.value = iBinder as? SearchProcessService.SearchProcessBinder
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            Timber.d("ServiceConnection: onServiceDisconnected")
+        }
+    }
 
     fun onNavChangeThemeClicked() {
         val currentTheme =

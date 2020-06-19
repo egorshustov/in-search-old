@@ -37,6 +37,8 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".searchprocessservice.SearchProcessService" />
+
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.egorshustov.vpoiske.main
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -17,6 +19,7 @@ import com.egorshustov.vpoiske.adapters.UsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
 import com.egorshustov.vpoiske.databinding.FragmentMainBinding
 import com.egorshustov.vpoiske.login.LoginViewModel
+import com.egorshustov.vpoiske.searchprocessservice.SearchProcessService
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.safeNavigate
 import com.egorshustov.vpoiske.util.showMessage
@@ -32,6 +35,8 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     private val loginViewModel: LoginViewModel by activityViewModels()
 
+    private var searchProcessService: SearchProcessService? = null
+
     private lateinit var gridLayoutManager: GridLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,6 +44,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         setHasOptionsMenu(true)
         setupUsersAdapter()
         setButtonListeners()
+        observeSearchProcessBinder()
         observeAuthenticationState()
         observeOpenUserEvent()
         observeOpenNewSearch()
@@ -49,6 +55,26 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     override fun onResume() {
         super.onResume()
         binding.invalidateAll()
+        startAndBindSearchProcessService()
+    }
+
+    private fun startAndBindSearchProcessService() {
+        val serviceIntent = Intent(context, SearchProcessService::class.java)
+        context?.let {
+            ContextCompat.startForegroundService(it, serviceIntent)
+            it.bindService(serviceIntent, viewModel.serviceConnection, Context.BIND_AUTO_CREATE)
+        }
+    }
+
+    override fun onPause() {
+        unbindSearchProcessService()
+        super.onPause()
+    }
+
+    private fun unbindSearchProcessService() {
+        if (viewModel.searchProcessBinder.value != null) {
+            context?.unbindService(viewModel.serviceConnection)
+        }
     }
 
     private fun setupUsersAdapter() {
@@ -70,6 +96,12 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
             findNavController().safeNavigate(
                 MainFragmentDirections.actionMainFragmentToSearchParamsFragment()
             )
+        }
+    }
+
+    private fun observeSearchProcessBinder() {
+        viewModel.searchProcessBinder.observe(viewLifecycleOwner) {
+            searchProcessService = it?.getService()
         }
     }
 
