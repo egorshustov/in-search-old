@@ -47,7 +47,8 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         observeSearchProcessBinder()
         observeAuthenticationState()
         observeOpenUserEvent()
-        observeOpenNewSearch()
+        observeSearchParams()
+        observeSearchProcessCommands()
         observeMessage()
         observeCurrentSpanCountChanged()
     }
@@ -116,22 +117,32 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     }
 
     private fun observeOpenUserEvent() {
-        viewModel.openUserEvent.observe(viewLifecycleOwner, EventObserver {
+        viewModel.openUserDetails.observe(viewLifecycleOwner, EventObserver {
             openUserDetails(it)
         })
     }
 
-    private fun observeOpenNewSearch() {
-        viewModel.openNewSearch.observe(viewLifecycleOwner, EventObserver {
+    private fun observeSearchParams() {
+        viewModel.openSearchParams.observe(viewLifecycleOwner, EventObserver {
             findNavController().safeNavigate(
                 MainFragmentDirections.actionMainFragmentToSearchParamsFragment()
             )
         })
     }
 
+    private fun observeSearchProcessCommands() = with(viewModel) {
+        startNewSearch.observe(viewLifecycleOwner, EventObserver {
+            searchProcessService?.startSearch(it)
+        })
+        stopSearch.observe(viewLifecycleOwner, EventObserver {
+            searchProcessService?.stopSearch()
+        })
+    }
+
     private fun observeMessage() {
-        viewModel.message.observe(viewLifecycleOwner,
-            EventObserver { requireActivity().applicationContext.showMessage(it) })
+        viewModel.message.observe(
+            viewLifecycleOwner,
+            EventObserver { requireActivity().showMessage(it) })
     }
 
     private fun observeCurrentSpanCountChanged() {
@@ -141,8 +152,6 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     }
 
     private fun openUserDetails(userId: Long) {
-        /*val action = MainFragmentDirections.actionMainFragmentToUserDetailFragment(userId)
-        findNavController().safeNavigate(action)*/
         val userUrl = "https://vk.com/id$userId"
         val intent = Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(userUrl) }
         startActivity(intent)
