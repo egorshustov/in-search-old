@@ -1,9 +1,12 @@
 package com.egorshustov.vpoiske.main
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.net.Uri
 import android.os.Bundle
+import android.os.IBinder
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -24,6 +27,7 @@ import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.safeNavigate
 import com.egorshustov.vpoiske.util.showMessage
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
@@ -35,16 +39,29 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     private val loginViewModel: LoginViewModel by activityViewModels()
 
-    private var searchProcessService: SearchProcessService? = null
-
     private lateinit var gridLayoutManager: GridLayoutManager
+
+    private lateinit var searchProcessService: SearchProcessService
+
+    private val serviceConnection = object : ServiceConnection {
+
+        override fun onServiceConnected(name: ComponentName?, iBinder: IBinder) {
+            Timber.d("ServiceConnection: onServiceConnected")
+            searchProcessService =
+                (iBinder as SearchProcessService.SearchProcessBinder).getService()
+            observeSearchProcessLiveData()
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            Timber.d("ServiceConnection: onServiceDisconnected")
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         setupUsersAdapter()
         setButtonListeners()
-        observeSearchProcessBinder()
         observeAuthenticationState()
         observeOpenUserEvent()
         observeSearchParams()
@@ -63,7 +80,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         val serviceIntent = Intent(context, SearchProcessService::class.java)
         context?.let {
             ContextCompat.startForegroundService(it, serviceIntent)
-            it.bindService(serviceIntent, viewModel.serviceConnection, Context.BIND_AUTO_CREATE)
+            it.bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE)
         }
     }
 
@@ -73,9 +90,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     }
 
     private fun unbindSearchProcessService() {
-        if (viewModel.searchProcessBinder.value != null) {
-            context?.unbindService(viewModel.serviceConnection)
-        }
+        context?.unbindService(serviceConnection)
     }
 
     private fun setupUsersAdapter() {
@@ -97,12 +112,6 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
             findNavController().safeNavigate(
                 MainFragmentDirections.actionMainFragmentToSearchParamsFragment()
             )
-        }
-    }
-
-    private fun observeSearchProcessBinder() {
-        viewModel.searchProcessBinder.observe(viewLifecycleOwner) {
-            searchProcessService = it?.getService()
         }
     }
 
@@ -132,11 +141,19 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     private fun observeSearchProcessCommands() = with(viewModel) {
         startNewSearch.observe(viewLifecycleOwner, EventObserver {
-            searchProcessService?.startSearch(it)
+            searchProcessService.startSearch(it)
         })
         stopSearch.observe(viewLifecycleOwner, EventObserver {
-            searchProcessService?.stopSearch()
+            searchProcessService.stopSearch()
         })
+    }
+
+    private fun observeSearchProcessLiveData() {
+        searchProcessService.isSearchRunning.observe(viewLifecycleOwner) {
+            context?.showMessage("isSearchRunning: $it")
+            viewModel.searchState.value =
+                if (it) SearchProcessState.IN_PROGRESS else SearchProcessState.INACTIVE
+        }
     }
 
     private fun observeMessage() {

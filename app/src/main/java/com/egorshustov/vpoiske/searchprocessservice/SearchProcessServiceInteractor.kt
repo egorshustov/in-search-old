@@ -10,9 +10,7 @@ import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUserResponse
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUsersInnerResponse
 import com.egorshustov.vpoiske.util.*
 import dagger.hilt.android.scopes.ServiceScoped
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -23,19 +21,15 @@ class SearchProcessServiceInteractor @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) {
 
-    private val _stopSearch = MutableLiveData<Event<Unit>>()
-    val stopSearch: LiveData<Event<Unit>> = _stopSearch
-
     private val _message = MutableLiveData<Event<String>>()
     val message: LiveData<Event<String>> = _message
 
     private var foundUsersCount: Int = 0
 
     suspend fun onSearchStarted(searchId: Long) {
-        //isLoading.value = true
+        foundUsersCount = 0
         withContext(ioDispatcher) {
             val search = searchesRepository.getSearch(searchId) ?: return@withContext
-            //lastSearchId.value = searchId
             currentUnixSeconds.let {
                 searchesRepository.updateSearchStartUnixSeconds(searchId, it)
                 search.startUnixSeconds = it
@@ -84,9 +78,8 @@ class SearchProcessServiceInteractor @Inject constructor(
                     delay(ERROR_DELAY_IN_MILLIS)
                     sendSearchUsersRequest(birthDay, birthMonth, search)
                 } else {
-                    _stopSearch.value = Event(Unit)
-                    //currentCoroutineContext().cancel() // todo try to use this
-                    _message.value = Event(searchUsersResult.getString())
+                    currentCoroutineContext()
+                    _message.postValue(Event(searchUsersResult.getString()))
                 }
             }
         }
@@ -127,7 +120,7 @@ class SearchProcessServiceInteractor @Inject constructor(
                     }
                 val addedUserIdList = usersRepository.insertUsers(userList)
                 foundUsersCount += addedUserIdList.size
-                if (foundUsersCount >= search.foundUsersLimit) _stopSearch.value = Event(Unit)
+                if (foundUsersCount >= search.foundUsersLimit) currentCoroutineContext().cancel()
             }
         }
     }
@@ -149,7 +142,7 @@ class SearchProcessServiceInteractor @Inject constructor(
                             foundUnixMillis = currentUnixMillis
                         })
                     if (addedUserId != NO_VALUE.toLong()) ++foundUsersCount
-                    if (foundUsersCount >= search.foundUsersLimit) _stopSearch.value = Event(Unit)
+                    if (foundUsersCount >= search.foundUsersLimit) currentCoroutineContext().cancel()
                 }
             }
             is Result.Error -> {
@@ -158,8 +151,8 @@ class SearchProcessServiceInteractor @Inject constructor(
                     delay(ERROR_DELAY_IN_MILLIS)
                     sendGetUserRequest(userId, search)
                 } else {
-                    _stopSearch.value = Event(Unit)
-                    _message.value = Event(getUserResult.getString())
+                    currentCoroutineContext().cancel()
+                    _message.postValue(Event(getUserResult.getString()))
                 }
             }
         }

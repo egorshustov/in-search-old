@@ -17,8 +17,8 @@ import com.egorshustov.vpoiske.util.*
 import timber.log.Timber
 
 class MainViewModel @ViewModelInject constructor(
-    private val usersRepository: UsersRepository,
-    private val searchesRepository: SearchesRepository,
+    usersRepository: UsersRepository,
+    searchesRepository: SearchesRepository,
     sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
@@ -66,23 +66,6 @@ class MainViewModel @ViewModelInject constructor(
     val message: LiveData<Event<String>> = _message
 
     val isLoading = MutableLiveData(true)
-
-    private val _searchProcessBinder = MutableLiveData<SearchProcessService.SearchProcessBinder?>()
-    val searchProcessBinder: LiveData<SearchProcessService.SearchProcessBinder?> =
-        _searchProcessBinder
-
-    // Keeping this in here because it doesn't require a context
-    val serviceConnection = object : ServiceConnection {
-
-        override fun onServiceConnected(name: ComponentName?, iBinder: IBinder?) {
-            Timber.d("ServiceConnection: onServiceConnected")
-            _searchProcessBinder.value = iBinder as? SearchProcessService.SearchProcessBinder
-        }
-
-        override fun onServiceDisconnected(name: ComponentName?) {
-            Timber.d("ServiceConnection: onServiceDisconnected")
-        }
-    }
 
     fun onNavChangeThemeClicked() {
         val currentTheme =
