@@ -1,5 +1,6 @@
 package com.egorshustov.vpoiske.searchprocessservice
 
+import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.egorshustov.vpoiske.data.Search
@@ -24,12 +25,27 @@ class SearchProcessServiceInteractor @Inject constructor(
     private val _message = MutableLiveData<Event<String>>()
     val message: LiveData<Event<String>> = _message
 
+    private val _foundUsersCountUpdated = MutableLiveData<Int>()
+    val foundUsersCountUpdated: LiveData<Int> = _foundUsersCountUpdated
+
     private var foundUsersCount: Int = 0
+        set(value) {
+            field = value
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+                _foundUsersCountUpdated.value = value
+            } else {
+                _foundUsersCountUpdated.postValue(value)
+            }
+        }
+
+    var foundUsersLimit: Int? = null
+        private set
 
     suspend fun onSearchStarted(searchId: Long) {
         foundUsersCount = 0
         withContext(ioDispatcher) {
             val search = searchesRepository.getSearch(searchId) ?: return@withContext
+            foundUsersLimit = search.foundUsersLimit
             currentUnixSeconds.let {
                 searchesRepository.updateSearchStartUnixSeconds(searchId, it)
                 search.startUnixSeconds = it

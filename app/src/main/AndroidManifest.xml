@@ -3,6 +3,7 @@
     package="com.egorshustov.vpoiske">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".VPoiskeApplication"
@@ -16,6 +17,7 @@
 
         <activity
             android:name=".VPoiskeActivity"
+            android:launchMode="singleTop"
             android:theme="@style/VPoiskeTheme.NoActionBar.Light"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

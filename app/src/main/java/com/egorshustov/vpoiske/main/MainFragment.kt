@@ -85,12 +85,8 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     }
 
     override fun onPause() {
-        unbindSearchProcessService()
-        super.onPause()
-    }
-
-    private fun unbindSearchProcessService() {
         context?.unbindService(serviceConnection)
+        super.onPause()
     }
 
     private fun setupUsersAdapter() {
@@ -182,9 +178,6 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         when (item.itemId) {
             R.id.item_change_view -> {
                 viewModel.onItemChangeViewClicked()
-                /*findNavController().safeNavigate( //todo remove
-                    MainFragmentDirections.actionMainFragmentToLoginFragment()
-                )*/
                 true
             }
             else -> false
