@@ -13,6 +13,7 @@ import com.egorshustov.vpoiske.data.source.CountriesRepository
 import com.egorshustov.vpoiske.data.source.SearchesRepository
 import com.egorshustov.vpoiske.data.source.remote.Result
 import com.egorshustov.vpoiske.util.*
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -85,7 +86,11 @@ class SearchParamsViewModel @ViewModelInject constructor(
         if (countryId != DEFAULT_COUNTRY_TITLE.id) {
             when (val citiesResponse = citiesRepository.getCities(countryId)) {
                 is Result.Success -> _cities.value = citiesResponse.data.map { it.toEntity() }
-                is Result.Error -> showMessage(citiesResponse.getString())
+                is Result.Error -> {
+                    Timber.e(citiesResponse.exception)
+                    FirebaseCrashlytics.getInstance().recordException(citiesResponse.exception)
+                    showMessage(citiesResponse.getString())
+                }
             }
         }
     }

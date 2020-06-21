@@ -10,6 +10,7 @@ import com.egorshustov.vpoiske.data.source.remote.Result
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUserResponse
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUsersInnerResponse
 import com.egorshustov.vpoiske.util.*
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.scopes.ServiceScoped
 import kotlinx.coroutines.*
 import timber.log.Timber
@@ -89,7 +90,8 @@ class SearchProcessServiceInteractor @Inject constructor(
                 }
             }
             is Result.Error -> {
-                Timber.d("exception: ${searchUsersResult.exception}")
+                Timber.e(searchUsersResult.exception)
+                FirebaseCrashlytics.getInstance().recordException(searchUsersResult.exception)
                 if (searchUsersResult.exception.needToWait()) {
                     delay(ERROR_DELAY_IN_MILLIS)
                     sendSearchUsersRequest(birthDay, birthMonth, search)
@@ -162,7 +164,8 @@ class SearchProcessServiceInteractor @Inject constructor(
                 }
             }
             is Result.Error -> {
-                Timber.d("exception: ${getUserResult.exception}")
+                Timber.e(getUserResult.exception)
+                FirebaseCrashlytics.getInstance().recordException(getUserResult.exception)
                 if (getUserResult.exception.needToWait()) {
                     delay(ERROR_DELAY_IN_MILLIS)
                     sendGetUserRequest(userId, search)

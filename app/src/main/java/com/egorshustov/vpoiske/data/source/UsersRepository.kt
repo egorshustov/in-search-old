@@ -5,7 +5,6 @@ import com.egorshustov.vpoiske.data.source.local.UsersDao
 import com.egorshustov.vpoiske.data.source.remote.UsersRemoteDataSource
 import com.egorshustov.vpoiske.util.*
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
