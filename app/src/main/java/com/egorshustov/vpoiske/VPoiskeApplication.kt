@@ -4,9 +4,7 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
-import com.egorshustov.vpoiske.util.NOTIFICATION_CHANNEL_DESCRIPTION
 import com.egorshustov.vpoiske.util.NOTIFICATION_CHANNEL_ID
-import com.egorshustov.vpoiske.util.NOTIFICATION_CHANNEL_NAME
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -21,17 +19,16 @@ open class VPoiskeApplication : Application() {
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val vPoiskeNotificationChannel = NotificationChannel(
+            val notificationChannel = NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
-                NOTIFICATION_CHANNEL_NAME,
+                getString(R.string.app_name),
                 NotificationManager.IMPORTANCE_DEFAULT
             ).apply {
-                enableLights(false)
-                enableVibration(false)
-                description = NOTIFICATION_CHANNEL_DESCRIPTION
+                setSound(null, null)
+                description = getString(R.string.channel_description)
             }
             getSystemService(NotificationManager::class.java).createNotificationChannel(
-                vPoiskeNotificationChannel
+                notificationChannel
             )
         }
     }

@@ -1,19 +1,16 @@
 package com.egorshustov.vpoiske.searchprocessservice
 
-import android.app.NotificationManager
+import android.annotation.SuppressLint
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.*
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.VPoiskeActivity
-import com.egorshustov.vpoiske.util.EventObserver
-import com.egorshustov.vpoiske.util.NOTIFICATION_CHANNEL_ID
-import com.egorshustov.vpoiske.util.SEARCH_NOTIFICATION_ID
-import com.egorshustov.vpoiske.util.showMessage
+import com.egorshustov.vpoiske.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -34,35 +31,12 @@ class SearchProcessService : LifecycleService() {
     lateinit var interactor: SearchProcessServiceInteractor
 
     private lateinit var notificationBuilder: NotificationCompat.Builder
-    private lateinit var notificationManager: NotificationManager
 
     override fun onCreate() {
         super.onCreate()
         Timber.d("onCreate")
         observeInteractorLiveData()
         prepareNotification()
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Timber.d("onStartCommand")
-        _isSearchRunning.value = searchJob?.isActive == true
-        when (intent?.action) {
-            ACTION_STOP -> {
-                stopSearch()
-                stopForeground(true)
-                stopSelf()
-            }
-        }
-        return super.onStartCommand(intent, flags, startId)
-    }
-
-    private fun observeInteractorLiveData() = with(interactor) {
-        message.observe(this@SearchProcessService, EventObserver { showMessage(it) })
-        foundUsersCountUpdated.observe(this@SearchProcessService) { foundUsersCount ->
-            interactor.foundUsersLimit?.let { foundUsersLimit ->
-                sendProgressNotification(foundUsersCount, foundUsersLimit)
-            }
-        }
     }
 
     private fun prepareNotification() {
@@ -83,30 +57,69 @@ class SearchProcessService : LifecycleService() {
             .setContentIntent(openActivityPendingIntent)
             .setSmallIcon(R.drawable.ic_search)
             .setOnlyAlertOnce(true)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .addAction(R.drawable.ic_stop, "Отмена", stopServicePendingIntent)
+    }
 
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Timber.d("onStartCommand")
+        _isSearchRunning.value = searchJob?.isActive == true
+        when (intent?.action) {
+            ACTION_STOP -> stopSearch()
+        }
+        return super.onStartCommand(intent, flags, startId)
     }
 
     fun startSearch(searchId: Long) {
-        Timber.d("onCreate")
-        startForeground(SEARCH_NOTIFICATION_ID, notificationBuilder.build())
-        notificationManager.notify(SEARCH_NOTIFICATION_ID, notificationBuilder.build())
+        Timber.d("startSearch")
+        startForeground(PROGRESS_NOTIFICATION_ID, notificationBuilder.build())
+        NotificationManagerCompat.from(this)
+            .notify(PROGRESS_NOTIFICATION_ID, notificationBuilder.build())
         searchJob = lifecycleScope.launch { interactor.onSearchStarted(searchId) }.apply {
-            invokeOnCompletion { _isSearchRunning.value = false }
+            invokeOnCompletion {
+                _isSearchRunning.value = false
+                showMessage("Поиск завершён")
+                sendCompleteNotification(
+                    interactor.foundUsersCountUpdated.value ?: 0,
+                    interactor.foundUsersLimit ?: 0
+                )
+                stopForeground(true)
+                stopSelf()
+            }
+        }
+    }
+
+    private fun observeInteractorLiveData() = with(interactor) {
+        message.observe(this@SearchProcessService, EventObserver { showMessage(it) })
+        foundUsersCountUpdated.observe(this@SearchProcessService) { foundUsersCount ->
+            interactor.foundUsersLimit?.let { sendProgressNotification(foundUsersCount, it) }
         }
     }
 
     private fun sendProgressNotification(foundUsersCount: Int, foundUsersLimit: Int) {
-        notificationBuilder.setProgress(foundUsersLimit, foundUsersCount, false)
+        notificationBuilder
             .setContentText("Найдено $foundUsersCount/$foundUsersLimit")
-        notificationManager.notify(SEARCH_NOTIFICATION_ID, notificationBuilder.build())
+            .setProgress(foundUsersLimit, foundUsersCount, false)
+        NotificationManagerCompat.from(this)
+            .notify(PROGRESS_NOTIFICATION_ID, notificationBuilder.build())
+    }
+
+    @SuppressLint("RestrictedApi")
+    private fun sendCompleteNotification(foundUsersCount: Int, foundUsersLimit: Int) {
+        notificationBuilder.setContentTitle("Поиск завершён")
+            .setContentText("Найдено $foundUsersCount/$foundUsersLimit")
+            .setOnlyAlertOnce(false)
+            .setAutoCancel(true)
+            .setProgress(0, 0, false)
+            .mActions.clear()
+        NotificationManagerCompat.from(this)
+            .notify(COMPLETE_NOTIFICATION_ID, notificationBuilder.build())
     }
 
     fun stopSearch() {
         Timber.d("stopSearch")
         searchJob?.cancel()
+        stopForeground(true)
+        stopSelf()
     }
 
     inner class SearchProcessBinder : Binder() {
@@ -117,31 +130,6 @@ class SearchProcessService : LifecycleService() {
         super.onBind(intent)
         Timber.d("onBind")
         return binder
-    }
-
-    override fun onRebind(intent: Intent?) {
-        super.onRebind(intent)
-        Timber.d("onRebind")
-    }
-
-    override fun onTaskRemoved(rootIntent: Intent?) {
-        Timber.d("onTaskRemoved")
-        super.onTaskRemoved(rootIntent)
-    }
-
-    override fun onTrimMemory(level: Int) {
-        Timber.d("onTrimMemory")
-        super.onTrimMemory(level)
-    }
-
-    override fun onLowMemory() {
-        Timber.d("onLowMemory")
-        super.onLowMemory()
-    }
-
-    override fun onDestroy() {
-        Timber.d("onDestroy")
-        super.onDestroy()
     }
 
     companion object {

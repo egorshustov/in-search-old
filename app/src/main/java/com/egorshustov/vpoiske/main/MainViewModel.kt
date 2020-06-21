@@ -1,9 +1,6 @@
 package com.egorshustov.vpoiske.main
 
-import android.content.ComponentName
-import android.content.ServiceConnection
 import android.content.SharedPreferences
-import android.os.IBinder
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,9 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.data.source.SearchesRepository
 import com.egorshustov.vpoiske.data.source.UsersRepository
-import com.egorshustov.vpoiske.searchprocessservice.SearchProcessService
 import com.egorshustov.vpoiske.util.*
-import timber.log.Timber
 
 class MainViewModel @ViewModelInject constructor(
     usersRepository: UsersRepository,

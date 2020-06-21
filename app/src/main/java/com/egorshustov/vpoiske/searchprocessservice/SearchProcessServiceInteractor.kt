@@ -94,7 +94,7 @@ class SearchProcessServiceInteractor @Inject constructor(
                     delay(ERROR_DELAY_IN_MILLIS)
                     sendSearchUsersRequest(birthDay, birthMonth, search)
                 } else {
-                    currentCoroutineContext()
+                    currentCoroutineContext().cancel()
                     _message.postValue(Event(searchUsersResult.getString()))
                 }
             }

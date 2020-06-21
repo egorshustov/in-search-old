@@ -39,6 +39,8 @@
     <string name="error_check_internet">Нет соединения с интернетом, пожалуйста, проверьте ваше подключение</string>
     <string name="error_check_internet_or_unavailable">Ошибка соединения: отсутствует подключение к сети или сервер недоступен</string>
 
+    <string name="channel_description">Уведомления приложения ВПоиске</string>
+
     <string-array name="ages_from">
         <item>От любого</item>
         <item>от 14</item>

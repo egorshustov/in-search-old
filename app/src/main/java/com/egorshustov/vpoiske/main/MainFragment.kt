@@ -146,7 +146,6 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     private fun observeSearchProcessLiveData() {
         searchProcessService.isSearchRunning.observe(viewLifecycleOwner) {
-            context?.showMessage("isSearchRunning: $it")
             viewModel.searchState.value =
                 if (it) SearchProcessState.IN_PROGRESS else SearchProcessState.INACTIVE
         }

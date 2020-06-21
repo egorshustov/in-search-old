@@ -45,6 +45,5 @@ const val PAUSE_DELAY_IN_MILLIS: Long = 500
 
 const val NOTIFICATION_CHANNEL_ID =
     "com.egorshustov.vpoiske.util.V_POISKE_NOTIFICATION_CHANNEL_ID"
-const val NOTIFICATION_CHANNEL_NAME = "ВПоиске"
-const val NOTIFICATION_CHANNEL_DESCRIPTION = "Уведомления приложения ВПоиске"
-const val SEARCH_NOTIFICATION_ID = 1
+const val PROGRESS_NOTIFICATION_ID = 1
+const val COMPLETE_NOTIFICATION_ID = 2
