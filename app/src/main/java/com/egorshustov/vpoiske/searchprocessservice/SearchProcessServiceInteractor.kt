@@ -153,7 +153,9 @@ class SearchProcessServiceInteractor @Inject constructor(
                 val user = getUserResult.data.toEntity()
                 val isFriendsCountAcceptable =
                     user.friends in friendsMinCount..friendsMaxCount
-                if (isFriendsCountAcceptable) {
+                val isDesiredRelation =
+                    !(search.relation != null && user.relation != search.relation)
+                if (isFriendsCountAcceptable && isDesiredRelation) {
                     val addedUserId =
                         usersRepository.insertUser(user.apply {
                             searchId = search.id

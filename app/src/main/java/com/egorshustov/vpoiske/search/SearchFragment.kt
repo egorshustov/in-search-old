@@ -66,8 +66,6 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
     }
 
     private fun openUserDetails(userId: Long) {
-        /*val action = SearchProcessFragmentDirections.actionSearchProcessFragmentToUserDetailFragment(userId)
-        findNavController().safeNavigate(action)*/
         val userUrl = "https://vk.com/id$userId"
         val intent = Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(userUrl) }
         startActivity(intent)

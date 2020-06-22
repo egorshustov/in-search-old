@@ -41,8 +41,7 @@ class SearchParamsViewModel @ViewModelInject constructor(
     private val _currentSex = MutableLiveData(Sex.FEMALE)
     val currentSex: LiveData<Sex> = _currentSex
 
-    private val _currentWithPhoneOnly = MutableLiveData(false)
-    val currentWithPhoneOnly: LiveData<Boolean> = _currentWithPhoneOnly
+    val currentWithPhoneOnly = MutableLiveData(false)
 
     private val _currentFoundUsersLimit = MutableLiveData(DEFAULT_FOUND_USERS_LIMIT)
     val currentFoundUsersLimit: LiveData<Int> = _currentFoundUsersLimit

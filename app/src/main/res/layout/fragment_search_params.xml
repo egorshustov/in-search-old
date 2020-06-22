@@ -145,7 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/blocks_margin"
-                    android:checked="@{viewmodel.currentWithPhoneOnly}"
+                    android:checked="@={viewmodel.currentWithPhoneOnly}"
                     android:text="@string/text_with_phone_only"
                     android:textColor="?themeTextColorSecondary"
                     android:textSize="@dimen/text_size_medium" />
@@ -237,7 +237,7 @@
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"
-                        app:isGone="@{viewmodel.currentFriendsMaxCount != null}" />
+                        app:isGone="@{viewmodel.currentFriendsMaxCount == null}" />
 
                 </LinearLayout>
 
@@ -248,7 +248,7 @@
                     android:layout_marginTop="@dimen/blocks_margin"
                     android:max="1000"
                     android:progress="250"
-                    app:isGone="@{viewmodel.currentFriendsMaxCount != null}" />
+                    app:isGone="@{viewmodel.currentFriendsMaxCount == null}" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

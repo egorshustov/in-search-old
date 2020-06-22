@@ -32,7 +32,6 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
-    //todo use or kotlin ext or data binding
     override fun getLayoutResId(): Int = R.layout.fragment_main
 
     override val viewModel: MainViewModel by activityViewModels()

@@ -3,8 +3,7 @@ package com.egorshustov.vpoiske.data.source.remote.searchusers
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.data.source.remote.getcities.CityResponse
 import com.egorshustov.vpoiske.data.source.remote.getcountries.CountryResponse
-import com.egorshustov.vpoiske.util.NO_VALUE
-import com.egorshustov.vpoiske.util.Sex
+import com.egorshustov.vpoiske.util.*
 import com.google.gson.annotations.SerializedName
 
 data class SearchUserResponse(
@@ -48,13 +47,21 @@ data class SearchUserResponse(
         get() = isMobilePhoneCorrect() || isHomePhoneCorrect()
 
     private fun isMobilePhoneCorrect(): Boolean {
-        //todo add phone check
-        return mobilePhone != null
+        return when {
+            mobilePhone.isNullOrBlank() -> false
+            mobilePhone.extractDigits().length < MOBILE_PHONE_MIN_LENGTH -> false
+            // maybe should add additional logical conditions here (depending on the final output)
+            else -> true
+        }
     }
 
     private fun isHomePhoneCorrect(): Boolean {
-        //todo add phone check
-        return true
+        return when {
+            homePhone.isNullOrBlank() -> false
+            homePhone.extractDigits().length < HOME_PHONE_MIN_LENGTH -> false
+            // maybe should add additional logical conditions here (depending on the final output)
+            else -> true
+        }
     }
 
     fun toEntity() =
