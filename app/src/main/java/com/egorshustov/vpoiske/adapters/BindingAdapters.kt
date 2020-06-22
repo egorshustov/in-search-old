@@ -20,6 +20,7 @@ import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.util.Event
 import com.egorshustov.vpoiske.util.Relation
+import com.egorshustov.vpoiske.util.Sex
 import com.egorshustov.vpoiske.util.extractInt
 
 @BindingAdapter("app:users")
@@ -87,6 +88,32 @@ fun Spinner.setSelectedCityListener(attrChange: InverseBindingListener) {
     }
     val oldOnItemSelectedListener =
         ListenerUtil.trackListener(this, newOnItemSelectedListener, R.id.onCitySelectedListener)
+    if (oldOnItemSelectedListener != null) onItemSelectedListener = null
+    onItemSelectedListener = newOnItemSelectedListener
+}
+
+@BindingAdapter("app:selectedSex")
+fun Spinner.setSelectedSex(sex: Sex) {
+    (adapter as? ArrayAdapter<Sex>)?.let {
+        val sexPosition = it.getPosition(sex)
+        if (sexPosition != selectedItemPosition) setSelection(sexPosition)
+    }
+}
+
+@InverseBindingAdapter(attribute = "app:selectedSex")
+fun Spinner.getSelectedSex(): Sex =
+    (adapter as? ArrayAdapter<Sex>)?.getItem(selectedItemPosition) ?: Sex.FEMALE
+
+@BindingAdapter("app:selectedSexAttrChanged")
+fun Spinner.setSelectedSexListener(attrChange: InverseBindingListener) {
+    val newOnItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) =
+            attrChange.onChange()
+    }
+    val oldOnItemSelectedListener =
+        ListenerUtil.trackListener(this, newOnItemSelectedListener, R.id.onSexSelectedListener)
     if (oldOnItemSelectedListener != null) onItemSelectedListener = null
     onItemSelectedListener = newOnItemSelectedListener
 }

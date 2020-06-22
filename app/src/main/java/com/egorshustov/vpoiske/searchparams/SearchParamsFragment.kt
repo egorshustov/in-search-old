@@ -16,6 +16,7 @@ import com.egorshustov.vpoiske.databinding.FragmentSearchParamsBinding
 import com.egorshustov.vpoiske.main.MainViewModel
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.Relation
+import com.egorshustov.vpoiske.util.Sex
 import com.egorshustov.vpoiske.util.snackBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,13 +35,16 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
         setSeekBarsListeners()
         setCheckBoxListener()
         observeSelectedCountry()
-        observeMessage()
+        observeCurrentSex()
         observeCurrentAgeFrom()
         observeCurrentAgeTo()
+        observeMessage()
         observeNewSearchId()
     }
 
     private fun setupSpinners() = with(binding) {
+        spinnerSex.adapter =
+            ArrayAdapter(requireContext(), R.layout.item_spinner, Sex.values())
         spinnerRelation.adapter =
             ArrayAdapter(requireContext(), R.layout.item_spinner, Relation.values())
         spinnerCountries.adapter = CountriesAdapter(requireContext(), R.layout.item_spinner)
@@ -120,6 +124,15 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
         viewModel.currentCountry.observe(viewLifecycleOwner, EventObserver {
             viewModel.onCountrySelected(it.id)
         })
+    }
+
+    private fun observeCurrentSex() = with(binding) {
+        viewModel.currentSex.observe(viewLifecycleOwner) {
+            Relation.sex = it
+            spinnerRelation.adapter =
+                ArrayAdapter(requireContext(), R.layout.item_spinner, Relation.values())
+            invalidateAll()
+        }
     }
 
     private fun observeCurrentAgeFrom() {

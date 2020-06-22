@@ -32,14 +32,13 @@ class SearchParamsViewModel @ViewModelInject constructor(
 
     val currentCity = MutableLiveData(DEFAULT_CITY_TITLE)
 
+    val currentSex = MutableLiveData(Sex.FEMALE)
+
     val currentAgeFrom = MutableLiveData(DEFAULT_AGE_FROM)
 
     val currentAgeTo = MutableLiveData(DEFAULT_AGE_TO)
 
     val currentRelation = MutableLiveData(Relation.NOT_DEFINED)
-
-    private val _currentSex = MutableLiveData(Sex.FEMALE)
-    val currentSex: LiveData<Sex> = _currentSex
 
     val currentWithPhoneOnly = MutableLiveData(false)
 

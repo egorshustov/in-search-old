@@ -10,10 +10,12 @@ enum class VPoiskeTheme(@StyleRes val id: Int) {
     fun getNext() = values()[((ordinal + 1) % values().size)]
 }
 
-enum class Sex(val value: Int) {
-    ANY(0),
-    FEMALE(1),
-    MALE(2)
+enum class Sex(val value: Int, private val description: String) {
+    ANY(0, "Любой"),
+    FEMALE(1, "Женский"),
+    MALE(2, "Мужской");
+
+    override fun toString() = description
 }
 
 enum class HasPhoto(val value: Int) {
@@ -36,7 +38,7 @@ enum class Relation(
     IN_LOVE(7, "Влюблена", "Влюблён"),
     IN_CIVIL_MARRIAGE(8, "В гражданском браке", "В гражданском браке");
 
-    override fun toString() = if (sex == Sex.MALE) descriptionMale else descriptionFemale
+    override fun toString() = if (sex == Sex.FEMALE) descriptionFemale else descriptionMale
 
     companion object {
         var sex = Sex.FEMALE

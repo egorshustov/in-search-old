@@ -4,5 +4,6 @@
     <item name="onCitySelectedListener" type="id" />
     <item name="onAgeFromSelectedListener" type="id" />
     <item name="onAgeToSelectedListener" type="id" />
+    <item name="onSexSelectedListener" type="id" />
     <item name="onRelationSelectedListener" type="id" />
 </resources>
