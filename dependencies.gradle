@@ -17,7 +17,6 @@ ext {
             room               : '2.2.5',
             retrofit           : '2.9.0',
             okHttp3            : '4.7.2',
-            dagger             : '2.28',
             hilt               : '2.28-alpha',
             hiltAndroidX       : '1.0.0-alpha01',
             glide              : '4.11.0',
@@ -60,11 +59,6 @@ ext {
             retrofit              : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
             retrofitConverterGson : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
             okHttp3Logging        : "com.squareup.okhttp3:logging-interceptor:${versions.okHttp3}",
-
-            dagger                : "com.google.dagger:dagger:${versions.dagger}",
-            daggerCompiler        : "com.google.dagger:dagger-compiler:${versions.dagger}",
-            daggerAndroidSupport  : "com.google.dagger:dagger-android-support:${versions.dagger}",
-            daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${versions.dagger}",
 
             daggerHilt            : "com.google.dagger:hilt-android:${versions.hilt}",
             daggerHiltCompiler    : "com.google.dagger:hilt-android-compiler:${versions.hilt}",
@@ -130,11 +124,6 @@ ext {
             [configuration: impl, dependency: libs.retrofit],
             [configuration: impl, dependency: libs.retrofitConverterGson],
             [configuration: impl, dependency: libs.okHttp3Logging],
-
-            [configuration: impl, dependency: libs.dagger],
-            [configuration: kapt, dependency: libs.daggerCompiler],
-            [configuration: impl, dependency: libs.daggerAndroidSupport],
-            [configuration: kapt, dependency: libs.daggerAndroidProcessor],
 
             [configuration: impl, dependency: libs.daggerHilt],
             [configuration: kapt, dependency: libs.daggerHiltCompiler],
