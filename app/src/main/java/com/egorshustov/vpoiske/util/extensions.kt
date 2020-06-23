@@ -3,8 +3,6 @@ package com.egorshustov.vpoiske.util
 import android.content.Context
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.egorshustov.vpoiske.data.Search

@@ -62,43 +62,12 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
     }
 
     private fun setSeekBarsListeners() = with(binding) {
-        seekFoundedUsersLimit.setOnSeekBarChangeListener(object :
-            SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.onFoundedUsersLimitChanged(seekProgressToUsersLimit(progress))
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
         //todo create custom seekBar with range
         seekFriendsMaxCount.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) viewModel.onFriendsMaxCountChanged(
-                    seekProgressToDaysFriendsMaxCount(
-                        progress
-                    )
+                    seekProgressToDaysFriendsMaxCount(progress)
                 )
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
-        seekFollowersMaxCount.setOnSeekBarChangeListener(object :
-            SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) viewModel.onFollowersMaxCountChanged(progress)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
-        seekDaysInterval.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) viewModel.onDaysIntervalChanged(seekProgressToDaysInterval(progress))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -112,10 +81,6 @@ class SearchParamsFragment : BaseFragment<SearchParamsViewModel, FragmentSearchP
             viewModel.onSetFriendsLimitsChanged(isChecked)
         }
     }
-
-    private fun seekProgressToUsersLimit(seekProgress: Int) = (seekProgress + 1) * 10
-
-    private fun seekProgressToDaysInterval(seekProgress: Int) = seekProgress + 1
 
     private fun seekProgressToDaysFriendsMaxCount(seekProgress: Int) =
         seekProgress + viewModel.defaultFriendsMinCount

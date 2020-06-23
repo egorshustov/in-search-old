@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="android.view.View" />
+
+        <import type="com.egorshustov.vpoiske.util.ExtensionsKt" />
 
         <import type="com.egorshustov.vpoiske.util.ConstantsKt" />
 
@@ -28,7 +31,6 @@
                 android:layout_height="wrap_content" />
 
             <LinearLayout
-                android:id="@+id/layout_search_params"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -51,12 +53,12 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatButton
+                        style="@style/ButtonSecondaryStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:onClick="@{() -> viewmodel.onResetButtonClicked()}"
                         android:text="@string/text_reset"
-                        android:textColor="?themeColorAccent"
-                        android:textSize="@dimen/text_size_medium"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -156,7 +158,6 @@
                     app:selectedRelation="@={viewmodel.currentRelation}" />
 
                 <CheckBox
-                    android:id="@+id/check_with_phone_only"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/blocks_margin"
@@ -185,17 +186,18 @@
                         android:text="@{viewmodel.currentFoundUsersLimit.toString()}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="100" />
 
                 </LinearLayout>
 
                 <SeekBar
-                    android:id="@+id/seek_founded_users_limit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/blocks_margin"
                     android:max="99"
-                    android:progress="9" />
+                    android:progress="@={(viewmodel.currentFoundUsersLimit / 10) - 1}"
+                    tools:progress="9" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -217,17 +219,18 @@
                         android:text="@{viewmodel.currentDaysInterval.toString()}"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="3" />
 
                 </LinearLayout>
 
                 <SeekBar
-                    android:id="@+id/seek_days_interval"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/blocks_margin"
                     android:max="29"
-                    android:progress="2" />
+                    android:progress="@={viewmodel.currentDaysInterval - 1}"
+                    tools:progress="2" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -239,7 +242,7 @@
                         android:id="@+id/check_set_friends_limits"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="true"
+                        android:checked="@{viewmodel.currentFriendsMinCount != null &amp;&amp; viewmodel.currentFriendsMaxCount != null}"
                         android:text="@string/text_limit_friends_count"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium" />
@@ -252,7 +255,8 @@
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"
-                        app:isGone="@{viewmodel.currentFriendsMaxCount == null}" />
+                        app:isGone="@{viewmodel.currentFriendsMaxCount == null}"
+                        tools:text="от 50 до 250" />
 
                 </LinearLayout>
 
@@ -262,8 +266,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/blocks_margin"
                     android:max="1000"
-                    android:progress="250"
-                    app:isGone="@{viewmodel.currentFriendsMaxCount == null}" />
+                    android:progress="@{viewmodel.currentFriendsMaxCount - viewmodel.defaultFriendsMinCount}"
+                    app:isGone="@{viewmodel.currentFriendsMaxCount == null}"
+                    tools:progress="250" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -274,6 +279,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:text="@string/text_limit_followers_count"
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium" />
@@ -286,20 +292,20 @@
                         android:textColor="?themeTextColorSecondary"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"
-                        app:isGone="@{viewmodel.currentFollowersMaxCount != null}" />
+                        app:isGone="@{viewmodel.currentFollowersMaxCount == null}"
+                        tools:text="от 0 до 150" />
 
                 </LinearLayout>
 
                 <SeekBar
-                    android:id="@+id/seek_followers_max_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/blocks_margin"
                     android:max="1000"
-                    android:progress="150" />
+                    android:progress="@={viewmodel.currentFollowersMaxCount}"
+                    tools:progress="150" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button_search"
                     style="@style/ButtonPrimaryStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

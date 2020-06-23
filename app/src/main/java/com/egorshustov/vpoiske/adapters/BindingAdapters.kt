@@ -102,7 +102,7 @@ fun Spinner.setSelectedSex(sex: Sex) {
 
 @InverseBindingAdapter(attribute = "app:selectedSex")
 fun Spinner.getSelectedSex(): Sex =
-    (adapter as? ArrayAdapter<Sex>)?.getItem(selectedItemPosition) ?: Sex.FEMALE
+    (adapter as? ArrayAdapter<Sex>)?.getItem(selectedItemPosition) ?: Sex.ANY
 
 @BindingAdapter("app:selectedSexAttrChanged")
 fun Spinner.setSelectedSexListener(attrChange: InverseBindingListener) {

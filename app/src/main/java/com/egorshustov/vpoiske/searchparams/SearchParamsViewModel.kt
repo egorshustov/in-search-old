@@ -32,7 +32,7 @@ class SearchParamsViewModel @ViewModelInject constructor(
 
     val currentCity = MutableLiveData(DEFAULT_CITY_TITLE)
 
-    val currentSex = MutableLiveData(Sex.FEMALE)
+    val currentSex = MutableLiveData(Sex.ANY)
 
     val currentAgeFrom = MutableLiveData(DEFAULT_AGE_FROM)
 
@@ -42,26 +42,22 @@ class SearchParamsViewModel @ViewModelInject constructor(
 
     val currentWithPhoneOnly = MutableLiveData(false)
 
-    private val _currentFoundUsersLimit = MutableLiveData(DEFAULT_FOUND_USERS_LIMIT)
-    val currentFoundUsersLimit: LiveData<Int> = _currentFoundUsersLimit
+    val currentFoundUsersLimit = MutableLiveData(DEFAULT_FOUND_USERS_LIMIT)
 
-    private var defaultFriendsMaxCount = 250
-    private val _currentFriendsMaxCount = MutableLiveData(defaultFriendsMaxCount)
-    val currentFriendsMaxCount: LiveData<Int?> = _currentFriendsMaxCount
+    val currentDaysInterval = MutableLiveData(DEFAULT_DAYS_INTERVAL)
 
     var defaultFriendsMinCount = 50
         private set
     private val _currentFriendsMinCount = MutableLiveData(defaultFriendsMinCount)
     val currentFriendsMinCount: LiveData<Int?> = _currentFriendsMinCount
 
-    private val _currentFollowersMaxCount = MutableLiveData(DEFAULT_FOLLOWERS_MAX_COUNT)
-    val currentFollowersMaxCount: LiveData<Int> = _currentFollowersMaxCount
+    private var defaultFriendsMaxCount = 250
+    private val _currentFriendsMaxCount = MutableLiveData(defaultFriendsMaxCount)
+    val currentFriendsMaxCount: LiveData<Int?> = _currentFriendsMaxCount
 
-    private val _currentFollowersMinCount = MutableLiveData(DEFAULT_FOLLOWERS_MIN_COUNT)
-    val currentFollowersMinCount: LiveData<Int> = _currentFollowersMinCount
+    private val currentFollowersMinCount = MutableLiveData(DEFAULT_FOLLOWERS_MIN_COUNT)
 
-    private val _currentDaysInterval = MutableLiveData(DEFAULT_DAYS_INTERVAL)
-    val currentDaysInterval: LiveData<Int> = _currentDaysInterval
+    val currentFollowersMaxCount = MutableLiveData(DEFAULT_FOLLOWERS_MAX_COUNT)
 
     private val _message = MutableLiveData<Event<String>>()
     val message: LiveData<Event<String>> = _message
@@ -73,6 +69,24 @@ class SearchParamsViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             countriesRepository.getCountries()
         }
+    }
+
+    fun onResetButtonClicked() {
+        currentCountry.value = Event(DEFAULT_COUNTRY_TITLE)
+        currentCity.value = DEFAULT_CITY_TITLE
+        currentSex.value = Sex.ANY
+        currentAgeFrom.value = DEFAULT_AGE_FROM
+        currentAgeTo.value = DEFAULT_AGE_TO
+        currentRelation.value = Relation.NOT_DEFINED
+        currentWithPhoneOnly.value = false
+        currentFoundUsersLimit.value = DEFAULT_FOUND_USERS_LIMIT
+        currentDaysInterval.value = DEFAULT_DAYS_INTERVAL
+        defaultFriendsMinCount = 50
+        _currentFriendsMinCount.value = defaultFriendsMinCount
+        defaultFriendsMaxCount = 250
+        _currentFriendsMaxCount.value = defaultFriendsMaxCount
+        currentFollowersMinCount.value = DEFAULT_FOLLOWERS_MIN_COUNT
+        currentFollowersMaxCount.value = DEFAULT_FOLLOWERS_MAX_COUNT
     }
 
     fun onCountrySelected(countryId: Int) {
@@ -105,26 +119,14 @@ class SearchParamsViewModel @ViewModelInject constructor(
         }
     }
 
-    fun onFoundedUsersLimitChanged(usersCount: Int) {
-        _currentFoundUsersLimit.value = usersCount
-    }
-
     fun onFriendsMaxCountChanged(friendsMaxCount: Int) {
         _currentFriendsMaxCount.value = friendsMaxCount
         defaultFriendsMaxCount = friendsMaxCount
     }
 
-    fun onFollowersMaxCountChanged(followersMaxCount: Int) {
-        _currentFollowersMaxCount.value = followersMaxCount
-    }
-
     fun onSetFriendsLimitsChanged(isChecked: Boolean) {
         _currentFriendsMinCount.value = if (isChecked) defaultFriendsMinCount else null
         _currentFriendsMaxCount.value = if (isChecked) defaultFriendsMaxCount else null
-    }
-
-    fun onDaysIntervalChanged(daysInterval: Int) {
-        _currentDaysInterval.value = daysInterval
     }
 
     private fun showMessage(message: String) {
@@ -133,50 +135,50 @@ class SearchParamsViewModel @ViewModelInject constructor(
     }
 
     fun onSearchButtonClicked() = viewModelScope.launch {
-        val cityId = currentCity.value?.id
-        val cityTitle = currentCity.value?.title
         val countryId = currentCountry.value?.peekContent()?.id
         val countryTitle = currentCountry.value?.peekContent()?.title
+        val cityId = currentCity.value?.id
+        val cityTitle = currentCity.value?.title
+        val sex = currentSex.value?.value
         val ageFrom = currentAgeFrom.value
         val ageTo = currentAgeTo.value
         val relation = currentRelation.value?.value
-        val sex = currentSex.value?.value
         val withPhoneOnly = currentWithPhoneOnly.value
         val foundUsersLimit = currentFoundUsersLimit.value
+        val daysInterval = currentDaysInterval.value
         val friendsMinCount = currentFriendsMinCount.value
         val friendsMaxCount = currentFriendsMaxCount.value
         val followersMinCount = currentFollowersMinCount.value
         val followersMaxCount = currentFollowersMaxCount.value
-        val daysInterval = currentDaysInterval.value
         if (
-            cityId != null
-            && cityTitle != null
-            && countryId != null
+            countryId != null
             && countryTitle != null
+            && cityId != null
+            && cityTitle != null
             && sex != null
             && withPhoneOnly != null
             && foundUsersLimit != null
+            && daysInterval != null
             && followersMinCount != null
             && followersMaxCount != null
-            && daysInterval != null
         ) {
             val newSearchId = searchesRepository.insertSearch(
                 Search(
-                    cityId,
-                    cityTitle,
                     countryId,
                     countryTitle,
+                    cityId,
+                    cityTitle,
+                    sex,
                     ageFrom,
                     ageTo,
                     relation,
-                    sex,
                     withPhoneOnly,
                     foundUsersLimit,
+                    daysInterval,
                     friendsMinCount,
                     friendsMaxCount,
                     followersMinCount,
-                    followersMaxCount,
-                    daysInterval
+                    followersMaxCount
                 )
             )
             _newSearchId.value = Event(newSearchId)
