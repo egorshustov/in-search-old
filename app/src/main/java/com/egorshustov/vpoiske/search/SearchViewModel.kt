@@ -2,16 +2,12 @@ package com.egorshustov.vpoiske.search
 
 import android.content.SharedPreferences
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import com.egorshustov.vpoiske.data.User
-import com.egorshustov.vpoiske.data.source.UsersRepository
+import androidx.lifecycle.*
+import com.egorshustov.vpoiske.domain.users.GetUsersUseCase
 import com.egorshustov.vpoiske.util.*
 
 class SearchViewModel @ViewModelInject constructor(
-    usersRepository: UsersRepository,
+    getUsersUseCase: GetUsersUseCase,
     sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
@@ -25,26 +21,26 @@ class SearchViewModel @ViewModelInject constructor(
     private val _currentSpanCountChanged = MutableLiveData<Int>()
     val currentSpanCountChanged: LiveData<Int> = _currentSpanCountChanged
 
-    private val users: LiveData<List<User>> = usersRepository.getUsers()
+    private var currentSearchId = MutableLiveData<Long?>(null)
 
-    val currentSearchUsers: LiveData<List<User>> = users.map { users ->
-        isLoading.value = false
-        users.filter { it.searchId == currentSearchId }
+    val currentSearchUsers = currentSearchId.switchMap {
+        getUsersUseCase(it).map {
+            isLoading.value = false
+            it
+        }
     }
-
-    private var currentSearchId: Long? = null
 
     private val _openUserEvent = MutableLiveData<Event<Long>>()
     val openUserEvent: LiveData<Event<Long>> = _openUserEvent
 
-    val isLoading = MutableLiveData<Boolean>(true)
+    val isLoading = MutableLiveData(true)
+
+    fun onCurrentSearchIdObtained(searchId: Long) {
+        currentSearchId.value = searchId
+    }
 
     fun openUser(userId: Long) {
         _openUserEvent.value = Event(userId)
-    }
-
-    fun onCurrentSearchIdObtained(searchId: Long) {
-        currentSearchId = searchId
     }
 
     fun onItemChangeViewClicked() {

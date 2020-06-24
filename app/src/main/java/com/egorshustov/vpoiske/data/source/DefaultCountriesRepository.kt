@@ -19,10 +19,10 @@ class DefaultCountriesRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : CountriesRepository {
 
-    override fun getLiveCountries(): LiveData<List<Country>> =
+    override fun getCountries(): LiveData<List<Country>> =
         countriesLocalDataSource.getCountries()
 
-    override suspend fun getCountries(
+    override suspend fun requestCountries(
         needAll: Boolean,
         apiVersion: String,
         accessToken: String,

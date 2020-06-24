@@ -8,9 +8,9 @@ import com.egorshustov.vpoiske.util.DEFAULT_GET_COUNTRIES_COUNT
 
 interface CountriesRepository {
 
-    fun getLiveCountries(): LiveData<List<Country>>
+    fun getCountries(): LiveData<List<Country>>
 
-    suspend fun getCountries(
+    suspend fun requestCountries(
         needAll: Boolean = false,
         apiVersion: String = DEFAULT_API_VERSION,
         accessToken: String = Credentials.accessToken,

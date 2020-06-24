@@ -8,22 +8,24 @@ import androidx.lifecycle.viewModelScope
 import com.egorshustov.vpoiske.data.City
 import com.egorshustov.vpoiske.data.Country
 import com.egorshustov.vpoiske.data.Search
-import com.egorshustov.vpoiske.data.source.CitiesRepository
-import com.egorshustov.vpoiske.data.source.CountriesRepository
-import com.egorshustov.vpoiske.data.source.SearchesRepository
 import com.egorshustov.vpoiske.data.source.remote.Result
+import com.egorshustov.vpoiske.domain.cities.GetCitiesUseCase
+import com.egorshustov.vpoiske.domain.countries.GetCountriesUseCase
+import com.egorshustov.vpoiske.domain.countries.RequestCountriesUseCase
+import com.egorshustov.vpoiske.domain.searches.SaveSearchUseCase
 import com.egorshustov.vpoiske.util.*
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class SearchParamsViewModel @ViewModelInject constructor(
-    countriesRepository: CountriesRepository,
-    private val citiesRepository: CitiesRepository,
-    private val searchesRepository: SearchesRepository
+    getCountriesUseCase: GetCountriesUseCase,
+    requestCountriesUseCase: RequestCountriesUseCase,
+    private val getCitiesUseCase: GetCitiesUseCase,
+    private val saveSearchUseCase: SaveSearchUseCase
 ) : ViewModel() {
 
-    val countries: LiveData<List<Country>> = countriesRepository.getLiveCountries()
+    val countries: LiveData<List<Country>> = getCountriesUseCase()
 
     private val _cities = MutableLiveData<List<City>>()
     val cities: LiveData<List<City>> = _cities
@@ -66,9 +68,7 @@ class SearchParamsViewModel @ViewModelInject constructor(
     val newSearchId: LiveData<Event<Long?>> = _newSearchId
 
     init {
-        viewModelScope.launch {
-            countriesRepository.getCountries()
-        }
+        viewModelScope.launch { requestCountriesUseCase() }
     }
 
     fun onResetButtonClicked() {
@@ -96,7 +96,7 @@ class SearchParamsViewModel @ViewModelInject constructor(
 
     private fun getCities(countryId: Int) = viewModelScope.launch {
         if (countryId != DEFAULT_COUNTRY_TITLE.id) {
-            when (val citiesResponse = citiesRepository.getCities(countryId)) {
+            when (val citiesResponse = getCitiesUseCase(countryId)) {
                 is Result.Success -> _cities.value = citiesResponse.data.map { it.toEntity() }
                 is Result.Error -> {
                     Timber.e(citiesResponse.exception)
@@ -162,7 +162,7 @@ class SearchParamsViewModel @ViewModelInject constructor(
             && followersMinCount != null
             && followersMaxCount != null
         ) {
-            val newSearchId = searchesRepository.saveSearch(
+            val newSearchId = saveSearchUseCase(
                 Search(
                     countryId,
                     countryTitle,

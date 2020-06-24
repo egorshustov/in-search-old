@@ -2,18 +2,14 @@ package com.egorshustov.vpoiske.main
 
 import android.content.SharedPreferences
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import com.egorshustov.vpoiske.data.User
-import com.egorshustov.vpoiske.data.source.SearchesRepository
-import com.egorshustov.vpoiske.data.source.UsersRepository
+import androidx.lifecycle.*
+import com.egorshustov.vpoiske.domain.searches.GetLastSearchIdUseCase
+import com.egorshustov.vpoiske.domain.users.GetUsersUseCase
 import com.egorshustov.vpoiske.util.*
 
 class MainViewModel @ViewModelInject constructor(
-    usersRepository: UsersRepository,
-    searchesRepository: SearchesRepository,
+    getUsersUseCase: GetUsersUseCase,
+    getLastSearchIdUseCase: GetLastSearchIdUseCase,
     sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
@@ -31,16 +27,18 @@ class MainViewModel @ViewModelInject constructor(
     )
         private set
 
+    val isLoading = MutableLiveData(true)
+
     private val _currentSpanCountChanged = MutableLiveData<Int>()
     val currentSpanCountChanged: LiveData<Int> = _currentSpanCountChanged
 
-    private val users: LiveData<List<User>> = usersRepository.getUsers()
+    val lastSearchId: LiveData<Long?> = getLastSearchIdUseCase()
 
-    val lastSearchId = searchesRepository.getLastSearchId()
-
-    val currentSearchUsers: LiveData<List<User>> = users.map { users ->
-        isLoading.value = false
-        users.filter { it.searchId == lastSearchId.value }
+    val currentSearchUsers = lastSearchId.switchMap {
+        getUsersUseCase(it).map {
+            isLoading.value = false
+            it
+        }
     }
 
     private val _openUserDetails = MutableLiveData<Event<Long>>()
@@ -59,8 +57,6 @@ class MainViewModel @ViewModelInject constructor(
 
     private val _message = MutableLiveData<Event<String>>()
     val message: LiveData<Event<String>> = _message
-
-    val isLoading = MutableLiveData(true)
 
     fun onNavChangeThemeClicked() {
         val currentTheme =

@@ -4,11 +4,15 @@ import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.egorshustov.vpoiske.data.Search
-import com.egorshustov.vpoiske.data.source.SearchesRepository
-import com.egorshustov.vpoiske.data.source.UsersRepository
 import com.egorshustov.vpoiske.data.source.remote.Result
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUserResponse
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUsersInnerResponse
+import com.egorshustov.vpoiske.domain.searches.GetSearchUseCase
+import com.egorshustov.vpoiske.domain.searches.SaveSearchStartUnixSecondsUseCase
+import com.egorshustov.vpoiske.domain.users.GetUserUseCase
+import com.egorshustov.vpoiske.domain.users.SaveUserUseCase
+import com.egorshustov.vpoiske.domain.users.SaveUsersUseCase
+import com.egorshustov.vpoiske.domain.users.SearchUsersUseCase
 import com.egorshustov.vpoiske.util.*
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.scopes.ServiceScoped
@@ -18,8 +22,12 @@ import javax.inject.Inject
 
 @ServiceScoped
 class SearchProcessServiceInteractor @Inject constructor(
-    private val usersRepository: UsersRepository,
-    private val searchesRepository: SearchesRepository,
+    private val saveUserUseCase: SaveUserUseCase,
+    private val saveUsersUseCase: SaveUsersUseCase,
+    private val searchUsersUseCase: SearchUsersUseCase,
+    private val getUserUseCase: GetUserUseCase,
+    private val getSearchUseCase: GetSearchUseCase,
+    private val saveSearchStartUnixSecondsUseCase: SaveSearchStartUnixSecondsUseCase,
     private val ioDispatcher: CoroutineDispatcher
 ) {
 
@@ -45,10 +53,10 @@ class SearchProcessServiceInteractor @Inject constructor(
     suspend fun onSearchStarted(searchId: Long) {
         foundUsersCount = 0
         withContext(ioDispatcher) {
-            val search = searchesRepository.getSearch(searchId) ?: return@withContext
+            val search = getSearchUseCase(searchId) ?: return@withContext
             foundUsersLimit = search.foundUsersLimit
             currentUnixSeconds.let {
-                searchesRepository.saveSearchStartUnixSeconds(searchId, it)
+                saveSearchStartUnixSecondsUseCase(searchId, it)
                 search.startUnixSeconds = it
             }
             while (true) {
@@ -62,7 +70,7 @@ class SearchProcessServiceInteractor @Inject constructor(
     }
 
     private suspend fun sendSearchUsersRequest(birthDay: Int, birthMonth: Int, search: Search) {
-        when (val searchUsersResult = usersRepository.searchUsers(
+        when (val searchUsersResult = searchUsersUseCase(
             search.countryId,
             search.cityId,
             search.ageFrom,
@@ -136,7 +144,7 @@ class SearchProcessServiceInteractor @Inject constructor(
                             it.foundUnixMillis = currentUnixMillis
                         }
                     }
-                val addedUserIdList = usersRepository.saveUsers(userList)
+                val addedUserIdList = saveUsersUseCase(userList)
                 foundUsersCount += addedUserIdList.size
                 if (foundUsersCount >= search.foundUsersLimit) currentCoroutineContext().cancel()
             }
@@ -148,7 +156,7 @@ class SearchProcessServiceInteractor @Inject constructor(
         val friendsMaxCount = search.friendsMaxCount
         if (friendsMinCount == null || friendsMaxCount == null) return
 
-        when (val getUserResult = usersRepository.getUser(userId)) {
+        when (val getUserResult = getUserUseCase(userId)) {
             is Result.Success -> {
                 val user = getUserResult.data.toEntity()
                 val isFriendsCountAcceptable =
@@ -156,11 +164,10 @@ class SearchProcessServiceInteractor @Inject constructor(
                 val isDesiredRelation =
                     !(search.relation != null && user.relation != search.relation)
                 if (isFriendsCountAcceptable && isDesiredRelation) {
-                    val addedUserId =
-                        usersRepository.saveUser(user.apply {
-                            searchId = search.id
-                            foundUnixMillis = currentUnixMillis
-                        })
+                    val addedUserId = saveUserUseCase(user.apply {
+                        searchId = search.id
+                        foundUnixMillis = currentUnixMillis
+                    })
                     if (addedUserId != NO_VALUE.toLong()) ++foundUsersCount
                     if (foundUsersCount >= search.foundUsersLimit) currentCoroutineContext().cancel()
                 }
