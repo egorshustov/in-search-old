@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.egorshustov.vpoiske.BuildConfig
-import com.egorshustov.vpoiske.data.source.local.*
+import com.egorshustov.vpoiske.data.source.local.CountriesDao
+import com.egorshustov.vpoiske.data.source.local.SearchesDao
+import com.egorshustov.vpoiske.data.source.local.UsersDao
+import com.egorshustov.vpoiske.data.source.local.VPoiskeDatabase
 import com.egorshustov.vpoiske.data.source.remote.*
 import com.egorshustov.vpoiske.util.V_POISKE_PREFERENCES_FILENAME
 import dagger.Module
@@ -70,10 +73,6 @@ object ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideCitiesDao(vPoiskeDatabase: VPoiskeDatabase): CitiesDao = vPoiskeDatabase.citiesDao()
-
-    @Singleton
-    @Provides
     fun provideCountriesDao(vPoiskeDatabase: VPoiskeDatabase): CountriesDao =
         vPoiskeDatabase.countriesDao()
 
@@ -84,7 +83,11 @@ object ApplicationModule {
             context.applicationContext,
             VPoiskeDatabase::class.java,
             "VPoiske.db"
-        ).addMigrations(VPoiskeDatabase.MIGRATION_1_2, VPoiskeDatabase.MIGRATION_2_3).build()
+        ).addMigrations(
+            VPoiskeDatabase.MIGRATION_1_2,
+            VPoiskeDatabase.MIGRATION_2_3,
+            VPoiskeDatabase.MIGRATION_3_4
+        ).build()
 
     @Singleton
     @Provides
