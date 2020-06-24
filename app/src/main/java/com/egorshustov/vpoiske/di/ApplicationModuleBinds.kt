@@ -1,5 +1,6 @@
 package com.egorshustov.vpoiske.di
 
+import com.egorshustov.vpoiske.data.source.*
 import com.egorshustov.vpoiske.data.source.local.*
 import com.egorshustov.vpoiske.data.source.remote.*
 import dagger.Binds
@@ -17,14 +18,19 @@ abstract class ApplicationModuleBinds {
     ): UsersLocalDataSource
 
     @Binds
-    abstract fun bindUsersRemoteDataSource(
-        usersRetrofitDataSource: UsersRetrofitDataSource
-    ): UsersRemoteDataSource
-
-    @Binds
     abstract fun bindCountriesLocalDataSource(
         countriesRoomDataSource: CountriesRoomDataSource
     ): CountriesLocalDataSource
+
+    @Binds
+    abstract fun bindSearchesLocalDataSource(
+        searchesRoomDataSource: SearchesRoomDataSource
+    ): SearchesLocalDataSource
+
+    @Binds
+    abstract fun bindUsersRemoteDataSource(
+        usersRetrofitDataSource: UsersRetrofitDataSource
+    ): UsersRemoteDataSource
 
     @Binds
     abstract fun bindCountriesRemoteDataSource(
@@ -37,7 +43,22 @@ abstract class ApplicationModuleBinds {
     ): CitiesRemoteDataSource
 
     @Binds
-    abstract fun bindSearchesLocalDataSource(
-        searchesRoomDataSource: SearchesRoomDataSource
-    ): SearchesLocalDataSource
+    abstract fun bindUsersRepository(
+        defaultUsersRepository: DefaultUsersRepository
+    ): UsersRepository
+
+    @Binds
+    abstract fun bindCountriesRepository(
+        defaultCountriesRepository: DefaultCountriesRepository
+    ): CountriesRepository
+
+    @Binds
+    abstract fun bindCitiesRepository(
+        defaultCitiesRepository: DefaultCitiesRepository
+    ): CitiesRepository
+
+    @Binds
+    abstract fun bindSearchesRepository(
+        defaultSearchesRepository: DefaultSearchesRepository
+    ): SearchesRepository
 }
