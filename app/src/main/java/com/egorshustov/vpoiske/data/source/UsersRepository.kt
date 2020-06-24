@@ -1,8 +1,12 @@
 package com.egorshustov.vpoiske.data.source
 
+import androidx.lifecycle.LiveData
 import com.egorshustov.vpoiske.data.User
-import com.egorshustov.vpoiske.data.source.local.UsersDao
+import com.egorshustov.vpoiske.data.source.local.UsersLocalDataSource
+import com.egorshustov.vpoiske.data.source.remote.Result
 import com.egorshustov.vpoiske.data.source.remote.UsersRemoteDataSource
+import com.egorshustov.vpoiske.data.source.remote.getuser.UserResponse
+import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUsersInnerResponse
 import com.egorshustov.vpoiske.util.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -11,10 +15,19 @@ import javax.inject.Singleton
 
 @Singleton
 class UsersRepository @Inject constructor(
-    private val usersDao: UsersDao,
-    private val ioDispatcher: CoroutineDispatcher,
-    private val usersRemoteDataSource: UsersRemoteDataSource
+    private val usersLocalDataSource: UsersLocalDataSource,
+    private val usersRemoteDataSource: UsersRemoteDataSource,
+    private val ioDispatcher: CoroutineDispatcher
 ) {
+
+    fun getUsers(): LiveData<List<User>> = usersLocalDataSource.getUsers()
+
+    suspend fun saveUser(user: User): Long =
+        withContext(ioDispatcher) { usersLocalDataSource.saveUser(user) }
+
+    suspend fun saveUsers(userList: List<User>): List<Long> =
+        withContext(ioDispatcher) { usersLocalDataSource.saveUsers(userList) }
+
     suspend fun searchUsers(
         countryId: Int,
         cityId: Int,
@@ -30,7 +43,7 @@ class UsersRepository @Inject constructor(
         accessToken: String = Credentials.accessToken,
         count: Int = DEFAULT_SEARCH_USERS_COUNT,
         sortType: Int = SortType.BY_REGISTRATION_DATE.value
-    ) = usersRemoteDataSource.searchUsers(
+    ): Result<SearchUsersInnerResponse> = usersRemoteDataSource.searchUsers(
         countryId,
         cityId,
         ageFrom,
@@ -52,18 +65,10 @@ class UsersRepository @Inject constructor(
         fields: String = DEFAULT_GET_USER_FIELDS,
         apiVersion: String = DEFAULT_API_VERSION,
         accessToken: String = Credentials.accessToken
-    ) = usersRemoteDataSource.getUser(
+    ): Result<UserResponse> = usersRemoteDataSource.getUser(
         userId,
         fields,
         apiVersion,
         accessToken
     )
-
-    suspend fun insertUser(user: User): Long =
-        withContext(ioDispatcher) { usersDao.insertUser(user) }
-
-    suspend fun insertUsers(userList: List<User>): List<Long> =
-        withContext(ioDispatcher) { usersDao.insertUsers(userList) }
-
-    fun getLiveUsers() = usersDao.getLiveUsers()
 }

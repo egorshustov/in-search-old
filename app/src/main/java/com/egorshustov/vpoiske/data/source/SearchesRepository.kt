@@ -1,28 +1,34 @@
 package com.egorshustov.vpoiske.data.source
 
+import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.egorshustov.vpoiske.data.Search
-import com.egorshustov.vpoiske.data.source.local.SearchesDao
+import com.egorshustov.vpoiske.data.SearchWithUsers
+import com.egorshustov.vpoiske.data.source.local.SearchesLocalDataSource
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class SearchesRepository @Inject constructor(
-    private val searchesDao: SearchesDao,
+    private val searchesLocalDataSource: SearchesLocalDataSource,
     private val ioDispatcher: CoroutineDispatcher
 ) {
-    suspend fun insertSearch(search: Search): Long =
-        withContext(ioDispatcher) { searchesDao.insertSearch(search) }
+
+    fun getSearchesWithUsers(): DataSource.Factory<Int, SearchWithUsers> =
+        searchesLocalDataSource.getSearchesWithUsers()
 
     suspend fun getSearch(id: Long): Search? =
-        withContext(ioDispatcher) { searchesDao.getSearch(id) }
+        withContext(ioDispatcher) { searchesLocalDataSource.getSearch(id) }
 
-    fun getLiveLastSearchId() = searchesDao.getLiveLastSearchId()
+    fun getLastSearchId(): LiveData<Long?> = searchesLocalDataSource.getLastSearchId()
 
-    suspend fun updateSearchStartUnixSeconds(id: Long, startUnixSeconds: Int) =
-        withContext(ioDispatcher) { searchesDao.updateSearchStartUnixSeconds(id, startUnixSeconds) }
+    suspend fun saveSearchStartUnixSeconds(id: Long, startUnixSeconds: Int) =
+        withContext(ioDispatcher) {
+            searchesLocalDataSource.saveSearchStartUnixSeconds(id, startUnixSeconds)
+        }
 
-    fun getSearchesWithUsers() = searchesDao.getSearchesWithUsers()
+    suspend fun saveSearch(search: Search): Long =
+        withContext(ioDispatcher) { searchesLocalDataSource.saveSearch(search) }
 }

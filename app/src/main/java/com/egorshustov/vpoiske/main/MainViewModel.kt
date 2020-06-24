@@ -34,9 +34,9 @@ class MainViewModel @ViewModelInject constructor(
     private val _currentSpanCountChanged = MutableLiveData<Int>()
     val currentSpanCountChanged: LiveData<Int> = _currentSpanCountChanged
 
-    private val users: LiveData<List<User>> = usersRepository.getLiveUsers()
+    private val users: LiveData<List<User>> = usersRepository.getUsers()
 
-    val lastSearchId = searchesRepository.getLiveLastSearchId()
+    val lastSearchId = searchesRepository.getLastSearchId()
 
     val currentSearchUsers: LiveData<List<User>> = users.map { users ->
         isLoading.value = false

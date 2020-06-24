@@ -38,6 +38,6 @@ abstract class ApplicationModuleBinds {
 
     @Binds
     abstract fun bindSearchesLocalDataSource(
-        searchesLocalDataSource: SearchesLocalDataSource
+        searchesRoomDataSource: SearchesRoomDataSource
     ): SearchesLocalDataSource
 }

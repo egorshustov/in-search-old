@@ -162,7 +162,7 @@ class SearchParamsViewModel @ViewModelInject constructor(
             && followersMinCount != null
             && followersMaxCount != null
         ) {
-            val newSearchId = searchesRepository.insertSearch(
+            val newSearchId = searchesRepository.saveSearch(
                 Search(
                     countryId,
                     countryTitle,

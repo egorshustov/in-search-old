@@ -48,7 +48,7 @@ class SearchProcessServiceInteractor @Inject constructor(
             val search = searchesRepository.getSearch(searchId) ?: return@withContext
             foundUsersLimit = search.foundUsersLimit
             currentUnixSeconds.let {
-                searchesRepository.updateSearchStartUnixSeconds(searchId, it)
+                searchesRepository.saveSearchStartUnixSeconds(searchId, it)
                 search.startUnixSeconds = it
             }
             while (true) {
@@ -136,7 +136,7 @@ class SearchProcessServiceInteractor @Inject constructor(
                             it.foundUnixMillis = currentUnixMillis
                         }
                     }
-                val addedUserIdList = usersRepository.insertUsers(userList)
+                val addedUserIdList = usersRepository.saveUsers(userList)
                 foundUsersCount += addedUserIdList.size
                 if (foundUsersCount >= search.foundUsersLimit) currentCoroutineContext().cancel()
             }
@@ -157,7 +157,7 @@ class SearchProcessServiceInteractor @Inject constructor(
                     !(search.relation != null && user.relation != search.relation)
                 if (isFriendsCountAcceptable && isDesiredRelation) {
                     val addedUserId =
-                        usersRepository.insertUser(user.apply {
+                        usersRepository.saveUser(user.apply {
                             searchId = search.id
                             foundUnixMillis = currentUnixMillis
                         })
