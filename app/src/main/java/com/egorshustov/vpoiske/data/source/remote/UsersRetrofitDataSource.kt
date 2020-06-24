@@ -3,13 +3,12 @@ package com.egorshustov.vpoiske.data.source.remote
 import com.egorshustov.vpoiske.data.source.remote.getuser.UserResponse
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUsersInnerResponse
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UsersRetrofitDataSource @Inject constructor(
     private val retrofitVkApi: RetrofitVkApi,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val ioDispatcher: CoroutineDispatcher
 ) : UsersRemoteDataSource {
 
     override suspend fun searchUsers(

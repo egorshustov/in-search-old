@@ -16,9 +16,6 @@ interface SearchesDao {
     @Query("select * from searches order by start_unix_seconds desc")
     fun getSearchesWithUsers(): DataSource.Factory<Int, SearchWithUsers>
 
-    @Insert
-    suspend fun insertSearch(search: Search): Long
-
     @Query("select * from searches where id = :id")
     suspend fun getSearch(id: Long): Search?
 
@@ -27,4 +24,7 @@ interface SearchesDao {
 
     @Query("update searches set start_unix_seconds = :startUnixSeconds where id = :id")
     suspend fun updateSearchStartUnixSeconds(id: Long, startUnixSeconds: Int)
+
+    @Insert
+    suspend fun insertSearch(search: Search): Long
 }

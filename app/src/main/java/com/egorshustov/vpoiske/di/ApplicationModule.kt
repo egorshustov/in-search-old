@@ -8,13 +8,14 @@ import com.egorshustov.vpoiske.data.source.local.CountriesDao
 import com.egorshustov.vpoiske.data.source.local.SearchesDao
 import com.egorshustov.vpoiske.data.source.local.UsersDao
 import com.egorshustov.vpoiske.data.source.local.VPoiskeDatabase
-import com.egorshustov.vpoiske.data.source.remote.*
+import com.egorshustov.vpoiske.data.source.remote.RetrofitVkApi
 import com.egorshustov.vpoiske.util.V_POISKE_PREFERENCES_FILENAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -28,39 +29,7 @@ object ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideUsersRemoteDataSource(usersRetrofit: RetrofitVkApi): UsersRemoteDataSource =
-        UsersRetrofitDataSource(usersRetrofit)
-
-    @Singleton
-    @Provides
-    fun provideCountriesRemoteDataSource(usersRetrofit: RetrofitVkApi): CountriesRemoteDataSource =
-        CountriesRetrofitDataSource(usersRetrofit)
-
-    @Singleton
-    @Provides
-    fun provideCitiesRemoteDataSource(usersRetrofit: RetrofitVkApi): CitiesRemoteDataSource =
-        CitiesRetrofitDataSource(usersRetrofit)
-
-    @Singleton
-    @Provides
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor()
-        .setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE)
-
-    @Singleton
-    @Provides
-    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(httpLoggingInterceptor)
-            .build()
-
-    @Singleton
-    @Provides
-    fun provideVkApiService(okHttpClient: OkHttpClient): RetrofitVkApi = Retrofit.Builder()
-        .client(okHttpClient)
-        .baseUrl("https://api.vk.com/method/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-        .create(RetrofitVkApi::class.java)
+    fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
     @Singleton
     @Provides
@@ -91,16 +60,27 @@ object ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideIoDispatcher() = Dispatchers.IO
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
+        context.getSharedPreferences(V_POISKE_PREFERENCES_FILENAME, Context.MODE_PRIVATE)
 
     @Singleton
     @Provides
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
-        context.getSharedPreferences(
-            V_POISKE_PREFERENCES_FILENAME, Context.MODE_PRIVATE
-        )
-}
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor()
+        .setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE)
 
-@Module
-@InstallIn(ApplicationComponent::class)
-abstract class ApplicationModuleBinds
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
+
+    @Singleton
+    @Provides
+    fun provideVkApiService(okHttpClient: OkHttpClient): RetrofitVkApi = Retrofit.Builder()
+        .client(okHttpClient)
+        .baseUrl("https://api.vk.com/method/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(RetrofitVkApi::class.java)
+}

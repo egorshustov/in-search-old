@@ -2,13 +2,12 @@ package com.egorshustov.vpoiske.data.source.remote
 
 import com.egorshustov.vpoiske.data.source.remote.getcities.CityResponse
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class CitiesRetrofitDataSource @Inject constructor(
     private val retrofitVkApi: RetrofitVkApi,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val ioDispatcher: CoroutineDispatcher
 ) : CitiesRemoteDataSource {
 
     override suspend fun getCities(

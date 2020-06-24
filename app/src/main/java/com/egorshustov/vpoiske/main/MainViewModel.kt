@@ -4,8 +4,8 @@ import android.content.SharedPreferences
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.data.source.SearchesRepository
 import com.egorshustov.vpoiske.data.source.UsersRepository
@@ -38,7 +38,7 @@ class MainViewModel @ViewModelInject constructor(
 
     val lastSearchId = searchesRepository.getLiveLastSearchId()
 
-    val currentSearchUsers: LiveData<List<User>> = Transformations.map(users) { users ->
+    val currentSearchUsers: LiveData<List<User>> = users.map { users ->
         isLoading.value = false
         users.filter { it.searchId == lastSearchId.value }
     }
