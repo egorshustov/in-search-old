@@ -34,9 +34,9 @@ class MainViewModel @ViewModelInject constructor(
 
     val lastSearchId: LiveData<Long?> = getLastSearchIdUseCase()
 
-    val currentSearchUsers = lastSearchId.switchMap {
-        getUsersUseCase(it).map {
-            isLoading.value = false
+    val currentSearchUsers = lastSearchId.switchMap { lastSearchId ->
+        getUsersUseCase(lastSearchId).map {
+            if (it.isNotEmpty()) isLoading.value = false
             it
         }
     }

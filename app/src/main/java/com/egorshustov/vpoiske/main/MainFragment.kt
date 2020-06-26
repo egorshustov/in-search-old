@@ -42,13 +42,13 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     private lateinit var searchProcessService: SearchProcessService
 
-    //todo move it to viewModel
     private val serviceConnection = object : ServiceConnection {
 
         override fun onServiceConnected(name: ComponentName?, iBinder: IBinder) {
             Timber.d("ServiceConnection: onServiceConnected")
             searchProcessService =
                 (iBinder as SearchProcessService.SearchProcessBinder).getService()
+            observeSearchProcessCommands()
             observeSearchProcessLiveData()
         }
 
@@ -65,7 +65,6 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         observeAuthenticationState()
         observeOpenUserEvent()
         observeSearchParams()
-        observeSearchProcessCommands()
         observeMessage()
         observeCurrentSpanCountChanged()
     }

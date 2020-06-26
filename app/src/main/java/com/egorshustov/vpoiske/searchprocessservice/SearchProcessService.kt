@@ -71,6 +71,7 @@ class SearchProcessService : LifecycleService() {
 
     fun startSearch(searchId: Long) {
         Timber.d("startSearch")
+        _isSearchRunning.value = true
         startForeground(PROGRESS_NOTIFICATION_ID, notificationBuilder.build())
         NotificationManagerCompat.from(this)
             .notify(PROGRESS_NOTIFICATION_ID, notificationBuilder.build())
@@ -78,6 +79,9 @@ class SearchProcessService : LifecycleService() {
             invokeOnCompletion {
                 _isSearchRunning.value = false
                 showMessage("Поиск завершён")
+                NotificationManagerCompat.from(this@SearchProcessService).cancel(
+                    PROGRESS_NOTIFICATION_ID
+                )
                 sendCompleteNotification(
                     interactor.foundUsersCountUpdated.value ?: 0,
                     interactor.foundUsersLimit ?: 0
