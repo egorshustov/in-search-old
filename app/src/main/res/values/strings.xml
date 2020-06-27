@@ -32,6 +32,7 @@
     <string name="text_to">до %s</string>
     <string name="text_from_to">от %s до %s</string>
     <string name="text_start_search">Начать поиск</string>
+    <string name="text_delete">Удалить</string>
     <string name="item_change_view">Сменить вид</string>
 
     <string name="description_user_image">Изображение пользователя</string>

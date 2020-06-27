@@ -16,239 +16,275 @@
             type="com.egorshustov.vpoiske.searchlist.SearchListViewModel" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="@{() -> viewmodel.openSearch(searchWithUsers.search.id)}"
-        app:cardCornerRadius="0dp"
-        app:cardPreventCornerOverlap="false">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?themeBackgroundColorPrimary"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:background="?themeDeleteBackgroundColor">
 
-            <TableLayout
-                android:id="@+id/layout_users_photos"
+            <ImageView
+                android:id="@+id/image_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_separator_height"
-                android:background="?themeUserPhotoBackgroundColor">
+                android:layout_marginEnd="15dp"
+                android:contentDescription="@string/text_delete"
+                android:src="@drawable/ic_delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/text_delete"
+                android:textColor="?themeTextColorQuaternary"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_delete"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/image_user_first"
-                        android:layout_width="@dimen/item_search_user_image_size"
-                        android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image"
-                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 0)}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <ImageView
-                        android:id="@+id/image_user_second"
-                        android:layout_width="@dimen/item_search_user_image_size"
-                        android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image"
-                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 1)}" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewmodel.openSearch(searchWithUsers.search.id)}"
+            app:cardCornerRadius="0dp"
+            app:cardPreventCornerOverlap="false">
 
-                    <ImageView
-                        android:id="@+id/image_user_third"
-                        android:layout_width="@dimen/item_search_user_image_size"
-                        android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image"
-                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 2)}" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="@dimen/item_search_user_image_size"
-                        android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image"
-                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 3)}" />
-
-                    <ImageView
-                        android:layout_width="@dimen/item_search_user_image_size"
-                        android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image"
-                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 4)}" />
-
-                    <ImageView
-                        android:layout_width="@dimen/item_search_user_image_size"
-                        android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image"
-                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 5)}" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="@dimen/item_search_user_image_size"
-                        android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image"
-                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 6)}" />
-
-                    <ImageView
-                        android:layout_width="@dimen/item_search_user_image_size"
-                        android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image"
-                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 7)}" />
-
-                    <ImageView
-                        android:layout_width="@dimen/item_search_user_image_size"
-                        android:layout_height="@dimen/item_search_user_image_size"
-                        android:contentDescription="@string/description_user_image"
-                        app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 8)}" />
-
-                </TableRow>
-
-            </TableLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="?themeBackgroundColorPrimary">
+                android:layout_height="wrap_content"
+                android:background="?themeBackgroundColorPrimary"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <TableLayout
+                    android:id="@+id/layout_users_photos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toTopOf="@+id/layout_separator"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_marginBottom="@dimen/item_separator_height"
+                    android:background="?themeUserPhotoBackgroundColor">
 
-                    <TextView
-                        android:id="@+id/text_city"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{searchWithUsers.search.cityTitle}"
-                        android:textColor="?themeTextColorPrimary"
-                        android:textSize="@dimen/text_size_medium"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Санкт-Петербург" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/text_age_range"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{ExtensionsKt.getAgeRangeText(searchWithUsers.search)}"
-                        android:textColor="?themeTextColorSecondary"
-                        android:textSize="@dimen/text_size_small"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_city"
-                        tools:text="Возраст: от 20 до 30" />
+                        <ImageView
+                            android:id="@+id/image_user_first"
+                            android:layout_width="@dimen/item_search_user_image_size"
+                            android:layout_height="@dimen/item_search_user_image_size"
+                            android:contentDescription="@string/description_user_image"
+                            app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 0)}" />
 
-                    <TextView
-                        android:id="@+id/text_with_phone_only"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{ExtensionsKt.getWithPhoneOnlyText(searchWithUsers.search)}"
-                        android:textColor="?themeTextColorSecondary"
-                        android:textSize="@dimen/text_size_small"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_age_range"
-                        tools:text="Только с телефоном: нет" />
+                        <ImageView
+                            android:id="@+id/image_user_second"
+                            android:layout_width="@dimen/item_search_user_image_size"
+                            android:layout_height="@dimen/item_search_user_image_size"
+                            android:contentDescription="@string/description_user_image"
+                            app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 1)}" />
 
-                </LinearLayout>
+                        <ImageView
+                            android:id="@+id/image_user_third"
+                            android:layout_width="@dimen/item_search_user_image_size"
+                            android:layout_height="@dimen/item_search_user_image_size"
+                            android:contentDescription="@string/description_user_image"
+                            app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 2)}" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="@dimen/item_search_user_image_size"
+                            android:layout_height="@dimen/item_search_user_image_size"
+                            android:contentDescription="@string/description_user_image"
+                            app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 3)}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/item_search_user_image_size"
+                            android:layout_height="@dimen/item_search_user_image_size"
+                            android:contentDescription="@string/description_user_image"
+                            app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 4)}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/item_search_user_image_size"
+                            android:layout_height="@dimen/item_search_user_image_size"
+                            android:contentDescription="@string/description_user_image"
+                            app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 5)}" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="@dimen/item_search_user_image_size"
+                            android:layout_height="@dimen/item_search_user_image_size"
+                            android:contentDescription="@string/description_user_image"
+                            app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 6)}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/item_search_user_image_size"
+                            android:layout_height="@dimen/item_search_user_image_size"
+                            android:contentDescription="@string/description_user_image"
+                            app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 7)}" />
+
+                        <ImageView
+                            android:layout_width="@dimen/item_search_user_image_size"
+                            android:layout_height="@dimen/item_search_user_image_size"
+                            android:contentDescription="@string/description_user_image"
+                            app:imageFromUrl="@{ExtensionsKt.getUserPhoto50Url(searchWithUsers, 8)}" />
+
+                    </TableRow>
+
+                </TableLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="8dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toTopOf="@+id/layout_separator"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="?themeBackgroundColorPrimary">
 
-                    <TextView
-                        android:id="@+id/text_date_time"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:text="@{ExtensionsKt.getDateTimeText(searchWithUsers.search)}"
-                        android:textColor="?themeTextColorSecondary"
-                        android:textSize="@dimen/text_size_min"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toTopOf="@+id/layout_separator"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/text_city"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{searchWithUsers.search.cityTitle}"
+                            android:textColor="?themeTextColorPrimary"
+                            android:textSize="@dimen/text_size_medium"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Санкт-Петербург" />
+
+                        <TextView
+                            android:id="@+id/text_age_range"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{ExtensionsKt.getAgeRangeText(searchWithUsers.search)}"
+                            android:textColor="?themeTextColorSecondary"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_city"
+                            tools:text="Возраст: от 20 до 30" />
+
+                        <TextView
+                            android:id="@+id/text_with_phone_only"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{ExtensionsKt.getWithPhoneOnlyText(searchWithUsers.search)}"
+                            android:textColor="?themeTextColorSecondary"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_age_range"
+                            tools:text="Только с телефоном: нет" />
+
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginEnd="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toTopOf="@+id/layout_separator"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="19 дек 2019" />
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/text_users_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_stat_users"
-                        android:drawablePadding="3dp"
-                        android:ellipsize="end"
-                        android:gravity="start|center_vertical"
-                        android:maxLines="1"
-                        android:minWidth="@dimen/text_search_counts_min_width"
-                        android:text="@{Integer.toString(ExtensionsKt.getUsersCount(searchWithUsers))}"
-                        android:textColor="?themeTextColorSecondary"
-                        android:textSize="@dimen/text_size_small"
+                        <TextView
+                            android:id="@+id/text_date_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:text="@{ExtensionsKt.getDateTimeText(searchWithUsers.search)}"
+                            android:textColor="?themeTextColorSecondary"
+                            android:textSize="@dimen/text_size_min"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="19 дек 2019" />
+
+                        <TextView
+                            android:id="@+id/text_users_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_stat_users"
+                            android:drawablePadding="3dp"
+                            android:ellipsize="end"
+                            android:gravity="start|center_vertical"
+                            android:maxLines="1"
+                            android:minWidth="@dimen/text_search_counts_min_width"
+                            android:text="@{Integer.toString(ExtensionsKt.getUsersCount(searchWithUsers))}"
+                            android:textColor="?themeTextColorSecondary"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_date_time"
+                            tools:text="1000" />
+
+                        <TextView
+                            android:id="@+id/text_likes_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_stat_likes"
+                            android:drawablePadding="3dp"
+                            android:ellipsize="end"
+                            android:gravity="start|center_vertical"
+                            android:maxLines="1"
+                            android:minWidth="@dimen/text_search_counts_min_width"
+                            android:text="@{Integer.toString(ExtensionsKt.getFavoritesCount(searchWithUsers))}"
+                            android:textColor="?themeTextColorSecondary"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintStart_toStartOf="@+id/text_users_count"
+                            app:layout_constraintTop_toBottomOf="@+id/text_users_count"
+                            tools:text="50" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_separator"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/item_separator_height"
+                        android:background="?themeSeparatorBackgroundColor"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_date_time"
-                        tools:text="1000" />
-
-                    <TextView
-                        android:id="@+id/text_likes_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_stat_likes"
-                        android:drawablePadding="3dp"
-                        android:ellipsize="end"
-                        android:gravity="start|center_vertical"
-                        android:maxLines="1"
-                        android:minWidth="@dimen/text_search_counts_min_width"
-                        android:text="@{Integer.toString(ExtensionsKt.getFavoritesCount(searchWithUsers))}"
-                        android:textColor="?themeTextColorSecondary"
-                        android:textSize="@dimen/text_size_small"
-                        app:layout_constraintStart_toStartOf="@+id/text_users_count"
-                        app:layout_constraintTop_toBottomOf="@+id/text_users_count"
-                        tools:text="50" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
-                    android:id="@+id/layout_separator"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/item_separator_height"
-                    android:background="?themeSeparatorBackgroundColor"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 
 </layout>

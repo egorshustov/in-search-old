@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.SearchWithUsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
@@ -13,7 +15,8 @@ import com.egorshustov.vpoiske.util.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchListFragment : BaseFragment<SearchListViewModel, FragmentSearchListBinding>() {
+class SearchListFragment : BaseFragment<SearchListViewModel, FragmentSearchListBinding>(),
+    SearchItemTouchHelper.SearchItemTouchHelperListener {
 
     override fun getLayoutResId(): Int = R.layout.fragment_search_list
 
@@ -21,12 +24,15 @@ class SearchListFragment : BaseFragment<SearchListViewModel, FragmentSearchListB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupSearchWithUsersAdapter()
+        setupRecyclerSearches()
         observeOpenSearch()
     }
 
-    private fun setupSearchWithUsersAdapter() {
-        binding.recyclerSearches.adapter = SearchWithUsersAdapter(viewModel)
+    private fun setupRecyclerSearches() = with(binding) {
+        val searchItemTouchHelper =
+            SearchItemTouchHelper(0, ItemTouchHelper.LEFT, this@SearchListFragment)
+        ItemTouchHelper(searchItemTouchHelper).attachToRecyclerView(recyclerSearches)
+        recyclerSearches.adapter = SearchWithUsersAdapter(viewModel)
     }
 
     private fun observeOpenSearch() {
@@ -35,5 +41,9 @@ class SearchListFragment : BaseFragment<SearchListViewModel, FragmentSearchListB
                 SearchListFragmentDirections.actionSearchListFragmentToSearchFragment(it)
             findNavController().safeNavigate(action)
         })
+    }
+
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int, position: Int) {
+        val pos = viewHolder.adapterPosition
     }
 }
