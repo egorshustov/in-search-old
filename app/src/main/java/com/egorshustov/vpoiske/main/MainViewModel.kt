@@ -27,7 +27,7 @@ class MainViewModel @ViewModelInject constructor(
     )
         private set
 
-    val isLoading = MutableLiveData(true)
+    val isLoading = MutableLiveData(false)
 
     private val _currentSpanCountChanged = MutableLiveData<Int>()
     val currentSpanCountChanged: LiveData<Int> = _currentSpanCountChanged
