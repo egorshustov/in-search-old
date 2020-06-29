@@ -6,14 +6,14 @@ import androidx.paging.Config
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import com.egorshustov.vpoiske.data.SearchWithUsers
-import com.egorshustov.vpoiske.domain.searches.DeleteSearchUseCase
+import com.egorshustov.vpoiske.domain.searches.DeleteSearchWithUsersUseCase
 import com.egorshustov.vpoiske.domain.searches.GetSearchesWithUsersUseCase
 import com.egorshustov.vpoiske.util.Event
 import kotlinx.coroutines.launch
 
 class SearchListViewModel @ViewModelInject constructor(
     getSearchesWithUsersUseCase: GetSearchesWithUsersUseCase,
-    private val deleteSearchUseCase: DeleteSearchUseCase
+    private val deleteSearchWithUsersUseCase: DeleteSearchWithUsersUseCase
 ) : ViewModel() {
 
     private val _openSearch = MutableLiveData<Event<Long>>()
@@ -32,6 +32,6 @@ class SearchListViewModel @ViewModelInject constructor(
     }
 
     fun onSearchSwiped(id: Long) {
-        viewModelScope.launch { deleteSearchUseCase(id) }
+        viewModelScope.launch { deleteSearchWithUsersUseCase(id) }
     }
 }

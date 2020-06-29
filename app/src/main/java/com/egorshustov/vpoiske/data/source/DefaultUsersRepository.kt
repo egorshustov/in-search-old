@@ -21,6 +21,9 @@ class DefaultUsersRepository @Inject constructor(
 
     override fun getUsers(): LiveData<List<User>> = usersLocalDataSource.getUsers()
 
+    override suspend fun deleteUsersFromSearch(searchId: Long) =
+        withContext(ioDispatcher) { usersLocalDataSource.deleteUsersFromSearch(searchId) }
+
     override suspend fun saveUser(user: User): Long =
         withContext(ioDispatcher) { usersLocalDataSource.saveUser(user) }
 

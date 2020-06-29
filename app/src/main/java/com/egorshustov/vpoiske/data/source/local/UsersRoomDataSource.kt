@@ -13,6 +13,10 @@ class UsersRoomDataSource @Inject constructor(
 
     override fun getUsers(): LiveData<List<User>> = usersDao.getLiveUsers()
 
+    override suspend fun deleteUsersFromSearch(searchId: Long) = withContext(ioDispatcher) {
+        usersDao.deleteUsersFromSearch(searchId)
+    }
+
     override suspend fun saveUser(user: User): Long = withContext(ioDispatcher) {
         usersDao.insertUser(user)
     }

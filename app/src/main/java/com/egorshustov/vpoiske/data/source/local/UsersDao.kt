@@ -12,6 +12,9 @@ interface UsersDao {
     @Query("select * from users order by found_unix_millis")
     fun getLiveUsers(): LiveData<List<User>>
 
+    @Query("delete from users where search_id = :searchId")
+    suspend fun deleteUsersFromSearch(searchId: Long)
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertUser(user: User): Long
 

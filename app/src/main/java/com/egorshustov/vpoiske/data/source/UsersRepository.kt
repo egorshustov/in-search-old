@@ -11,6 +11,8 @@ interface UsersRepository {
 
     fun getUsers(): LiveData<List<User>>
 
+    suspend fun deleteUsersFromSearch(searchId: Long)
+
     suspend fun saveUser(user: User): Long
 
     suspend fun saveUsers(userList: List<User>): List<Long>

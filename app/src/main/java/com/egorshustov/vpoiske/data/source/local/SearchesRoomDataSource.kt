@@ -22,8 +22,8 @@ class SearchesRoomDataSource @Inject constructor(
 
     override fun getLastSearchId(): LiveData<Long?> = searchesDao.getLiveLastSearchId()
 
-    override suspend fun deleteSearch(searchId: Long) = withContext(ioDispatcher) {
-        searchesDao.deleteSearch(searchId)
+    override suspend fun deleteSearch(id: Long) = withContext(ioDispatcher) {
+        searchesDao.deleteSearch(id)
     }
 
     override suspend fun saveSearchStartUnixSeconds(id: Long, startUnixSeconds: Int) =

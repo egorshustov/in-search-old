@@ -13,7 +13,7 @@ interface SearchesLocalDataSource {
 
     fun getLastSearchId(): LiveData<Long?>
 
-    suspend fun deleteSearch(searchId: Long)
+    suspend fun deleteSearch(id: Long)
 
     suspend fun saveSearchStartUnixSeconds(id: Long, startUnixSeconds: Int)
 
