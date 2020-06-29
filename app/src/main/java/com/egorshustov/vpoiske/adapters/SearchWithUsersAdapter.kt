@@ -16,6 +16,8 @@ class SearchWithUsersAdapter(private val viewModel: SearchListViewModel) :
         SearchWithUsersDiffCallback()
     ) {
 
+    fun getItemAtPosition(position: Int): SearchWithUsers? = getItem(position)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

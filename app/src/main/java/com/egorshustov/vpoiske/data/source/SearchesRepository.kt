@@ -13,6 +13,8 @@ interface SearchesRepository {
 
     fun getLastSearchId(): LiveData<Long?>
 
+    suspend fun deleteSearch(searchId: Long)
+
     suspend fun saveSearchStartUnixSeconds(id: Long, startUnixSeconds: Int)
 
     suspend fun saveSearch(search: Search): Long

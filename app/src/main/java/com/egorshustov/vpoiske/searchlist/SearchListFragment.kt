@@ -22,6 +22,8 @@ class SearchListFragment : BaseFragment<SearchListViewModel, FragmentSearchListB
 
     override val viewModel: SearchListViewModel by viewModels()
 
+    private lateinit var searchWithUsersAdapter: SearchWithUsersAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerSearches()
@@ -32,7 +34,8 @@ class SearchListFragment : BaseFragment<SearchListViewModel, FragmentSearchListB
         val searchItemTouchHelper =
             SearchItemTouchHelper(0, ItemTouchHelper.LEFT, this@SearchListFragment)
         ItemTouchHelper(searchItemTouchHelper).attachToRecyclerView(recyclerSearches)
-        recyclerSearches.adapter = SearchWithUsersAdapter(viewModel)
+        searchWithUsersAdapter = SearchWithUsersAdapter(viewModel)
+        recyclerSearches.adapter = searchWithUsersAdapter
     }
 
     private fun observeOpenSearch() {
@@ -44,6 +47,8 @@ class SearchListFragment : BaseFragment<SearchListViewModel, FragmentSearchListB
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int, position: Int) {
-        val pos = viewHolder.adapterPosition
+        searchWithUsersAdapter.getItemAtPosition(viewHolder.adapterPosition)?.search?.id?.let {
+            viewModel.onSearchSwiped(it)
+        }
     }
 }

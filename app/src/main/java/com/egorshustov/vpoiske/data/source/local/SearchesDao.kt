@@ -22,6 +22,9 @@ interface SearchesDao {
     @Query("select id from searches order by start_unix_seconds desc")
     fun getLiveLastSearchId(): LiveData<Long?>
 
+    @Query("delete from searches where id = :id")
+    suspend fun deleteSearch(id: Long)
+
     @Query("update searches set start_unix_seconds = :startUnixSeconds where id = :id and start_unix_seconds <> :startUnixSeconds")
     suspend fun updateSearchStartUnixSeconds(id: Long, startUnixSeconds: Int)
 

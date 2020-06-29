@@ -24,6 +24,9 @@ class DefaultSearchesRepository @Inject constructor(
 
     override fun getLastSearchId(): LiveData<Long?> = searchesLocalDataSource.getLastSearchId()
 
+    override suspend fun deleteSearch(searchId: Long) =
+        withContext(ioDispatcher) { searchesLocalDataSource.deleteSearch(searchId) }
+
     override suspend fun saveSearchStartUnixSeconds(id: Long, startUnixSeconds: Int) =
         withContext(ioDispatcher) {
             searchesLocalDataSource.saveSearchStartUnixSeconds(id, startUnixSeconds)
