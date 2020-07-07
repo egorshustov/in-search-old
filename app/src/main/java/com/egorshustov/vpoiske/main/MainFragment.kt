@@ -72,15 +72,12 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     override fun onResume() {
         super.onResume()
         binding.invalidateAll()
-        startAndBindSearchProcessService()
+        bindSearchProcessService()
     }
 
-    private fun startAndBindSearchProcessService() {
+    private fun bindSearchProcessService() {
         val serviceIntent = Intent(context, SearchProcessService::class.java)
-        context?.let {
-            ContextCompat.startForegroundService(it, serviceIntent)
-            it.bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE)
-        }
+        context?.bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE)
     }
 
     override fun onPause() {
@@ -135,8 +132,12 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     }
 
     private fun observeSearchProcessCommands() = with(viewModel) {
-        startNewSearch.observe(viewLifecycleOwner, EventObserver {
-            searchProcessService.startSearch(it)
+        startNewSearch.observe(viewLifecycleOwner, EventObserver { searchId ->
+            context?.let {
+                val serviceIntent = Intent(it, SearchProcessService::class.java)
+                ContextCompat.startForegroundService(it, serviceIntent)
+            }
+            searchProcessService.startSearch(searchId)
         })
         stopSearch.observe(viewLifecycleOwner, EventObserver {
             searchProcessService.stopSearch()
