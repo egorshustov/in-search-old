@@ -45,10 +45,6 @@
 
     <string-array name="ages_from">
         <item>От любого</item>
-        <item>от 14</item>
-        <item>от 15</item>
-        <item>от 16</item>
-        <item>от 17</item>
         <item>от 18</item>
         <item>от 19</item>
         <item>от 20</item>
@@ -86,10 +82,6 @@
 
     <string-array name="ages_to">
         <item>До любого</item>
-        <item>до 14</item>
-        <item>до 15</item>
-        <item>до 16</item>
-        <item>до 17</item>
         <item>до 18</item>
         <item>до 19</item>
         <item>до 20</item>
