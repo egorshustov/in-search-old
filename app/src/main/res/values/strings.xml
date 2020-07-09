@@ -44,7 +44,6 @@
     <string name="channel_description">Уведомления приложения ВПоиске</string>
 
     <string-array name="ages_from">
-        <item>От любого</item>
         <item>от 18</item>
         <item>от 19</item>
         <item>от 20</item>

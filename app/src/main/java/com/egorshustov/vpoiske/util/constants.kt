@@ -25,7 +25,7 @@ const val DEFAULT_API_VERSION = "5.102"
 
 val DEFAULT_COUNTRY_TITLE = Country(-1, "Страна")
 val DEFAULT_CITY_TITLE = City(-1, "Город", "", "")
-val DEFAULT_AGE_FROM: Int? = null
+const val DEFAULT_AGE_FROM: Int = 18
 val DEFAULT_AGE_TO: Int? = null
 const val DEFAULT_FOUND_USERS_LIMIT: Int = 100
 const val DEFAULT_FOLLOWERS_MIN_COUNT: Int = 0
