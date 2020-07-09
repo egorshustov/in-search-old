@@ -89,6 +89,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.onLoginFragmentViewCreated()
         observeAuthenticationState()
         setButtonAuthListener()
         setAuthWebViewClientCallback()
@@ -125,6 +126,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
     private fun setButtonAuthListener() = with(binding) {
         buttonAuth.setOnClickListener {
+            viewModel.onAuthButtonClicked()
             viewModel.isRequestProcessing.value = true
             webViewAuth.loadUrl(urlToLoad)
         }
@@ -140,11 +142,10 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
     private fun showErrorMessage(errorText: String = "") {
         viewModel.isRequestProcessing.value = false
-        if (errorText.isNotBlank()) {
-            requireContext().showMessage(errorText)
-        } else {
-            requireContext().showMessage(getString(R.string.error_something_went_wrong))
-        }
+        var textToShow = errorText
+        if (errorText.isBlank()) textToShow = getString(R.string.error_something_went_wrong)
+        requireContext().showMessage(textToShow)
+        viewModel.onErrorMessageShown(textToShow)
     }
 
     companion object {

@@ -12,6 +12,8 @@ import com.egorshustov.vpoiske.main.MainViewModel
 import com.egorshustov.vpoiske.search.SearchViewModel
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
+import java.math.BigInteger
+import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,6 +28,11 @@ val currentUnixMillis: Long
 
 val currentUnixSeconds: Int
     get() = (System.currentTimeMillis() / MILLIS_IN_SECOND).toInt()
+
+fun String.toMd5Hash(): String {
+    val md = MessageDigest.getInstance("MD5")
+    return BigInteger(1, md.digest(toByteArray())).toString(16).padStart(32, '0')
+}
 
 fun NavController.safeNavigate(navDirections: NavDirections) {
     try {

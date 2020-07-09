@@ -3,6 +3,7 @@ package com.egorshustov.vpoiske.main
 import android.content.SharedPreferences
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.egorshustov.vpoiske.analytics.VPoiskeAnalytics
 import com.egorshustov.vpoiske.domain.searches.GetLastSearchIdUseCase
 import com.egorshustov.vpoiske.domain.users.GetUsersUseCase
 import com.egorshustov.vpoiske.util.*
@@ -10,7 +11,8 @@ import com.egorshustov.vpoiske.util.*
 class MainViewModel @ViewModelInject constructor(
     getUsersUseCase: GetUsersUseCase,
     getLastSearchIdUseCase: GetLastSearchIdUseCase,
-    sharedPreferences: SharedPreferences
+    sharedPreferences: SharedPreferences,
+    private val vPoiskeAnalytics: VPoiskeAnalytics
 ) : ViewModel() {
 
     var currentThemeId by DelegatedPreference(
@@ -20,17 +22,17 @@ class MainViewModel @ViewModelInject constructor(
     )
         private set
 
-    var currentSpanCount by DelegatedPreference(
+    var currentColumnCount by DelegatedPreference(
         sharedPreferences,
-        PREF_KEY_CURRENT_SPAN_COUNT,
-        DEFAULT_SPAN_COUNT
+        PREF_KEY_CURRENT_COLUMN_COUNT,
+        DEFAULT_COLUMN_COUNT
     )
         private set
 
     val isLoading = MutableLiveData(false)
 
-    private val _currentSpanCountChanged = MutableLiveData<Int>()
-    val currentSpanCountChanged: LiveData<Int> = _currentSpanCountChanged
+    private val _currentColumnCountChanged = MutableLiveData<Int>()
+    val currentColumnCountChanged: LiveData<Int> = _currentColumnCountChanged
 
     val lastSearchId: LiveData<Long?> = getLastSearchIdUseCase()
 
@@ -61,7 +63,9 @@ class MainViewModel @ViewModelInject constructor(
     fun onNavChangeThemeClicked() {
         val currentTheme =
             VPoiskeTheme.values().find { it.id == currentThemeId } ?: VPoiskeTheme.LIGHT_THEME
-        currentThemeId = currentTheme.getNext().id
+        val nextTheme = currentTheme.getNext()
+        vPoiskeAnalytics.onChangeAppThemeClicked(nextTheme.name)
+        currentThemeId = nextTheme.id
     }
 
     fun onSearchButtonClicked(searchId: Long) {
@@ -71,12 +75,14 @@ class MainViewModel @ViewModelInject constructor(
     }
 
     private fun stopSearch() {
+        vPoiskeAnalytics.stopSearchClicked(fromNotification = false)
         _stopSearch.value = Event(Unit)
         isLoading.value = false
         searchState.value = SearchProcessState.INACTIVE
     }
 
     fun openUser(userId: Long) {
+        vPoiskeAnalytics.onUserClicked()
         _openUserDetails.value = Event(userId)
     }
 
@@ -90,8 +96,9 @@ class MainViewModel @ViewModelInject constructor(
     }
 
     fun onItemChangeViewClicked() {
-        currentSpanCount =
-            if (currentSpanCount.dec() == 0) MAX_SPAN_COUNT else currentSpanCount.dec()
-        _currentSpanCountChanged.value = currentSpanCount
+        currentColumnCount =
+            if (currentColumnCount.dec() == 0) MAX_COLUMN_COUNT else currentColumnCount.dec()
+        _currentColumnCountChanged.value = currentColumnCount
+        vPoiskeAnalytics.onChangeUsersViewClicked(currentColumnCount)
     }
 }

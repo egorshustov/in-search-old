@@ -66,7 +66,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         observeOpenUserEvent()
         observeSearchParams()
         observeMessage()
-        observeCurrentSpanCountChanged()
+        observeCurrentColumnCountChanged()
     }
 
     override fun onResume() {
@@ -89,7 +89,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         gridLayoutManager =
             GridLayoutManager(
                 requireContext(),
-                viewModel.currentSpanCount,
+                viewModel.currentColumnCount,
                 RecyclerView.VERTICAL,
                 false
             )
@@ -157,8 +157,8 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
             EventObserver { requireActivity().showMessage(it) })
     }
 
-    private fun observeCurrentSpanCountChanged() {
-        viewModel.currentSpanCountChanged.observe(viewLifecycleOwner) {
+    private fun observeCurrentColumnCountChanged() {
+        viewModel.currentColumnCountChanged.observe(viewLifecycleOwner) {
             gridLayoutManager.apply { spanCount = it }
         }
     }

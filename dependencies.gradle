@@ -23,6 +23,7 @@ ext {
             timber             : '4.7.1',
             firebaseAnalytics  : '17.4.3',
             firebaseCrashlytics: '17.1.0',
+            amplitudeAnalytics : '2.23.2',
             junit              : '4.12',
             testExtJunit       : '1.1.1',
             espresso           : '3.2.0'
@@ -70,7 +71,9 @@ ext {
             timber                : "com.jakewharton.timber:timber:${versions.timber}",
 
             firebaseAnalytics     : "com.google.firebase:firebase-analytics-ktx:${versions.firebaseAnalytics}",
-            firebaseCrashlytics   : "com.google.firebase:firebase-crashlytics:${versions.firebaseCrashlytics}"
+            firebaseCrashlytics   : "com.google.firebase:firebase-crashlytics:${versions.firebaseCrashlytics}",
+
+            amplitudeAnalytics   : "com.amplitude:android-sdk:${versions.amplitudeAnalytics}"
     ]
 
     def testLibs = [
@@ -136,6 +139,8 @@ ext {
 
             [configuration: impl, dependency: libs.firebaseAnalytics],
             [configuration: impl, dependency: libs.firebaseCrashlytics],
+
+            [configuration: impl, dependency: libs.amplitudeAnalytics],
 
             [configuration: testImpl, dependency: testLibs.junit],
             [configuration: androidTestImpl, dependency: testLibs.testExtJunit],

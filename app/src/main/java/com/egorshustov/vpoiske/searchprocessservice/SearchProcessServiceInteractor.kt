@@ -3,6 +3,7 @@ package com.egorshustov.vpoiske.searchprocessservice
 import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.egorshustov.vpoiske.analytics.VPoiskeAnalytics
 import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.data.source.remote.Result
 import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUserResponse
@@ -28,6 +29,7 @@ class SearchProcessServiceInteractor @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val getSearchUseCase: GetSearchUseCase,
     private val saveSearchStartUnixSecondsUseCase: SaveSearchStartUnixSecondsUseCase,
+    private val vPoiskeAnalytics: VPoiskeAnalytics,
     private val ioDispatcher: CoroutineDispatcher
 ) {
 
@@ -104,6 +106,11 @@ class SearchProcessServiceInteractor @Inject constructor(
                     delay(ERROR_DELAY_IN_MILLIS)
                     sendSearchUsersRequest(birthDay, birthMonth, search)
                 } else {
+                    vPoiskeAnalytics.errorOccurred(
+                        searchUsersResult.getString(),
+                        searchUsersResult.exception.cause?.toString(),
+                        searchUsersResult.exception.vkErrorCode
+                    )
                     currentCoroutineContext().cancel()
                     _message.postValue(Event(searchUsersResult.getString()))
                 }
@@ -179,10 +186,26 @@ class SearchProcessServiceInteractor @Inject constructor(
                     delay(ERROR_DELAY_IN_MILLIS)
                     sendGetUserRequest(userId, search)
                 } else {
+                    vPoiskeAnalytics.errorOccurred(
+                        getUserResult.getString(),
+                        getUserResult.exception.cause?.toString(),
+                        getUserResult.exception.vkErrorCode
+                    )
                     currentCoroutineContext().cancel()
                     _message.postValue(Event(getUserResult.getString()))
                 }
             }
         }
+    }
+
+    fun onStopSearchClicked() {
+        vPoiskeAnalytics.stopSearchClicked(fromNotification = true)
+    }
+
+    fun onSearchCompleted() {
+        vPoiskeAnalytics.searchCompleted(
+            foundUsersCountUpdated.value ?: 0,
+            foundUsersLimit ?: 0
+        )
     }
 }

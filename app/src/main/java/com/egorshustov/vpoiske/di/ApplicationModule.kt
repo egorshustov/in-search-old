@@ -4,6 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.egorshustov.vpoiske.BuildConfig
+import com.egorshustov.vpoiske.analytics.AmplitudeLogger
+import com.egorshustov.vpoiske.analytics.EventLogger
+import com.egorshustov.vpoiske.analytics.VPoiskeAnalytics
+import com.egorshustov.vpoiske.analytics.VPoiskeAnalyticsImpl
 import com.egorshustov.vpoiske.data.source.local.CountriesDao
 import com.egorshustov.vpoiske.data.source.local.SearchesDao
 import com.egorshustov.vpoiske.data.source.local.UsersDao
@@ -21,6 +25,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -83,4 +88,15 @@ object ApplicationModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(RetrofitVkApi::class.java)
+
+    @Singleton
+    @Provides
+    @Named("VPoiskeAmplitudeLogger")
+    fun provideVPoiskeAmplitudeLogger(): EventLogger = AmplitudeLogger.VPoiske()
+
+    @Singleton
+    @Provides
+    fun provideVPoiskeAnalytics(
+        @Named("VPoiskeAmplitudeLogger") vPoiskeAmplitudeLogger: EventLogger
+    ): VPoiskeAnalytics = VPoiskeAnalyticsImpl(vPoiskeAmplitudeLogger)
 }

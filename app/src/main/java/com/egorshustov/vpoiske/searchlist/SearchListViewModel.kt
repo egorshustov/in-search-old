@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import androidx.paging.Config
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
+import com.egorshustov.vpoiske.analytics.VPoiskeAnalytics
 import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.domain.searches.DeleteSearchWithUsersUseCase
 import com.egorshustov.vpoiske.domain.searches.GetSearchesWithUsersUseCase
@@ -13,7 +14,8 @@ import kotlinx.coroutines.launch
 
 class SearchListViewModel @ViewModelInject constructor(
     getSearchesWithUsersUseCase: GetSearchesWithUsersUseCase,
-    private val deleteSearchWithUsersUseCase: DeleteSearchWithUsersUseCase
+    private val deleteSearchWithUsersUseCase: DeleteSearchWithUsersUseCase,
+    private val vPoiskeAnalytics: VPoiskeAnalytics
 ) : ViewModel() {
 
     private val _openSearch = MutableLiveData<Event<Long>>()
@@ -26,6 +28,10 @@ class SearchListViewModel @ViewModelInject constructor(
             isLoading.value = false
             it
         }
+
+    fun onSearchListFragmentViewCreated() {
+        vPoiskeAnalytics.onSearchHistoryScreenOpened()
+    }
 
     fun openSearch(searchId: Long) {
         _openSearch.value = Event(searchId)

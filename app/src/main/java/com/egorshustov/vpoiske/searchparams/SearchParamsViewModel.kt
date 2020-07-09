@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.egorshustov.vpoiske.analytics.VPoiskeAnalytics
 import com.egorshustov.vpoiske.data.City
 import com.egorshustov.vpoiske.data.Country
 import com.egorshustov.vpoiske.data.Search
@@ -22,7 +23,8 @@ class SearchParamsViewModel @ViewModelInject constructor(
     getCountriesUseCase: GetCountriesUseCase,
     requestCountriesUseCase: RequestCountriesUseCase,
     private val getCitiesUseCase: GetCitiesUseCase,
-    private val saveSearchUseCase: SaveSearchUseCase
+    private val saveSearchUseCase: SaveSearchUseCase,
+    private val vPoiskeAnalytics: VPoiskeAnalytics
 ) : ViewModel() {
 
     val countries: LiveData<List<Country>> = getCountriesUseCase()
@@ -101,6 +103,11 @@ class SearchParamsViewModel @ViewModelInject constructor(
                 is Result.Error -> {
                     Timber.e(citiesResponse.exception)
                     FirebaseCrashlytics.getInstance().recordException(citiesResponse.exception)
+                    vPoiskeAnalytics.errorOccurred(
+                        citiesResponse.getString(),
+                        citiesResponse.exception.cause?.toString(),
+                        citiesResponse.exception.vkErrorCode
+                    )
                     showMessage(citiesResponse.getString())
                 }
             }
@@ -162,6 +169,21 @@ class SearchParamsViewModel @ViewModelInject constructor(
             && followersMinCount != null
             && followersMaxCount != null
         ) {
+            vPoiskeAnalytics.startSearchClicked(
+                countryTitle,
+                cityTitle,
+                currentSex.value?.toString().orEmpty(),
+                ageFrom,
+                ageTo,
+                currentRelation.value?.toString().orEmpty(),
+                withPhoneOnly,
+                foundUsersLimit,
+                daysInterval,
+                friendsMinCount,
+                friendsMaxCount,
+                followersMinCount,
+                followersMaxCount
+            )
             val newSearchId = saveSearchUseCase(
                 Search(
                     countryId,

@@ -6,13 +6,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
+import com.egorshustov.vpoiske.analytics.AmplitudeMain
+import com.egorshustov.vpoiske.analytics.VPoiskeAnalytics
 import com.egorshustov.vpoiske.main.AuthenticationState
 import com.egorshustov.vpoiske.util.Credentials
 import com.egorshustov.vpoiske.util.DelegatedPreference
 import com.egorshustov.vpoiske.util.PREF_KEY_ACCESS_TOKEN
 
-class LoginViewModel @ViewModelInject constructor(sharedPreferences: SharedPreferences) :
-    ViewModel() {
+class LoginViewModel @ViewModelInject constructor(
+    sharedPreferences: SharedPreferences,
+    private val vPoiskeAnalytics: VPoiskeAnalytics
+) : ViewModel() {
 
     val isRequestProcessing = MutableLiveData(false)
 
@@ -42,10 +46,24 @@ class LoginViewModel @ViewModelInject constructor(sharedPreferences: SharedPrefe
         }
     }
 
+    fun onLoginFragmentViewCreated() {
+        vPoiskeAnalytics.loginScreenOpened()
+    }
+
+    fun onAuthButtonClicked() {
+        vPoiskeAnalytics.authClicked()
+    }
+
     fun onAuthDataObtained(userId: Long, accessToken: String) {
+        vPoiskeAnalytics.authSuccessful()
+        AmplitudeMain.setUserId(AmplitudeMain.generateAmplitudeUserIdByVkId(userId))
         this.accessToken = accessToken
         Credentials.accessToken = accessToken
         authenticationState.value = AuthenticationState.AUTHENTICATED
+    }
+
+    fun onErrorMessageShown(message: String) {
+        vPoiskeAnalytics.errorOccurred(message)
     }
 
     private fun areCredentialsValid(login: String, password: String): Boolean =

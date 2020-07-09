@@ -3,23 +3,25 @@ package com.egorshustov.vpoiske.search
 import android.content.SharedPreferences
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.egorshustov.vpoiske.analytics.VPoiskeAnalytics
 import com.egorshustov.vpoiske.domain.users.GetUsersUseCase
 import com.egorshustov.vpoiske.util.*
 
 class SearchViewModel @ViewModelInject constructor(
     getUsersUseCase: GetUsersUseCase,
-    sharedPreferences: SharedPreferences
+    sharedPreferences: SharedPreferences,
+    private val vPoiskeAnalytics: VPoiskeAnalytics
 ) : ViewModel() {
 
-    var currentSpanCount by DelegatedPreference(
+    var currentColumnCount by DelegatedPreference(
         sharedPreferences,
-        PREF_KEY_CURRENT_SPAN_COUNT,
-        DEFAULT_SPAN_COUNT
+        PREF_KEY_CURRENT_COLUMN_COUNT,
+        DEFAULT_COLUMN_COUNT
     )
         private set
 
-    private val _currentSpanCountChanged = MutableLiveData<Int>()
-    val currentSpanCountChanged: LiveData<Int> = _currentSpanCountChanged
+    private val _currentColumnCountChanged = MutableLiveData<Int>()
+    val currentColumnCountChanged: LiveData<Int> = _currentColumnCountChanged
 
     private var currentSearchId = MutableLiveData<Long?>(null)
 
@@ -30,22 +32,28 @@ class SearchViewModel @ViewModelInject constructor(
         }
     }
 
-    private val _openUserEvent = MutableLiveData<Event<Long>>()
-    val openUserEvent: LiveData<Event<Long>> = _openUserEvent
+    private val _openUserDetails = MutableLiveData<Event<Long>>()
+    val openUserDetails: LiveData<Event<Long>> = _openUserDetails
 
     val isLoading = MutableLiveData(true)
+
+    fun onSearchFragmentViewCreated() {
+        vPoiskeAnalytics.onPastSearchScreenOpened()
+    }
 
     fun onCurrentSearchIdObtained(searchId: Long) {
         currentSearchId.value = searchId
     }
 
     fun openUser(userId: Long) {
-        _openUserEvent.value = Event(userId)
+        vPoiskeAnalytics.onUserClicked()
+        _openUserDetails.value = Event(userId)
     }
 
     fun onItemChangeViewClicked() {
-        currentSpanCount =
-            if (currentSpanCount.dec() == 0) MAX_SPAN_COUNT else currentSpanCount.dec()
-        _currentSpanCountChanged.value = currentSpanCount
+        currentColumnCount =
+            if (currentColumnCount.dec() == 0) MAX_COLUMN_COUNT else currentColumnCount.dec()
+        _currentColumnCountChanged.value = currentColumnCount
+        vPoiskeAnalytics.onChangeUsersViewClicked(currentColumnCount)
     }
 }

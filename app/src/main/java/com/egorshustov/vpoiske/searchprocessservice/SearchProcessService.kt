@@ -64,7 +64,10 @@ class SearchProcessService : LifecycleService() {
         Timber.d("onStartCommand")
         _isSearchRunning.value = searchJob?.isActive == true
         when (intent?.action) {
-            ACTION_STOP -> stopSearch()
+            ACTION_STOP -> {
+                interactor.onStopSearchClicked()
+                stopSearch()
+            }
         }
         return super.onStartCommand(intent, flags, startId)
     }
@@ -82,6 +85,7 @@ class SearchProcessService : LifecycleService() {
                 NotificationManagerCompat.from(this@SearchProcessService).cancel(
                     PROGRESS_NOTIFICATION_ID
                 )
+                interactor.onSearchCompleted()
                 sendCompleteNotification(
                     interactor.foundUsersCountUpdated.value ?: 0,
                     interactor.foundUsersLimit ?: 0

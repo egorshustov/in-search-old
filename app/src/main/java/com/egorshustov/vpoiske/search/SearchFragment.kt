@@ -32,10 +32,11 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.onSearchFragmentViewCreated()
         setHasOptionsMenu(true)
         setupUsersAdapter()
-        observeOpenUserEvent()
-        observeCurrentSpanCountChanged()
+        observeOpenUserDetails()
+        observeCurrentColumnCountChanged()
         viewModel.onCurrentSearchIdObtained(args.searchId)
     }
 
@@ -43,7 +44,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
         gridLayoutManager =
             GridLayoutManager(
                 requireContext(),
-                viewModel.currentSpanCount,
+                viewModel.currentColumnCount,
                 RecyclerView.VERTICAL,
                 false
             )
@@ -53,14 +54,14 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
         }
     }
 
-    private fun observeOpenUserEvent() {
-        viewModel.openUserEvent.observe(viewLifecycleOwner, EventObserver {
+    private fun observeOpenUserDetails() {
+        viewModel.openUserDetails.observe(viewLifecycleOwner, EventObserver {
             openUserDetails(it)
         })
     }
 
-    private fun observeCurrentSpanCountChanged() {
-        viewModel.currentSpanCountChanged.observe(viewLifecycleOwner) {
+    private fun observeCurrentColumnCountChanged() {
+        viewModel.currentColumnCountChanged.observe(viewLifecycleOwner) {
             gridLayoutManager.apply { spanCount = it }
         }
     }

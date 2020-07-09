@@ -1,6 +1,7 @@
 package com.egorshustov.vpoiske.data.source
 
 import androidx.lifecycle.LiveData
+import com.egorshustov.vpoiske.analytics.VPoiskeAnalytics
 import com.egorshustov.vpoiske.data.Country
 import com.egorshustov.vpoiske.data.source.local.CountriesLocalDataSource
 import com.egorshustov.vpoiske.data.source.remote.CountriesRemoteDataSource
@@ -16,6 +17,7 @@ import javax.inject.Singleton
 class DefaultCountriesRepository @Inject constructor(
     private val countriesLocalDataSource: CountriesLocalDataSource,
     private val countriesRemoteDataSource: CountriesRemoteDataSource,
+    private val vPoiskeAnalytics: VPoiskeAnalytics,
     private val ioDispatcher: CoroutineDispatcher
 ) : CountriesRepository {
 
@@ -36,6 +38,11 @@ class DefaultCountriesRepository @Inject constructor(
             is Result.Error -> {
                 Timber.e(getCountriesResult.exception)
                 FirebaseCrashlytics.getInstance().recordException(getCountriesResult.exception)
+                vPoiskeAnalytics.errorOccurred(
+                    getCountriesResult.getString(),
+                    getCountriesResult.exception.cause?.toString(),
+                    getCountriesResult.exception.vkErrorCode
+                )
             }
         }
     }

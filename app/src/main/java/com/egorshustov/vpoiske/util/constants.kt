@@ -5,13 +5,13 @@ import com.egorshustov.vpoiske.data.Country
 
 const val V_POISKE_PREFERENCES_FILENAME = "com.egorshustov.vpoiskepreferences"
 const val PREF_KEY_CURRENT_THEME_ID = "com.egorshustov.vpoiske.PREF_KEY_CURRENT_THEME_ID"
-const val PREF_KEY_CURRENT_SPAN_COUNT = "com.egorshustov.vpoiske.PREF_KEY_CURRENT_SPAN_COUNT"
+const val PREF_KEY_CURRENT_COLUMN_COUNT = "com.egorshustov.vpoiske.PREF_KEY_CURRENT_COLUMN_COUNT"
 const val PREF_KEY_ACCESS_TOKEN = "com.egorshustov.vpoiske.PREF_KEY_ACCESS_TOKEN"
 
 const val NO_VALUE = -1
 
-const val DEFAULT_SPAN_COUNT = 3
-const val MAX_SPAN_COUNT = 3
+const val DEFAULT_COLUMN_COUNT = 3
+const val MAX_COLUMN_COUNT = 3
 
 const val DEFAULT_SEARCH_USERS_COUNT = 1000
 const val DEFAULT_GET_COUNTRIES_COUNT = 1000

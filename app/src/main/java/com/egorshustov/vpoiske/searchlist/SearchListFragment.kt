@@ -26,6 +26,7 @@ class SearchListFragment : BaseFragment<SearchListViewModel, FragmentSearchListB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.onSearchListFragmentViewCreated()
         setupRecyclerSearches()
         observeOpenSearch()
     }

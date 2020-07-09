@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import com.egorshustov.vpoiske.analytics.AmplitudeMain
 import com.egorshustov.vpoiske.util.NOTIFICATION_CHANNEL_ID
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
@@ -14,6 +15,7 @@ open class VPoiskeApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
+        AmplitudeMain.init(this)
         createNotificationChannel()
     }
 
