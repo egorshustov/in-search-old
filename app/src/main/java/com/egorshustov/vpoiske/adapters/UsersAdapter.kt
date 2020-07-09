@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.egorshustov.vpoiske.data.User
 import com.egorshustov.vpoiske.databinding.ItemUserBinding
-import com.egorshustov.vpoiske.search.SearchViewModel
+import com.egorshustov.vpoiske.pastsearch.PastSearchViewModel
 import com.egorshustov.vpoiske.main.MainViewModel
 
 class UsersAdapter(private val viewModel: ViewModel) :
@@ -25,8 +25,8 @@ class UsersAdapter(private val viewModel: ViewModel) :
 
         fun bind(viewModel: ViewModel, item: User) = with(binding) {
             when (viewModel) {
-                is SearchViewModel -> searchviewmodel = viewModel
-                is MainViewModel -> searchprocessviewmodel = viewModel
+                is PastSearchViewModel -> pastsearchviewmodel = viewModel
+                is MainViewModel -> mainviewmodel = viewModel
             }
             user = item
             executePendingBindings()

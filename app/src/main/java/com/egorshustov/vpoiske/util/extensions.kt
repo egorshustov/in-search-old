@@ -9,7 +9,7 @@ import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.data.source.remote.CustomException
 import com.egorshustov.vpoiske.main.MainViewModel
-import com.egorshustov.vpoiske.search.SearchViewModel
+import com.egorshustov.vpoiske.pastsearch.PastSearchViewModel
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 import java.math.BigInteger
@@ -120,9 +120,9 @@ fun CustomException.needToWait(): Boolean =
 
 fun openUser(
     mainViewModel: MainViewModel?,
-    searchViewModel: SearchViewModel?,
+    pastSearchViewModel: PastSearchViewModel?,
     userId: Long
 ) {
     mainViewModel?.openUser(userId)
-    searchViewModel?.openUser(userId)
+    pastSearchViewModel?.openUser(userId)
 }

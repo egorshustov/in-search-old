@@ -9,9 +9,9 @@
         android:icon="@drawable/ic_search"
         android:title="@string/search_params_title" />
     <item
-        android:id="@id/searchListFragment"
+        android:id="@id/pastSearchListFragment"
         android:icon="@drawable/ic_history"
-        android:title="@string/search_list_title" />
+        android:title="@string/past_search_list_title" />
 
     <group android:id="@+id/menu_change_theme">
         <item

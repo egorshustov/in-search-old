@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.egorshustov.vpoiske.data.SearchWithUsers
 import com.egorshustov.vpoiske.databinding.ItemSearchBinding
-import com.egorshustov.vpoiske.searchlist.SearchListViewModel
+import com.egorshustov.vpoiske.pastsearchlist.PastSearchListViewModel
 import com.egorshustov.vpoiske.util.getFavoritesCount
 import com.egorshustov.vpoiske.util.getUsersCount
 
-class SearchWithUsersAdapter(private val viewModel: SearchListViewModel) :
+class SearchWithUsersAdapter(private val viewModel: PastSearchListViewModel) :
     PagedListAdapter<SearchWithUsers, SearchWithUsersAdapter.ViewHolder>(
         SearchWithUsersDiffCallback()
     ) {
@@ -27,7 +27,7 @@ class SearchWithUsersAdapter(private val viewModel: SearchListViewModel) :
     class ViewHolder private constructor(val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: SearchListViewModel, item: SearchWithUsers) = with(binding) {
+        fun bind(viewModel: PastSearchListViewModel, item: SearchWithUsers) = with(binding) {
             viewmodel = viewModel
             searchWithUsers = item
             executePendingBindings()

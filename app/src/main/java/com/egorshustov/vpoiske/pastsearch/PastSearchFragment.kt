@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.search
+package com.egorshustov.vpoiske.pastsearch
 
 import android.content.Intent
 import android.net.Uri
@@ -15,29 +15,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.UsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
-import com.egorshustov.vpoiske.databinding.FragmentSearchBinding
+import com.egorshustov.vpoiske.databinding.FragmentPastSearchBinding
 import com.egorshustov.vpoiske.util.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
+class PastSearchFragment : BaseFragment<PastSearchViewModel, FragmentPastSearchBinding>() {
 
-    private val args: SearchFragmentArgs by navArgs()
+    private val args: PastSearchFragmentArgs by navArgs()
 
-    override fun getLayoutResId(): Int = R.layout.fragment_search
+    override fun getLayoutResId(): Int = R.layout.fragment_past_search
 
-    override val viewModel: SearchViewModel by viewModels()
+    override val viewModel: PastSearchViewModel by viewModels()
 
     private lateinit var gridLayoutManager: GridLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.onSearchFragmentViewCreated()
+        viewModel.onPastSearchFragmentViewCreated()
         setHasOptionsMenu(true)
         setupUsersAdapter()
         observeOpenUserDetails()
         observeCurrentColumnCountChanged()
-        viewModel.onCurrentSearchIdObtained(args.searchId)
+        viewModel.onSelectedSearchIdObtained(args.searchId)
     }
 
     private fun setupUsersAdapter() {

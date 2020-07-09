@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.search
+package com.egorshustov.vpoiske.pastsearch
 
 import android.content.SharedPreferences
 import androidx.hilt.lifecycle.ViewModelInject
@@ -7,7 +7,7 @@ import com.egorshustov.vpoiske.analytics.VPoiskeAnalytics
 import com.egorshustov.vpoiske.domain.users.GetUsersUseCase
 import com.egorshustov.vpoiske.util.*
 
-class SearchViewModel @ViewModelInject constructor(
+class PastSearchViewModel @ViewModelInject constructor(
     getUsersUseCase: GetUsersUseCase,
     sharedPreferences: SharedPreferences,
     private val vPoiskeAnalytics: VPoiskeAnalytics
@@ -23,9 +23,9 @@ class SearchViewModel @ViewModelInject constructor(
     private val _currentColumnCountChanged = MutableLiveData<Int>()
     val currentColumnCountChanged: LiveData<Int> = _currentColumnCountChanged
 
-    private var currentSearchId = MutableLiveData<Long?>(null)
+    private var selectedSearchId = MutableLiveData<Long?>(null)
 
-    val currentSearchUsers = currentSearchId.switchMap {
+    val selectedSearchUsers = selectedSearchId.switchMap {
         getUsersUseCase(it).map {
             isLoading.value = false
             it
@@ -37,12 +37,12 @@ class SearchViewModel @ViewModelInject constructor(
 
     val isLoading = MutableLiveData(true)
 
-    fun onSearchFragmentViewCreated() {
+    fun onPastSearchFragmentViewCreated() {
         vPoiskeAnalytics.onPastSearchScreenOpened()
     }
 
-    fun onCurrentSearchIdObtained(searchId: Long) {
-        currentSearchId.value = searchId
+    fun onSelectedSearchIdObtained(searchId: Long) {
+        selectedSearchId.value = searchId
     }
 
     fun openUser(userId: Long) {

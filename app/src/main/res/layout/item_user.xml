@@ -11,12 +11,12 @@
             type="com.egorshustov.vpoiske.data.User" />
 
         <variable
-            name="searchprocessviewmodel"
+            name="mainviewmodel"
             type="com.egorshustov.vpoiske.main.MainViewModel" />
 
         <variable
-            name="searchviewmodel"
-            type="com.egorshustov.vpoiske.search.SearchViewModel" />
+            name="pastsearchviewmodel"
+            type="com.egorshustov.vpoiske.pastsearch.PastSearchViewModel" />
 
     </data>
 
@@ -28,7 +28,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:onClick="@{() -> ExtensionsKt.openUser(searchprocessviewmodel, searchviewmodel, user.id)}"
+            android:onClick="@{() -> ExtensionsKt.openUser(mainviewmodel, pastsearchviewmodel, user.id)}"
             app:cardCornerRadius="0dp"
             app:cardPreventCornerOverlap="false"
             app:layout_constraintBottom_toBottomOf="parent"

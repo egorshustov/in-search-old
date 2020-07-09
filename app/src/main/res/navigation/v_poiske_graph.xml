@@ -27,6 +27,14 @@
         tools:layout="@layout/fragment_main">
 
         <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+
+        <action
             android:id="@+id/action_mainFragment_to_searchParamsFragment"
             app:destination="@id/searchParamsFragment"
             app:enterAnim="@anim/fragment_open_enter"
@@ -35,16 +43,12 @@
             app:popExitAnim="@anim/fragment_close_exit" />
 
         <action
-            android:id="@+id/action_mainFragment_to_searchListFragment"
-            app:destination="@id/searchListFragment"
+            android:id="@+id/action_mainFragment_to_pastSearchListFragment"
+            app:destination="@id/pastSearchListFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
-
-        <action
-            android:id="@+id/action_mainFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
 
     </fragment>
 
@@ -55,22 +59,26 @@
         tools:layout="@layout/fragment_search_params" />
 
     <fragment
-        android:id="@+id/searchListFragment"
-        android:name="com.egorshustov.vpoiske.searchlist.SearchListFragment"
-        android:label="@string/search_list_title"
-        tools:layout="@layout/fragment_search_list">
+        android:id="@+id/pastSearchListFragment"
+        android:name="com.egorshustov.vpoiske.pastsearchlist.PastSearchListFragment"
+        android:label="@string/past_search_list_title"
+        tools:layout="@layout/fragment_past_search_list">
 
         <action
-            android:id="@+id/action_searchListFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            android:id="@+id/action_pastSearchListFragment_to_pastSearchFragment"
+            app:destination="@id/pastSearchFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.egorshustov.vpoiske.search.SearchFragment"
+        android:id="@+id/pastSearchFragment"
+        android:name="com.egorshustov.vpoiske.pastsearch.PastSearchFragment"
         android:label="@string/search_title"
-        tools:layout="@layout/fragment_search">
+        tools:layout="@layout/fragment_past_search">
 
         <argument
             android:name="searchId"

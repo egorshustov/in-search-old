@@ -9,22 +9,22 @@
 
         <variable
             name="viewmodel"
-            type="com.egorshustov.vpoiske.searchlist.SearchListViewModel" />
+            type="com.egorshustov.vpoiske.pastsearch.PastSearchViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?themeBackgroundColorPrimary">
+        android:background="?themeBackgroundColorPrimary"
+        android:fitsSystemWindows="true">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_searches"
+            android:id="@+id/recycler_users"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:searchesWithUsers="@{viewmodel.searchesWithUsers}"
-            tools:listitem="@layout/item_search" />
+            app:users="@{viewmodel.selectedSearchUsers}"
+            tools:listitem="@layout/item_user" />
 
         <ProgressBar
             android:layout_width="wrap_content"

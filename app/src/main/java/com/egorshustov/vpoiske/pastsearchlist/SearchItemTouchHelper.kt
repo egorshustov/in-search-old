@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.searchlist
+package com.egorshustov.vpoiske.pastsearchlist
 
 import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper

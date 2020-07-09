@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.searchlist
+package com.egorshustov.vpoiske.pastsearchlist
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
@@ -12,7 +12,7 @@ import com.egorshustov.vpoiske.domain.searches.GetSearchesWithUsersUseCase
 import com.egorshustov.vpoiske.util.Event
 import kotlinx.coroutines.launch
 
-class SearchListViewModel @ViewModelInject constructor(
+class PastSearchListViewModel @ViewModelInject constructor(
     getSearchesWithUsersUseCase: GetSearchesWithUsersUseCase,
     private val deleteSearchWithUsersUseCase: DeleteSearchWithUsersUseCase,
     private val vPoiskeAnalytics: VPoiskeAnalytics
@@ -29,7 +29,7 @@ class SearchListViewModel @ViewModelInject constructor(
             it
         }
 
-    fun onSearchListFragmentViewCreated() {
+    fun onPastSearchListFragmentViewCreated() {
         vPoiskeAnalytics.onSearchHistoryScreenOpened()
     }
 

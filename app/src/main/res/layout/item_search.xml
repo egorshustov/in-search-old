@@ -13,7 +13,7 @@
 
         <variable
             name="viewmodel"
-            type="com.egorshustov.vpoiske.searchlist.SearchListViewModel" />
+            type="com.egorshustov.vpoiske.pastsearchlist.PastSearchListViewModel" />
     </data>
 
     <FrameLayout

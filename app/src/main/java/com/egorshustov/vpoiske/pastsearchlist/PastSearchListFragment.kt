@@ -1,4 +1,4 @@
-package com.egorshustov.vpoiske.searchlist
+package com.egorshustov.vpoiske.pastsearchlist
 
 import android.os.Bundle
 import android.view.View
@@ -9,31 +9,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.egorshustov.vpoiske.R
 import com.egorshustov.vpoiske.adapters.SearchWithUsersAdapter
 import com.egorshustov.vpoiske.base.BaseFragment
-import com.egorshustov.vpoiske.databinding.FragmentSearchListBinding
+import com.egorshustov.vpoiske.databinding.FragmentPastSearchListBinding
 import com.egorshustov.vpoiske.util.EventObserver
 import com.egorshustov.vpoiske.util.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchListFragment : BaseFragment<SearchListViewModel, FragmentSearchListBinding>(),
+class PastSearchListFragment :
+    BaseFragment<PastSearchListViewModel, FragmentPastSearchListBinding>(),
     SearchItemTouchHelper.SearchItemTouchHelperListener {
 
-    override fun getLayoutResId(): Int = R.layout.fragment_search_list
+    override fun getLayoutResId(): Int = R.layout.fragment_past_search_list
 
-    override val viewModel: SearchListViewModel by viewModels()
+    override val viewModel: PastSearchListViewModel by viewModels()
 
     private lateinit var searchWithUsersAdapter: SearchWithUsersAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.onSearchListFragmentViewCreated()
+        viewModel.onPastSearchListFragmentViewCreated()
         setupRecyclerSearches()
         observeOpenSearch()
     }
 
     private fun setupRecyclerSearches() = with(binding) {
         val searchItemTouchHelper =
-            SearchItemTouchHelper(0, ItemTouchHelper.LEFT, this@SearchListFragment)
+            SearchItemTouchHelper(0, ItemTouchHelper.LEFT, this@PastSearchListFragment)
         ItemTouchHelper(searchItemTouchHelper).attachToRecyclerView(recyclerSearches)
         searchWithUsersAdapter = SearchWithUsersAdapter(viewModel)
         recyclerSearches.adapter = searchWithUsersAdapter
@@ -42,7 +43,7 @@ class SearchListFragment : BaseFragment<SearchListViewModel, FragmentSearchListB
     private fun observeOpenSearch() {
         viewModel.openSearch.observe(viewLifecycleOwner, EventObserver {
             val action =
-                SearchListFragmentDirections.actionSearchListFragmentToSearchFragment(it)
+                PastSearchListFragmentDirections.actionPastSearchListFragmentToPastSearchFragment(it)
             findNavController().safeNavigate(action)
         })
     }
