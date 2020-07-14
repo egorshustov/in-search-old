@@ -26,6 +26,7 @@ ext {
             amplitudeAnalytics : '2.23.2',
             junit              : '4.12',
             testExtJunit       : '1.1.1',
+            coreTesting        : '2.1.0',
             espresso           : '3.2.0'
     ]
 
@@ -73,12 +74,13 @@ ext {
             firebaseAnalytics     : "com.google.firebase:firebase-analytics-ktx:${versions.firebaseAnalytics}",
             firebaseCrashlytics   : "com.google.firebase:firebase-crashlytics:${versions.firebaseCrashlytics}",
 
-            amplitudeAnalytics   : "com.amplitude:android-sdk:${versions.amplitudeAnalytics}"
+            amplitudeAnalytics    : "com.amplitude:android-sdk:${versions.amplitudeAnalytics}"
     ]
 
     def testLibs = [
             junit       : "junit:junit:${versions.junit}",
             testExtJunit: "androidx.test.ext:junit:${versions.testExtJunit}",
+            coreTesting : "androidx.arch.core:core-testing:${versions.coreTesting}",
             espresso    : "androidx.test.espresso:espresso-core:${versions.espresso}"
     ]
 
@@ -144,6 +146,7 @@ ext {
 
             [configuration: testImpl, dependency: testLibs.junit],
             [configuration: androidTestImpl, dependency: testLibs.testExtJunit],
+            [configuration: androidTestImpl, dependency: testLibs.coreTesting],
             [configuration: androidTestImpl, dependency: testLibs.espresso]
     ]
 
