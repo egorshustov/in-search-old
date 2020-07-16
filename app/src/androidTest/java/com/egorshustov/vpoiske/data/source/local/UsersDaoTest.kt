@@ -52,7 +52,7 @@ class UsersDaoTest {
     }
 
     @Test
-    fun deleteUsersFromSearch() = runBlocking {
+    fun testDeleteUsersFromSearch() = runBlocking {
         usersDao.deleteUsersFromSearch(1)
         assertThat(getValue(usersDao.getLiveUsers()).size, equalTo(1))
     }

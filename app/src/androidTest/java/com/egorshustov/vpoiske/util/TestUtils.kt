@@ -1,7 +1,11 @@
 package com.egorshustov.vpoiske.util
 
+import com.egorshustov.vpoiske.data.Search
 import com.egorshustov.vpoiske.data.User
+import com.egorshustov.vpoiske.data.source.remote.getuser.UserResponse
+import com.egorshustov.vpoiske.data.source.remote.searchusers.SearchUsersInnerResponse
 
+const val NO_VALUE = -1
 /**
  * [User] objects used for tests.
  */
@@ -28,3 +32,42 @@ val testUser = User(
     "+73333333333", "333333", Relation.ALL_COMPLICATED.value ?: NO_VALUE,
     3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
 ).apply { searchId = 3 }
+
+/**
+ * [Search] object used for tests.
+ */
+val testSearch = Search(
+    1, "Россия", 1, "Москва", Sex.FEMALE.value, 18, 32,
+    Relation.NOT_MARRIED.value, false, 100, 3, 50,
+    300, 50, 100
+).apply {
+    id = 2
+    startUnixSeconds = 1594894171
+}
+
+/**
+ * Fake response objects used for tests.
+ */
+val fakeSearchUsersInnerResponse = SearchUsersInnerResponse(null, null)
+
+val fakeUserResponse = UserResponse(
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+)
