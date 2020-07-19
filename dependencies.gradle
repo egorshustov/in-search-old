@@ -12,7 +12,7 @@ ext {
             recyclerView       : '1.1.0',
             paging             : '2.1.2',
             lifecycle          : '2.2.0',
-            fragmentKtx        : '1.2.4',
+            fragmentKtx        : '1.2.5',
             navigation         : '2.2.2',
             room               : '2.2.5',
             retrofit           : '2.9.0',
@@ -78,10 +78,11 @@ ext {
     ]
 
     def testLibs = [
-            junit       : "junit:junit:${versions.junit}",
-            testExtJunit: "androidx.test.ext:junit:${versions.testExtJunit}",
-            coreTesting : "androidx.arch.core:core-testing:${versions.coreTesting}",
-            espresso    : "androidx.test.espresso:espresso-core:${versions.espresso}"
+            junit          : "junit:junit:${versions.junit}",
+            testExtJunit   : "androidx.test.ext:junit:${versions.testExtJunit}",
+            coreTesting    : "androidx.arch.core:core-testing:${versions.coreTesting}",
+            fragmentTesting: "androidx.fragment:fragment-testing:${versions.fragmentKtx}",
+            espresso       : "androidx.test.espresso:espresso-core:${versions.espresso}"
     ]
 
     def modules = [
@@ -94,6 +95,7 @@ ext {
     def annProc = "annotationProcessor"
     def testImpl = "testImplementation"
     def androidTestImpl = "androidTestImplementation"
+    def debugImpl = "debugImplementation"
 
     appDependencies = [
             // local modules dependencies can be also added here:
@@ -147,6 +149,7 @@ ext {
             [configuration: testImpl, dependency: testLibs.junit],
             [configuration: androidTestImpl, dependency: testLibs.testExtJunit],
             [configuration: androidTestImpl, dependency: testLibs.coreTesting],
+            [configuration: debugImpl, dependency: testLibs.fragmentTesting],
             [configuration: androidTestImpl, dependency: testLibs.espresso]
     ]
 
