@@ -2,10 +2,7 @@ package com.egorshustov.vpoiske.login
 
 import android.content.SharedPreferences
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.egorshustov.vpoiske.analytics.AmplitudeMain
 import com.egorshustov.vpoiske.analytics.VPoiskeAnalytics
 import com.egorshustov.vpoiske.main.AuthenticationState
@@ -26,9 +23,7 @@ class LoginViewModel @ViewModelInject constructor(
 
     val areCredentialsValid: LiveData<Boolean> = loginText.switchMap { loginText ->
         passwordText.switchMap { passwordText ->
-            MutableLiveData<Boolean>().apply {
-                value = areCredentialsValid(loginText, passwordText)
-            }
+            liveData { emit(areCredentialsValid(loginText, passwordText)) }
         }
     }
 

@@ -61,7 +61,7 @@ class SearchProcessServiceInteractor @Inject constructor(
                 saveSearchStartUnixSecondsUseCase(searchId, it)
                 search.startUnixSeconds = it
             }
-            while (true) {
+            while (isActive) {
                 val randomDay = (1..MAX_DAYS_IN_MONTH).random()
                 val randomMonth = (1..MONTHS_IN_YEAR).random()
                 Timber.d("Поиск людей от $randomDay.$randomMonth")

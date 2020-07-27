@@ -29,18 +29,13 @@ class MainViewModel @ViewModelInject constructor(
     )
         private set
 
-    val isLoading = MutableLiveData(false)
-
     private val _currentColumnCountChanged = MutableLiveData<Int>()
     val currentColumnCountChanged: LiveData<Int> = _currentColumnCountChanged
 
     val lastSearchId: LiveData<Long?> = getLastSearchIdUseCase()
 
     val currentSearchUsers = lastSearchId.switchMap { lastSearchId ->
-        getUsersUseCase(lastSearchId).map {
-            if (it.isNotEmpty()) isLoading.value = false
-            it
-        }
+        liveData { emit(getUsersUseCase(lastSearchId)) }
     }
 
     private val _openUserDetails = MutableLiveData<Event<Long>>()
@@ -57,6 +52,8 @@ class MainViewModel @ViewModelInject constructor(
 
     val searchState = MutableLiveData(SearchProcessState.INACTIVE)
 
+    val isLoading: LiveData<Boolean> = searchState.map { it == SearchProcessState.IN_PROGRESS }
+
     private val _message = MutableLiveData<Event<String>>()
     val message: LiveData<Event<String>> = _message
 
@@ -69,7 +66,6 @@ class MainViewModel @ViewModelInject constructor(
     }
 
     fun onSearchButtonClicked(searchId: Long) {
-        isLoading.value = true
         searchState.value = SearchProcessState.IN_PROGRESS
         _startNewSearch.value = Event(searchId)
     }
@@ -77,7 +73,6 @@ class MainViewModel @ViewModelInject constructor(
     private fun stopSearch() {
         vPoiskeAnalytics.stopSearchClicked(fromNotification = false)
         _stopSearch.value = Event(Unit)
-        isLoading.value = false
         searchState.value = SearchProcessState.INACTIVE
     }
 

@@ -26,10 +26,7 @@ class PastSearchViewModel @ViewModelInject constructor(
     private var selectedSearchId = MutableLiveData<Long?>(null)
 
     val selectedSearchUsers = selectedSearchId.switchMap {
-        getUsersUseCase(it).map {
-            isLoading.value = false
-            it
-        }
+        liveData { emit(getUsersUseCase(it).also { isLoading.value = false }) }
     }
 
     private val _openUserDetails = MutableLiveData<Event<Long>>()
