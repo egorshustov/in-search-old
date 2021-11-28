@@ -9,7 +9,6 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
         applicationId "com.egorshustov.vpoiske"
         minSdkVersion rootProject.minSdkVersion

@@ -19,7 +19,7 @@ class DelegatedPreference<T>(
     @Suppress("UNCHECKED_CAST")
     private fun findPreference(defaultValue: T): T = with(sharedPreferences) {
         val foundValue: Any = when (defaultValue) {
-            is String -> getString(key, defaultValue)
+            is String -> getString(key, defaultValue).orEmpty()
             is Int -> getInt(key, defaultValue)
             is Long -> getLong(key, defaultValue)
             is Float -> getFloat(key, defaultValue)
