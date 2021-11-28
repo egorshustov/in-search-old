@@ -38,9 +38,9 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
                     }
                     if (html.contains("name=\"email\"")) {
                         lifecycleScope.launch {
-                            webViewAuth.evaluateJavascript(
-                                "javascript:document.querySelector('dl.fi_row:nth-child(5) > dd:nth-child(2) > div:nth-child(1) > input:nth-child(1)').value='${viewModel.loginText.value}';" +
-                                        "document.querySelector('dl.fi_row:nth-child(6) > dd:nth-child(2) > div:nth-child(1) > input:nth-child(1)').value='${viewModel.passwordText.value}';" +
+                            webViewAuth.evaluateJavascript( //TODO move this script to the external config file
+                                "javascript:document.querySelector('dl.fi_row:nth-child(6) > dd:nth-child(2) > div:nth-child(1) > input:nth-child(1)').value='${viewModel.loginText.value}';" +
+                                        "document.querySelector('dl.fi_row:nth-child(7) > dd:nth-child(2) > div:nth-child(1) > input:nth-child(1)').value='${viewModel.passwordText.value}';" +
                                         "document.querySelector('input.button').click()", null
                             )
                         }
