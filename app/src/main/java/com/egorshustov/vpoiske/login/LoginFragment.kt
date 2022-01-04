@@ -39,8 +39,8 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
                     if (html.contains("name=\"email\"")) {
                         lifecycleScope.launch {
                             webViewAuth.evaluateJavascript( //TODO move this script to the external config file
-                                "javascript:document.querySelector('dl.fi_row:nth-child(6) > dd:nth-child(2) > div:nth-child(1) > input:nth-child(1)').value='${viewModel.loginText.value}';" +
-                                        "document.querySelector('dl.fi_row:nth-child(7) > dd:nth-child(2) > div:nth-child(1) > input:nth-child(1)').value='${viewModel.passwordText.value}';" +
+                                "javascript:document.getElementsByName('email')[0].value='${viewModel.loginText.value}';" +
+                                        "document.getElementsByName('pass')[0].value='${viewModel.passwordText.value}';" +
                                         "document.querySelector('input.button').click()", null
                             )
                         }
