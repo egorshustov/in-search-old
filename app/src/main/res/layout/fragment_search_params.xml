@@ -101,6 +101,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/blocks_margin"
+                    android:labelFor="@+id/edit_home_town"
+                    android:text="@string/text_home_town"
+                    android:textColor="?themeTextColorSecondary"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <EditText
+                    android:id="@+id/edit_home_town"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:text="@={viewmodel.currentHomeTown}"
+                    android:textColor="?themeTextColorSecondary"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/blocks_margin"
                     android:text="@string/text_sex"
                     android:textColor="?themeTextColorSecondary"
                     android:textSize="@dimen/text_size_medium" />

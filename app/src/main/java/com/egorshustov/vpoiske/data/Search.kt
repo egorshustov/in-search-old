@@ -14,6 +14,8 @@ data class Search(
     val cityId: Int,
     @ColumnInfo(name = "city_title")
     val cityTitle: String,
+    @ColumnInfo(name = "home_town")
+    val homeTown: String?,
     val sex: Int,
     @ColumnInfo(name = "age_from")
     val ageFrom: Int?,

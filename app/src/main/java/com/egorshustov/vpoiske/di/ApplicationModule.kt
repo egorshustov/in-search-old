@@ -60,7 +60,8 @@ object ApplicationModule {
         ).addMigrations(
             VPoiskeDatabase.MIGRATION_1_2,
             VPoiskeDatabase.MIGRATION_2_3,
-            VPoiskeDatabase.MIGRATION_3_4
+            VPoiskeDatabase.MIGRATION_3_4,
+            VPoiskeDatabase.MIGRATION_4_5
         ).build()
 
     @Singleton

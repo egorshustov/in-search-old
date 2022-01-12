@@ -69,5 +69,6 @@ val fakeUserResponse = UserResponse(
     null,
     null,
     null,
+    null,
     null
 )

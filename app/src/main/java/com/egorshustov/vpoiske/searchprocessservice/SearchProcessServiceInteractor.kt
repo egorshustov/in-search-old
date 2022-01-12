@@ -84,6 +84,7 @@ class SearchProcessServiceInteractor @Inject constructor(
             } else {
                 SEARCH_USERS_FRIENDS_LIMIT_SET_FIELDS
             },
+            search.homeTown?.takeUnless { it.isBlank() },
             search.relation,
             search.sex
         )) {

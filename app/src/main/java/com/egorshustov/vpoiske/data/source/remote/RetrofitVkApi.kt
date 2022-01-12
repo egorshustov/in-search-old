@@ -19,6 +19,7 @@ interface RetrofitVkApi {
         @Query("birth_day") birthDay: Int,
         @Query("birth_month") birthMonth: Int,
         @Query("fields") fields: String,
+        @Query("hometown") homeTown: String?,
         @Query("status") relation: Int?,
         @Query("sex") sex: Int,
         @Query("has_photo") hasPhoto: Int,

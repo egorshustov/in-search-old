@@ -25,6 +25,7 @@ interface UsersRepository {
         birthDay: Int,
         birthMonth: Int,
         fields: String,
+        homeTown: String? = null,
         relation: Int? = Relation.NOT_DEFINED.value,
         sex: Int = Sex.FEMALE.value,
         hasPhoto: Int = HasPhoto.NECESSARY.value,

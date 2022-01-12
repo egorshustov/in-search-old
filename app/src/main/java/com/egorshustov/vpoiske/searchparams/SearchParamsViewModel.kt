@@ -36,6 +36,8 @@ class SearchParamsViewModel @ViewModelInject constructor(
 
     val currentCity = MutableLiveData(DEFAULT_CITY_TITLE)
 
+    val currentHomeTown = MutableLiveData("")
+
     val currentSex = MutableLiveData(Sex.ANY)
 
     val currentAgeFrom = MutableLiveData(DEFAULT_AGE_FROM)
@@ -76,6 +78,7 @@ class SearchParamsViewModel @ViewModelInject constructor(
     fun onResetButtonClicked() {
         currentCountry.value = Event(DEFAULT_COUNTRY_TITLE)
         currentCity.value = DEFAULT_CITY_TITLE
+        currentHomeTown.value = ""
         currentSex.value = Sex.ANY
         currentAgeFrom.value = DEFAULT_AGE_FROM
         currentAgeTo.value = DEFAULT_AGE_TO
@@ -146,6 +149,7 @@ class SearchParamsViewModel @ViewModelInject constructor(
         val countryTitle = currentCountry.value?.peekContent()?.title
         val cityId = currentCity.value?.id
         val cityTitle = currentCity.value?.title
+        val homeTown = currentHomeTown.value
         val sex = currentSex.value?.value
         val ageFrom = currentAgeFrom.value
         val ageTo = currentAgeTo.value
@@ -172,6 +176,7 @@ class SearchParamsViewModel @ViewModelInject constructor(
             vPoiskeAnalytics.startSearchClicked(
                 countryTitle,
                 cityTitle,
+                homeTown.orEmpty(),
                 currentSex.value?.toString().orEmpty(),
                 ageFrom,
                 ageTo,
@@ -190,6 +195,7 @@ class SearchParamsViewModel @ViewModelInject constructor(
                     countryTitle,
                     cityId,
                     cityTitle,
+                    homeTown,
                     sex,
                     ageFrom,
                     ageTo,

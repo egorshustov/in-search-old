@@ -22,6 +22,8 @@ data class UserResponse(
     val bDate: String?,
     val city: CityResponse?,
     val country: CountryResponse?,
+    @SerializedName("home_town")
+    val homeTown: String?,
     @SerializedName("photo_50")
     val photo50: String?,
     @SerializedName("photo_max")
@@ -54,6 +56,7 @@ data class UserResponse(
             city?.title.orEmpty(),
             country?.id ?: NO_VALUE,
             country?.title.orEmpty(),
+            homeTown.orEmpty(),
             photo50.orEmpty(),
             photoMax.orEmpty(),
             photoMaxOrig.orEmpty(),

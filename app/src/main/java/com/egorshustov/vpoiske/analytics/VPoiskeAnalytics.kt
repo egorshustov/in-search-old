@@ -16,6 +16,7 @@ interface VPoiskeAnalytics {
     fun startSearchClicked(
         countryTitle: String,
         cityTitle: String,
+        homeTown: String,
         sex: String,
         ageFrom: Int?,
         ageTo: Int?,
@@ -70,6 +71,7 @@ class VPoiskeAnalyticsImpl(vPoiskeAmplitudeLogger: EventLogger) : VPoiskeAnalyti
     override fun startSearchClicked(
         countryTitle: String,
         cityTitle: String,
+        homeTown: String,
         sex: String,
         ageFrom: Int?,
         ageTo: Int?,
@@ -85,6 +87,7 @@ class VPoiskeAnalyticsImpl(vPoiskeAmplitudeLogger: EventLogger) : VPoiskeAnalyti
         val params = mapOf<String, Any>(
             "Country" to countryTitle,
             "City" to cityTitle,
+            "Hometown" to homeTown,
             "Sex" to sex,
             "Age From" to (ageFrom ?: NO_VALUE),
             "Age To" to (ageTo ?: NO_VALUE),

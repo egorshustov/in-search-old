@@ -21,6 +21,7 @@
     <string name="text_search_params">Параметры поиска</string>
     <string name="text_reset">Сбросить</string>
     <string name="text_country_and_city">Страна и город</string>
+    <string name="text_home_town">Родной город</string>
     <string name="text_sex">Пол</string>
     <string name="text_age">Возраст</string>
     <string name="text_relation">Семейное положение</string>

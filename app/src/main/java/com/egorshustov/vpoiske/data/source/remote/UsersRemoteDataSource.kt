@@ -13,6 +13,7 @@ interface UsersRemoteDataSource {
         birthDay: Int,
         birthMonth: Int,
         fields: String,
+        homeTown: String?,
         relation: Int?,
         sex: Int,
         hasPhoto: Int,

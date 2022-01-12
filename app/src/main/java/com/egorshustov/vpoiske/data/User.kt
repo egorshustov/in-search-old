@@ -28,6 +28,8 @@ data class User(
     val countryId: Int,
     @ColumnInfo(name = "country_title")
     val countryTitle: String,
+    @ColumnInfo(name = "home_town")
+    val homeTown: String?,
     @ColumnInfo(name = "photo_50")
     val photo50: String,
     @ColumnInfo(name = "photo_max")
